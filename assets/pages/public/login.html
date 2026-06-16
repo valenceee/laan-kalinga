@@ -1,83 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> login page </title>
-    <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/public.css">
-</head><body>
-    <main class="login-page">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Laan-Kalinga</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/public/login.css">
+</head>
+<body>
 
-        <section class="login-hero">
-            <img src="../../img/public/hero.jpg" alt="Elderly care image" class="hero-image">
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
 
-            <div class="login-card">
+  <div class="banner-warning" id="banner-session" role="alert" aria-live="assertive" hidden>
+    <p>Your session expired. Please log in again.</p>
+  </div>
 
-                <div class="logo-section">
-                    <img src="../../img/public/hero.jpg" alt="LaanKalinga Logo" class="logo">
-                    <h5>Laan-Kalinga</h5>
-                </div>
+  <main id="main-content">
+    <div class="login-wrapper">
 
-                <div class="form-section">
-                    <p class="subtitle">Sign in to your account</p>
+      <div class="logo-section">
+        <img src="../../images/logo.png" alt="Laan-Kalinga Logo" class="logo">
+        <h1>Laan-Kalinga</h1>
+      </div>
 
-                    <form id="loginForm" action="#" method="POST">
-
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required placeholder="Enter your email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-
-                            <div class="input-wrapper">
-                                <img src="../../svg/pass.svg" class="input-icon">
-
-                                <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password">
-
-                                <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">
-                                    <img src="../../svg/hidepass.svg" id="iconEyeVisible">
-                                    <img src="../../svg/viewpass.svg" id="iconEyeHidden">
-                                </button>
-                            </div>
-
-                            <span class="error-msg" id="passwordError">
-                                Password must be at least 6 characters.
-                            </span>
-                        </div>
-
-                        <div class="form-options">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="remember">
-                                <span>Remember me</span>
-                            </label>
-                            <a href="#" class="forgot-link"> Forgot Password? </a>
-                        </div>
-
-                        <button type="submit" class="btn-primary">
-                            Sign In
-                        </button>
-                    </form>
-
-                    <div class="divider">
-                        <span>or</span>
-                    </div>
-
-                    <p class="register-link">
-                        Don't have an account?
-                        <a href="register-family.html">Register here</a>
-                    </p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="login-footer-bottom">
-            <p>&copy; 2026 Laan-Kalinga. All rights reserved.</p>
+      <!-- roles -->
+      <section class="role-picker" aria-labelledby="role-heading">
+        <h2 id="role-heading">Select a role</h2>
+        <div class="role-grid">
+          <button type="button" class="role-btn" data-role="senior" aria-pressed="false">
+            Senior Citizen
+          </button>
+          <button type="button" class="role-btn" data-role="family" aria-pressed="false">
+            Family Representative
+          </button>
+          <button type="button" class="role-btn" data-role="volunteer" aria-pressed="false">
+            Volunteer
+          </button>
         </div>
-    </footer>
+        <span class="error-msg" id="error-role" aria-live="polite" hidden>
+          Please select who you are before signing in.
+        </span>
+      </section>
+
+      <!-- login form -->
+      <section class="form-section" id="login-form-section">
+        <h2>Sign In</h2>
+
+        <div class="error-summary" id="error-summary" role="alert" aria-live="assertive" hidden>
+          <p class="error-summary_heading">Please fix these before continuing:</p>
+          <ul class="error-summary_list" id="error-summary-list"></ul>
+        </div>
+
+        <form id="login-form" action="#" method="POST" novalidate>
+
+          <div class="field-group" id="group-email">
+            <label for="email">Email or Mobile Number <span aria-label="required">*</span></label>
+            <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="example@email.com or 09171234567"
+                  aria-describedby="error-email">
+            <span class="error-msg" id="error-email" aria-live="polite" hidden>
+              Please enter a valid email address or mobile number.
+            </span>
+          </div>
+
+          <div class="field-group" id="group-password">
+            <label for="password">Password <span aria-label="required">*</span></label>
+            <div class="input-wrapper">
+              <input type="password" id="password" name="password" required
+                     autocomplete="current-password"
+                     aria-describedby="error-password">
+              <button type="button" class="toggle-pw" id="toggle-pw"
+                      aria-label="Show password">
+                <img src="../../icons/hidepass.svg" id="icon-hide" alt="">
+                <img src="../../icons/viewpass.svg" id="icon-show" alt="">
+              </button>
+            </div>
+            <span class="error-msg" id="error-password" aria-live="polite" hidden>
+              Please enter your password.
+            </span>
+          </div>
+
+          <!-- wrong credentials error -->
+          <span class="error-msg" id="error-credentials" aria-live="assertive" hidden>
+            Incorrect email or password. Please try again.
+          </span>
+
+          <!-- account not found -->
+          <span class="error-msg" id="error-not-found" aria-live="assertive" hidden>
+            No account found with that email.
+            <a href="register.html">Register here.</a>
+          </span>
+
+          <!-- account locked -->
+          <span class="error-msg" id="error-locked" aria-live="assertive" hidden>
+            Your account has been locked. Call <strong>(02) XXXX XXXX</strong> for help.
+          </span>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="remember" name="remember">
+              <span>Remember me</span>
+            </label>
+            <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary">Sign In</button>
+
+        </form>
+
+        <p class="register-link" id="register-prompt" hidden>
+          No account yet? <a href="register.html" id="register-link">Register here.</a>
+        </p>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="login-footer">
+    <p>&copy; 2026 Laan-Kalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/public/login.js"></script>
+
 </body>
 </html>

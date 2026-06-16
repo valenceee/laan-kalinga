@@ -1,75 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> index page </title>
-    <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/public.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LaanKalinga – Home</title>
+  <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <p>lk</p>
-            </div>
-            <div class="nav-links">
-                <a class="btn-secondary" href="login.html">Login</a>
-                <a class="btn-primary" href="register.html">Register</a>
-            </div>
-        </nav>
-    </header>
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
 
-    <main>
-        <section class="hero">
-            <img src="../../img/public/hero.jpg" alt="Elderly care image" class="hero-image">
-            <h1>Laan-Kalinga</h1>
-            <p>Book appointments online and get assistance from our community.</p>
-            <a href="register.html" class="btn-primary">Book Now</a>
-        </section>
+  <div class="banner-warning" id="banner-session" role="alert" aria-live="assertive" hidden>
+    <p>Your session expired. Please log in again.</p>
+  </div>
 
-        <section id="services" class="services">
-            <h2>Serbisyo</h2>
-            <div class="service-grid">
-                <div class="service-card">
-                    <h3>Appointment Booking</h3>
-                    <p>Schedule appointments for senior services online. No hassle.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Community Support</h3>
-                    <p>Home visits assistance from our volunteers and community-based elder care programs.</p>
-                </div>
-            </div>
-        </section>
+  <header>
+    <nav aria-label="Main navigation">
+      <div class="logo">
+        <img src="../../images/logo.png" alt="Laan-Kalinga Logo" class="logo">
+        <a href="index.html"><h1>LaanKalinga</h1></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="#program">Program</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="login.php" class="btn-secondary">Login</a></li>
+        <li><a href="register.html" class="btn-primary">Register</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <section class="cta">
-            <h2>Get Started</h2>
-            <p>Register today and experience convenient elderly care management. <br> For our lolo and lola.</p>
-            <a href="register.html" class="btn-primary">Create Account</a>
-        </section>
-    </main>
+  <main id="main-content">
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h6>Laan-Kalinga</h6>
-                <p>
-                    A community-based platform that helps seniors access elderly 
-                    care services conveniently and efficiently through volunteerism
-                    acts of the community.
-                </p>
-            </div>
+    <section class="hero">
+      <p class="hero-barangay">Laan-Kalinga is a community program that organizes volunteer visits for senior citizens.</p>
+      <h2>Laan-Kalinga para kay lolo at lola.</h2>
+      <a href="register.html" class="btn-large">Register Now</a>
+    </section>
 
-            <div class="footer-section">
-                <h6>Contact</h6>
-                <p>Email: info@laankalinga.com <br>
-                Phone: +63 912 345 6789</p>
-            </div>
+    <div class="notice-bar">
+      <p>Scheduling is open <strong> Monday - Friday, 8 AM - 5 PM</strong>. <span id="booking-status"></span></p>
+    </div>
+
+    <section id="program" class="program">
+      <h2>Volunteers Help With:</h2>
+      <div class="service-grid">
+        <div class="service-card">
+          <h3>Home Visit</h3>
+          <p>A volunteer checks in on the senior at home.</p>
         </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2026 Laan-Kalinga. All rights reserved.</p>
+        <div class="service-card">
+          <h3>Wellness and Health Check</h3>
+          <p>Basic health monitoring done at the senior's home.</p>
         </div>
-    </footer>
+        <div class="service-card">
+          <h3>Medicine Pickup and Delivery</h3>
+          <p>Volunteers fetch medicine from the barangay health center.</p>
+        </div>
+        <div class="service-card">
+          <h3>Companion to Clinic</h3>
+          <p>A volunteer accompanies the senior to the health center or hospital.</p>
+        </div>
+        <div class="service-card">
+          <h3>Basic Wound Care</h3>
+          <p>Trained volunteers help with basic wound care.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+      <h2>How It Works</h2>
+      <ul class="steps">
+        <li class="step">
+          <span class="step-number" aria-hidden="true">1</span>
+          <div>
+            <h3>Register</h3>
+            <p>Sign up as a senior, family representative, or volunteer.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-number" aria-hidden="true">2</span>
+          <div>
+            <h3>Request a service</h3>
+            <p>Choose what kind of help is needed and when.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-number" aria-hidden="true">3</span>
+          <div>
+            <h3>A volunteer comes</h3>
+            <p>A trained community volunteer visits at the scheduled time.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About Laan-Kalinga</h2>
+      <p>Laan-Kalinga: from the root words "Laan" and "Kalinga", is a community program that organizes volunteer visits for senior citizens.</p>
+      <p>Family members can also register to help schedule and coordinate visits on behalf of their senior relatives.</p>
+    </section>
+
+    <section class="hotline-cta">
+      <h2>Questions? Call the barangay.</h2>
+      <p class="hotline-number"><a href="tel:+639209250113">0920-9250113</a></p>
+      <p>Monday – Friday, 8 AM – 5 PM</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>LaanKalinga</h4>
+        <p>Community volunteer program for senior citizens in Barangay San Roque, Cainta Rizal.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p><a href="mailto:info@laankalinga.com">Email: info@laankalinga.com</a></p>
+        <p><a href="tel:+639475600633">Phone: 0947-5600-633</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../../js/public/index.js"></script>
+
 </body>
 </html>

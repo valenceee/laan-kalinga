@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Log & Outcome - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Visit Details & Outcome Log</h1>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="availability.html">Set Availability</a></li>
+                <li><a href="../public/index.html">Logout</a></li>
+            </ul>
+        </nav>
+        <hr>
+    </header>
+
+    <main>
+
+    <!-- BACK LINK -->
+    <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+
+    <!-- VISIT SUMMARY STRIP -->
+    <section id="visit-summary">
+        <h2>Visit Details</h2>
+        <div id="visit-summary-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No visit found. Please go back to your dashboard and try again.</p>
+        </div>
+        <dl id="visit-summary-strip" hidden>
+        <div class="summary-item">
+            <dt>Senior</dt>
+            <dd id="summary-senior"></dd>
+        </div>
+        <div class="summary-item">
+            <dt>Service</dt>
+            <dd id="summary-service"></dd>
+        </div>
+        <div class="summary-item">
+            <dt>Date</dt>
+            <dd id="summary-date"></dd>
+        </div>
+        <div class="summary-item">
+            <dt>Time</dt>
+            <dd id="summary-time"></dd>
+        </div>
+        </dl>
+    </section>
+
+    <!-- SENIOR PROFILE -->
+    <section id="visit-details">
+        <h2>Senior Profile</h2>
+
+        <div id="profile-empty" class="empty-state" hidden>
+        <p class="empty-state__message">Senior profile could not be loaded.</p>
+        </div>
+
+        <div id="profile-wrap" hidden>
+        <fieldset>
+            <legend>Basic Details</legend>
+            <p><span class="profile-label">Name:</span> <span id="profile-name"></span></p>
+            <p><span class="profile-label">Address:</span> <span id="profile-address"></span></p>
+            <p><span class="profile-label">Emergency Contact:</span> <span id="profile-emergency"></span></p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Health Notes & Special Needs</legend>
+            <p><span class="profile-label">Chronic Conditions:</span> <span id="profile-conditions"></span></p>
+            <p><span class="profile-label">Mobility Needs:</span> <span id="profile-mobility"></span></p>
+            <p><span class="profile-label">Caregiver Instructions:</span> <span id="profile-instructions"></span></p>
+        </fieldset>
+        </div>
+    </section>
+
+    <!-- OUTCOME FORM -->
+    <section id="log-outcome">
+        <h2>Log Visit Outcome</h2>
+        <p>Fill this out immediately after the visit.</p>
+
+        <form id="form-visit-log" action="#" method="POST" novalidate>
+
+        <fieldset>
+            <legend>Visit Report</legend>
+
+            <div class="field-group">
+            <label for="visit-date">Date of Visit <span aria-label="required">*</span></label>
+            <input type="date" id="visit-date" name="visit-date" required
+                    aria-describedby="error-visit-date">
+            <span class="error-msg" id="error-visit-date" aria-live="polite" hidden>
+                Please enter a valid date. Future dates are not allowed.
+            </span>
+            </div>
+
+            <div class="field-group">
+            <label for="visit-notes">Outcome & Notes <span aria-label="required">*</span></label>
+            <small>Summarize what was done, the senior's mood, and condition.</small>
+            <textarea id="visit-notes" name="visit-notes" rows="5" required
+                        aria-describedby="hint-notes error-visit-notes"></textarea>
+            <span class="field-hint" id="hint-notes">
+                <span id="char-count">0</span> characters
+                <span id="char-warning" hidden> — please write at least 20 characters</span>
+            </span>
+            <span class="error-msg" id="error-visit-notes" aria-live="polite" hidden>
+                Please describe what happened during the visit (at least 20 characters).
+            </span>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Raise a Flag</legend>
+            <small>Check the box below only if the senior needs immediate staff attention.</small>
+
+            <div class="field-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="raise-flag" name="raise-flag" value="yes">
+                Flag this visit for Staff Review
+            </label>
+            </div>
+
+            <!-- Hidden until flag is checked -->
+            <div id="flag-details" hidden>
+
+            <div class="field-group">
+                <label for="flag-reason">Reason <span aria-label="required">*</span></label>
+                <select id="flag-reason" name="flag-reason" aria-describedby="error-flag-reason">
+                <option value="">— Select a reason —</option>
+                <option value="medicine">Needs Medicine Refill</option>
+                <option value="wheelchair">Needs Wheelchair or Mobility Aid</option>
+                <option value="medical-attention">Requires Doctor / Medical Attention</option>
+                <option value="food-supplies">Needs Food / Grocery Supplies</option>
+                <option value="other">Other — I'll describe it below</option>
+                </select>
+                <span class="error-msg" id="error-flag-reason" aria-live="polite" hidden>
+                Please select a reason for the flag.
+                </span>
+            </div>
+
+            <!-- Shown only when "Other" is selected -->
+            <div id="flag-other-group" hidden>
+                <div class="field-group">
+                <label for="flag-other">Please describe <span aria-label="required">*</span></label>
+                <input type="text" id="flag-other" name="flag-other"
+                        aria-describedby="error-flag-other">
+                <span class="error-msg" id="error-flag-other" aria-live="polite" hidden>
+                    Please describe the concern.
+                </span>
+                </div>
+            </div>
+
+            </div>
+        </fieldset>
+
+        <div class="form-actions">
+            <button type="submit" id="submit-btn">Submit Visit Record</button>
+            <button type="reset">Clear Form</button>
+        </div>
+
+        </form>
+    </section>
+
+    </main>
+    <hr>
+    <footer>
+        <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+    </footer>
+    <script src="../../js/volunteer/visit-log.js"></script>
+</body>
+</html>

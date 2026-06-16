@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Representative Registration - Laan-Kalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>Walang koneksyon sa internet. <small>No internet connection. Please check your network and try again.</small></p>
+  </div>
+
+  <div class="banner-warning" id="banner-session" role="alert" aria-live="assertive" hidden>
+    <p>Nag-expire ang iyong session. <small>Your session expired. Please log in again.</small></p>
+  </div>
+
+  <main id="main-content">
+    <header class="register-header">
+      <a href="index.html" class="logo-link">
+        <img src="../../images/logo.png" alt="LaanKalinga Logo" class="logo">
+      </a>
+      <h1>Pagpaparehistro Bilang Miyembro ng Pamilya <small>Family Representative Registration</small></h1>
+    </header>
+
+    <nav class="account-type-nav" aria-label="Iba pang uri ng pagpaparehistro">
+      <p>Nagpaparehistro bilang iba? <small>Registering as someone else?</small></p>
+      <ul>
+        <li><a href="register-senior.html">Senior Citizen</a></li>
+        <li><a href="register-volunteer.html">Volunteer</a></li>
+      </ul>
+    </nav>
+
+    <div class="error-summary" id="error-summary" role="alert" aria-live="assertive" hidden>
+      <p class="error-summary__heading">Pakitama ang mga ito bago magpatuloy. <small>Please fix these before continuing.</small></p>
+      <ul class="error-summary__list" id="error-summary-list"></ul>
+    </div>
+
+    <form id="register-family-form" action="../../php/registerFamily.php" method="POST" novalidate>
+      <input type="hidden" id="role-input" name="role" value="family">
+
+      <fieldset class="form-step">
+        <legend>Personal na Impormasyon <small>Personal Information</small></legend>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="first-name">Pangalan <small>First name</small> <span aria-label="required">*</span></label>
+            <input type="text" id="first-name" name="first_name" required placeholder="e.g. Juan"
+              autocomplete="given-name" aria-describedby="error-first-name">
+            <span class="error-msg" id="error-first-name" aria-live="polite" hidden>
+              Pakisulat ang iyong pangalan. <small>Please enter your first name.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="middle-name">Gitnang Pangalan <small>Middle name</small></label>
+            <input type="text" id="middle-name" name="middle_name" placeholder="e.g. Garcia"
+              autocomplete="additional-name">
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="last-name">Apelyido <small>Last name</small> <span aria-label="required">*</span></label>
+            <input type="text" id="last-name" name="last_name" required placeholder="e.g. Dela Cruz"
+              autocomplete="family-name" aria-describedby="error-last-name">
+            <span class="error-msg" id="error-last-name" aria-live="polite" hidden>
+              Pakisulat ang iyong apelyido. <small>Please enter your last name.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="suffix">Suffix</label>
+            <select id="suffix" name="suffix">
+              <option value="">Wala / None</option>
+              <option value="jr">Jr.</option>
+              <option value="sr">Sr.</option>
+              <option value="ii">II</option>
+              <option value="iii">III</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="email">Email <span aria-label="required">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="example@email.com"
+              autocomplete="email" aria-describedby="error-email">
+            <span class="error-msg" id="error-email" aria-live="polite" hidden>
+              Pakisulat ang tamang email. <small>Please enter a valid email address.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="phone">Numero ng Cellphone <small>Mobile number</small> <span aria-label="required">*</span></label>
+            <input type="tel" id="phone" name="phone" required placeholder="09XX XXX XXXX"
+              autocomplete="tel" aria-describedby="error-phone">
+            <span class="error-msg" id="error-phone" aria-live="polite" hidden>
+              Pakisulat ang tamang numero. <small>Please enter a valid mobile number (e.g. 09171234567).</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="alt-phone">Alternatibong Numero o Landline <small>Alternative or landline number</small></label>
+          <input type="tel" id="alt-phone" name="alt_phone" placeholder="(02) XXXX XXXX" autocomplete="tel">
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="password">Password <span aria-label="required">*</span></label>
+            <small>Dapat 8 o higit pang karakter. / Must be at least 8 characters.</small>
+            <div class="input-wrapper">
+              <input type="password" id="password" name="password" required minlength="8"
+                autocomplete="new-password" aria-describedby="error-password">
+              <button type="button" class="toggle-pw" id="toggle-pw" aria-label="Ipakita ang password / Show password">
+                <img src="../../icons/hidepass.svg" id="icon-hide" alt="">
+                <img src="../../icons/viewpass.svg" id="icon-show" alt="">
+              </button>
+            </div>
+            <span class="error-msg" id="error-password" aria-live="polite" hidden>
+              Dapat 8 o higit pang karakter ang password. <small>Password must be at least 8 characters.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="confirm-password">Kumpirmahin ang Password <small>Confirm password</small> <span aria-label="required">*</span></label>
+            <input type="password" id="confirm-password" name="confirm_password" required
+              autocomplete="new-password" aria-describedby="error-confirm-password">
+            <span class="error-msg" id="error-confirm-password" aria-live="polite" hidden>
+              Hindi tugma ang password. <small>Passwords do not match.</small>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step">
+        <legend>Address <small>Home Address</small></legend>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="house-number">Numero ng Bahay / Unit <small>House or unit no.</small> <span aria-label="required">*</span></label>
+            <input type="text" id="house-number" name="house_number" required
+              aria-describedby="error-house-number">
+            <span class="error-msg" id="error-house-number" aria-live="polite" hidden>
+              Pakisulat ang numero ng iyong bahay o unit. <small>Please enter your house or unit number.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="street">Kalye <small>Street</small> <span aria-label="required">*</span></label>
+            <input type="text" id="street" name="street" required aria-describedby="error-street">
+            <span class="error-msg" id="error-street" aria-live="polite" hidden>
+              Pakisulat ang pangalan ng kalye. <small>Please enter your street name.</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="barangay-search">Barangay <span aria-label="required">*</span></label>
+            <input type="text" id="barangay-search" name="barangay_search" list="barangay-list"
+              autocomplete="off" aria-describedby="error-barangay">
+            <datalist id="barangay-list"></datalist>
+            <input type="hidden" id="barangay" name="barangay">
+            <span class="error-msg" id="error-barangay" aria-live="polite" hidden>
+              Pumili ng barangay sa listahan. <small>Please select a valid barangay.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="philsys-id">PhilSys ID / National ID</label>
+            <small>Opsyonal ngunit inirerekomenda. / Optional but recommended for verification.</small>
+            <input type="text" id="philsys-id" name="philsys_id">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step">
+        <legend>Mga Pahintulot <small>Agreements & Consent</small></legend>
+
+        <div class="field-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="terms" name="terms_accepted" required aria-describedby="error-terms">
+            <span>Sumasang-ayon ako sa <a href="#" target="_blank">Mga Tuntunin at Kondisyon</a> at
+              <a href="#" target="_blank">Patakaran sa Pagkapribado</a>.
+              <small>I agree to the Terms and Conditions and Privacy Policy.</small>
+              <span aria-label="required">*</span></span>
+          </label>
+          <span class="error-msg" id="error-terms" aria-live="polite" hidden>
+            Kailangan mong sumang-ayon bago magpatuloy. <small>You must agree to the terms to continue.</small>
+          </span>
+        </div>
+
+        <div class="field-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="accuracy" name="accuracy_confirmed" required aria-describedby="error-accuracy">
+            <span>Tama at kumpleto ang lahat ng impormasyong ibinigay ko.
+              <small>All information I provided is true and accurate.</small>
+              <span aria-label="required">*</span></span>
+          </label>
+          <span class="error-msg" id="error-accuracy" aria-live="polite" hidden>
+            Pakikumpirma na tama ang iyong impormasyon. <small>Please confirm that your information is accurate.</small>
+          </span>
+        </div>
+
+        <div class="field-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="data-privacy" name="data_privacy_consent" required aria-describedby="error-data-privacy">
+            <span>Pumapayag ako sa pagkolekta at paggamit ng aking personal na datos alinsunod sa
+              <strong>Data Privacy Act of 2012 (R.A. 10173)</strong>.
+              <small>I consent to the collection and use of my personal data under the Data Privacy Act of 2012.</small>
+              <span aria-label="required">*</span></span>
+          </label>
+          <span class="error-msg" id="error-data-privacy" aria-live="polite" hidden>
+            Pakibigay ang iyong pahintulot bago magpatuloy. <small>Please give your consent to continue.</small>
+          </span>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Gumawa ng Account <small>Create Account</small></button>
+        <a href="login.html" class="btn-secondary">Mayroon nang account? Mag-sign in. <small>Already have an account? Sign in.</small></a>
+      </div>
+
+    </form>
+
+    <div id="register-success" hidden>
+      <h2>Naisumite ang pagpaparehistro! <small>Registration submitted!</small></h2>
+      <p>Susuriin namin ang iyong mga dokumento at makikipag-ugnayan sa iyo sa loob ng 1–2 araw na trabaho.
+        <small>We will review your documents and contact you within 1–2 business days.</small></p>
+      <a href="login.html" class="btn-primary">Pumunta sa Login <small>Go to Login</small></a>
+    </div>
+
+  </main>
+
+  <footer class="form-footer">
+    <p>&copy; 2026 Laan-Kalinga. <small>All rights reserved.</small></p>
+  </footer>
+
+  <script src="../../js/public/register-family.js"></script>
+
+</body>
+</html>

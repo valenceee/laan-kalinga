@@ -1,0 +1,289 @@
+/* BASE */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap');
+
+:root {
+
+  /* COLOR PALETTE */
+
+  /* Brand / Primary */
+  --color-brand-600:       #c94a1a;   /* deepest — CTAs, hover states */
+  --color-brand-500:       #E05A20;   /* primary — buttons, links, accents */
+  --color-brand-400:       #F07040;   /* medium — hover tints, icon fills */
+  --color-brand-100:       #FDE8DC;   /* lightest tint — badge backgrounds, highlights */
+
+  /* Secondary — gold/amber for warmth & celebration (volunteer badges, etc.) */
+  --color-secondary-500:   #D4820A;
+  --color-secondary-100:   #FEF3DC;
+
+  /* Surface / Background */
+  --color-surface-white:   #FFFFFF;
+  --color-surface-cream:   #FDF7F4;   /* off-white — alternating section bg */
+  --color-surface-sand:    #F5EDE7;   /* card backgrounds inside orange sections */
+
+  /* Text */
+  --color-text-primary:    #1C1410;   /* near-black — body text on light bg */
+  --color-text-secondary:  #5C4033;   /* muted brown — captions, supporting copy */
+  --color-text-inverse:    #FFFFFF;   /* text on dark/orange backgrounds */
+  --color-text-muted:      #9E7A6A;   /* placeholders, disabled labels */
+
+  /* Border / Divider */
+  --color-border-light:    #EDD9CE;
+  --color-border-medium:   #D4A898;
+
+  /* Status / Utility */
+  --color-success:         #2E7D32;
+  --color-success-light:   #E8F5E9;
+  --color-error:           #C62828;
+  --color-error-light:     #FFEBEE;
+  --color-info:            #1565C0;
+  --color-info-light:      #E3F2FD;
+
+
+  /* FONT FAMILY */
+
+  --font-family-base:      'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Scale — base is 18px (2px above standard 16px for readability) */
+  --font-size-xs:          0.8125rem;   /* 13px — legal, footnotes only */
+  --font-size-sm:          0.9375rem;   /* 15px — captions, labels */
+  --font-size-base:        1.125rem;    /* 18px — body (elderly-friendly baseline) */
+  --font-size-md:          1.25rem;     /* 20px — lead paragraphs, card body */
+  --font-size-lg:          1.5rem;      /* 24px — section intros */
+  --font-size-xl:          1.875rem;    /* 30px — section headings (h3) */
+  --font-size-2xl:         2.25rem;     /* 36px — page headings (h2) */
+  --font-size-3xl:         3rem;        /* 48px — hero headline (h1) */
+
+  /* Weight */
+  --font-weight-light:     300;
+  --font-weight-regular:   400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+
+  /* Line height — slightly looser for older readers */
+  --line-height-tight:     1.2;
+  --line-height-snug:      1.4;
+  --line-height-base:      1.65;    /* body — generous for legibility */
+  --line-height-relaxed:   1.8;     /* long-form / instructions */
+
+  /* Letter spacing */
+  --letter-spacing-tight:  -0.01em;
+  --letter-spacing-base:   0em;
+  --letter-spacing-wide:   0.03em;   /* labels, nav */
+  --letter-spacing-caps:   0.08em;   /* uppercase section tags */
+
+
+  /* ----------------------------------------------------------
+     SPACING
+     8-point grid. Use multiples of --space-2 (8px) for most
+     layout decisions; smaller steps for fine-tuning.
+  ---------------------------------------------------------- */
+
+  --space-1:    0.25rem;   /*  4px */
+  --space-2:    0.5rem;    /*  8px */
+  --space-3:    0.75rem;   /* 12px */
+  --space-4:    1rem;      /* 16px */
+  --space-5:    1.25rem;   /* 20px */
+  --space-6:    1.5rem;    /* 24px */
+  --space-8:    2rem;      /* 32px */
+  --space-10:   2.5rem;    /* 40px */
+  --space-12:   3rem;      /* 48px */
+  --space-16:   4rem;      /* 64px */
+  --space-20:   5rem;      /* 80px */
+  --space-24:   6rem;      /* 96px */
+
+
+  /* ----------------------------------------------------------
+     BORDER RADIUS
+  ---------------------------------------------------------- */
+
+  --radius-sm:   0.375rem;   /*  6px — badges, tags */
+  --radius-md:   0.75rem;    /* 12px — cards */
+  --radius-lg:   1.25rem;    /* 20px — modals, hero panels */
+  --radius-full: 9999px;     /* pills, icon circles */
+
+
+  /* ----------------------------------------------------------
+     SHADOW
+  ---------------------------------------------------------- */
+
+  --shadow-sm:   0 1px 3px rgba(28, 20, 16, 0.08);
+  --shadow-md:   0 4px 12px rgba(28, 20, 16, 0.10);
+  --shadow-lg:   0 8px 28px rgba(28, 20, 16, 0.13);
+  --shadow-brand: 0 4px 16px rgba(224, 90, 32, 0.28);  /* glow on CTA buttons */
+
+
+  /* ----------------------------------------------------------
+     TRANSITIONS
+  ---------------------------------------------------------- */
+
+  --transition-fast:    150ms ease;
+  --transition-base:    250ms ease;
+  --transition-slow:    400ms ease;
+
+
+  /* ----------------------------------------------------------
+     LAYOUT
+  ---------------------------------------------------------- */
+
+  --container-max:       1140px;
+  --container-padding-x: var(--space-6);
+
+  /* Touch targets — WCAG 2.5.8 minimum 24px, recommended 44px for elderly */
+  --touch-target-min:    2.75rem;  /* 44px */
+
+
+  /* ----------------------------------------------------------
+     FOCUS — high-contrast ring for keyboard / elderly users
+  ---------------------------------------------------------- */
+
+  --focus-ring-color:  #E05A20;
+  --focus-ring-width:  3px;
+  --focus-ring-offset: 3px;
+
+
+  /* ----------------------------------------------------------
+     Z-INDEX
+  ---------------------------------------------------------- */
+
+  --z-base:    0;
+  --z-raised:  10;
+  --z-overlay: 100;
+  --z-modal:   200;
+  --z-toast:   300;
+
+}
+
+
+/* ============================================================
+   BASE RESETS & GLOBAL DEFAULTS
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;           /* respects user browser zoom */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family:    var(--font-family-base);
+  font-size:      var(--font-size-base);
+  font-weight:    var(--font-weight-regular);
+  line-height:    var(--line-height-base);
+  color:          var(--color-text-primary);
+  background:     var(--color-surface-white);
+  -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;   /* Inter opsz — tighter strokes at small sizes */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family:   var(--font-family-base);
+  font-weight:   var(--font-weight-bold);
+  line-height:   var(--line-height-tight);
+  color:         var(--color-text-primary);
+}
+
+h1 { font-size: var(--font-size-3xl); letter-spacing: var(--letter-spacing-tight); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl);  }
+h4 { font-size: var(--font-size-lg);  font-weight: var(--font-weight-semibold); }
+h5 { font-size: var(--font-size-md);  font-weight: var(--font-weight-semibold); }
+h6 { font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); }
+
+p { max-width: 68ch; }   /* prevents line lengths that fatigue elderly eyes */
+
+a {
+  color: var(--color-brand-500);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--color-brand-600); }
+
+/* Universal focus ring */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ============================================================
+   UTILITY: CONTAINER
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+
+/* ============================================================
+   SUGGESTED ADDITIONS (see notes below)
+   ============================================================ */
+
+/*
+  ADDITIONAL SUGGESTIONS FOR LAAN-KALINGA:
+
+  1. HIGH-CONTRAST MODE SUPPORT
+     Add a media query block for `prefers-contrast: more` that
+     darkens --color-text-secondary and thickens borders — older
+     monitors and visually impaired users benefit greatly.
+
+  2. LARGE-PRINT UTILITY CLASS
+     .text-large { font-size: calc(var(--font-size-base) * 1.2); }
+     A toggle in the nav ("A+") lets elderly users bump text further
+     without needing to know browser zoom.
+
+  3. LINE LENGTH CONTROL ON CARDS
+     Card body copy should cap at 55–60ch (tighter than the 68ch
+     global default) since card widths are already narrow. Override
+     locally: .card p { max-width: 55ch; }
+
+  4. ICON + LABEL PAIRING
+     Service icons (Home Visit, Blood Pressure, etc.) should always
+     have a visible text label beneath them — never icon-only — for
+     elderly users who may not recognize symbols.
+
+  5. FORM INPUTS (if a registration form is added)
+     Minimum input height of var(--touch-target-min) (44px), font-
+     size of var(--font-size-base) or larger, and label text always
+     above the field (never placeholder-as-label). Placeholder text
+     disappears on focus — a problem for users with short-term memory
+     concerns.
+
+  6. BUTTON MINIMUM SIZE
+     All buttons should use `min-height: var(--touch-target-min)` and
+     generous horizontal padding (var(--space-8)+) so they're easy to
+     tap on mobile for elderly fingers.
+
+  7. COLOR CONTRAST AUDIT
+     --color-brand-500 (#E05A20) on white passes AA for large text
+     but fails for body text. Use --color-brand-600 (#C94A1A) for
+     any brand-colored text on white backgrounds to stay WCAG AA.
+*/

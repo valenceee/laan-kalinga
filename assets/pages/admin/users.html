@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Management</h1>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="users.html" class="active">Users</a></li>
+                    <li><a href="../public/index.html">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="user-filters">
+                <h2>Filter Users</h2>
+                <form>
+                    <label for="role">Role:</label>
+                    <select id="role" name="role">
+                        <option value="all">All Roles</option>
+                        <option value="senior">Senior Resident</option>
+                        <option value="family">Family Representative</option>
+                        <option value="staff">Staff</option>
+                        <option value="volunteer">Volunteer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="all">All Statuses</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="suspended">Suspended</option>
+                        <option value="pending">Pending Verification</option>
+                    </select>
+
+                    <label for="region">Region:</label>
+                    <select id="region" name="region">
+                        <option value="all">All Regions</option>
+                        <option value="ncr">NCR – National Capital Region</option>
+                        <option value="car">CAR – Cordillera Administrative Region</option>
+                        <option value="r1">Region I – Ilocos Region</option>
+                        <option value="r2">Region II – Cagayan Valley</option>
+                        <option value="r3">Region III – Central Luzon</option>
+                        <option value="r4a">Region IV-A – CALABARZON</option>
+                        <option value="r4b">Region IV-B – MIMAROPA</option>
+                        <option value="r5">Region V – Bicol Region</option>
+                        <option value="r6">Region VI – Western Visayas</option>
+                        <option value="r7">Region VII – Central Visayas</option>
+                        <option value="r8">Region VIII – Eastern Visayas</option>
+                        <option value="r9">Region IX – Zamboanga Peninsula</option>
+                        <option value="r10">Region X – Northern Mindanao</option>
+                        <option value="r11">Region XI – Davao Region</option>
+                        <option value="r12">Region XII – SOCCSKSARGEN</option>
+                        <option value="r13">Region XIII – Caraga</option>
+                        <option value="barmm">BARMM</option>
+                    </select>
+
+                    <button type="submit" class="btn">Filter</button>
+                </form>
+            </section>
+
+            <section class="user-list">
+                <h2>All Users</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Date Registered</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <!-- SAMPLE DATA LANG MUNA-->
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>juan.delacruz@example.com</td>
+                            <td>0917 123 4567</td>
+                            <td>Senior Resident</td>
+                            <td>Active</td>
+                            <td>2024-12-01</td>
+                            <td>
+                                <a href="#" class="btn btn-small">View</a>
+                                <a href="#" class="btn btn-small">Edit</a>
+                                <a href="#" class="btn btn-small btn-danger">Deactivate</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Maria Santos</td>
+                            <td>maria.santos@example.com</td>
+                            <td>0918 234 5678</td>
+                            <td>Staff</td>
+                            <td>Active</td>
+                            <td>2024-11-15</td>
+                            <td>
+                                <a href="#" class="btn btn-small">View</a>
+                                <a href="#" class="btn btn-small">Edit</a>
+                                <a href="#" class="btn btn-small btn-danger">Deactivate</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>003</td>
+                            <td>Pedro Reyes</td>
+                            <td>pedro.reyes@example.com</td>
+                            <td>0919 345 6789</td>
+                            <td>Volunteer</td>
+                            <td>Active</td>
+                            <td>2024-10-20</td>
+                            <td>
+                                <a href="#" class="btn btn-small">View</a>
+                                <a href="#" class="btn btn-small">Edit</a>
+                                <a href="#" class="btn btn-small btn-danger">Deactivate</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>004</td>
+                            <td>Ana Garcia</td>
+                            <td>ana.garcia@example.com</td>
+                            <td>0920 456 7890</td>
+                            <td>Senior Resident</td>
+                            <td>Inactive</td>
+                            <td>2024-09-05</td>
+                            <td>
+                                <a href="#" class="btn btn-small">View</a>
+                                <a href="#" class="btn btn-small">Edit</a>
+                                <a href="#" class="btn btn-small btn-success">Activate</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>005</td>
+                            <td>Luis Torres</td>
+                            <td>luis.torres@example.com</td>
+                            <td>0921 567 8901</td>
+                            <td>Volunteer</td>
+                            <td>Suspended</td>
+                            <td>2024-08-12</td>
+                            <td>
+                                <a href="#" class="btn btn-small">View</a>
+                                <a href="#" class="btn btn-small">Edit</a>
+                                <a href="#" class="btn btn-small btn-success">Activate</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>006</td>
+                            <td>Rosario Bautista</td>
+                            <td>rosario.bautista@example.com</td>
+                            <td>0922 678 9012</td>
+                            <td>Family Representative</td>
+                            <td>Pending Verification</td>
+                            <td>2025-01-10</td>
+                            <td>
+                                <a href="#" class="btn btn-small">View</a>
+                                <a href="#" class="btn btn-small">Edit</a>
+                                <a href="#" class="btn btn-small btn-success">Approve</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="pagination">
+                <a href="#" class="btn">Previous</a>
+                <span>Page 1 of 10</span>
+                <a href="#" class="btn">Next</a>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

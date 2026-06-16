@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
+
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load accounts. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>Account Management</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="seniors.html">Seniors</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="accounts.html" aria-current="page">Accounts</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- FILTERS -->
+    <section id="account-filters">
+      <h2>Filter Accounts</h2>
+      <div class="filter-bar">
+        <input type="search" id="search-input" placeholder="Search by name or email…" aria-label="Search accounts">
+        <select id="filter-role" aria-label="Filter by role">
+          <option value="">All Roles</option>
+          <option value="staff">Staff</option>
+          <option value="volunteer">Volunteer</option>
+        </select>
+        <select id="filter-status" aria-label="Filter by status">
+          <option value="">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="suspended">Suspended</option>
+          <option value="pending">Pending Verification</option>
+        </select>
+        <button type="button" id="btn-add-account" class="btn-primary">+ Add Account</button>
+      </div>
+    </section>
+
+    <!-- ACCOUNTS TABLE -->
+    <section id="account-list">
+      <h2>Accounts</h2>
+
+      <div id="accounts-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No accounts found.</p>
+      </div>
+
+      <div id="accounts-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No accounts match your search or filter.</p>
+      </div>
+
+      <table id="accounts-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Role</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date Registered</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="accounts-tbody"></tbody>
+      </table>
+
+      <!-- PAGINATION -->
+      <div id="pagination" class="pagination" hidden>
+        <button type="button" id="btn-prev" class="btn-secondary">Previous</button>
+        <span id="pagination-label"></span>
+        <button type="button" id="btn-next" class="btn-secondary">Next</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- VIEW PROFILE MODAL -->
+  <div id="profile-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="profile-modal-title">Account Profile</h3>
+      <dl id="profile-details"></dl>
+      <div class="modal__actions">
+        <button type="button" id="profile-close-btn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT ACCOUNT MODAL -->
+  <div id="account-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="account-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="account-modal-title">Add Account</h3>
+
+      <label for="account-name">Full Name:</label>
+      <input type="text" id="account-name" autocomplete="off">
+      <span class="error-msg" id="error-account-name" aria-live="polite" hidden>Please enter a name.</span>
+
+      <label for="account-email">Email:</label>
+      <input type="email" id="account-email" autocomplete="off">
+      <span class="error-msg" id="error-account-email" aria-live="polite" hidden>Please enter a valid email.</span>
+
+      <label for="account-mobile">Mobile:</label>
+      <input type="tel" id="account-mobile" autocomplete="off" placeholder="09XX XXX XXXX">
+      <span class="error-msg" id="error-account-mobile" aria-live="polite" hidden>Please enter a mobile number.</span>
+
+      <label for="account-role">Role:</label>
+      <select id="account-role">
+        <option value="staff">Staff</option>
+        <option value="volunteer">Volunteer</option>
+      </select>
+
+      <div id="account-password-field">
+        <label for="account-password">Initial Password:</label>
+        <input type="text" id="account-password" value="account123">
+        <small>The user should change this after first login.</small>
+      </div>
+
+      <div class="modal__actions">
+        <button type="button" id="account-save-btn" class="btn-primary">Save</button>
+        <button type="button" id="account-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUSPEND MODAL -->
+  <div id="suspend-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="suspend-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="suspend-modal-title">Suspend Account</h3>
+      <p id="suspend-modal-name"></p>
+
+      <label for="suspend-from">Suspend From:</label>
+      <input type="date" id="suspend-from">
+      <span class="error-msg" id="error-suspend-from" aria-live="polite" hidden>Please select a start date.</span>
+
+      <label for="suspend-to">Suspend Until:</label>
+      <input type="date" id="suspend-to">
+      <span class="error-msg" id="error-suspend-to" aria-live="polite" hidden>Please select an end date.</span>
+
+      <label for="suspend-reason">Reason:</label>
+      <textarea id="suspend-reason" rows="3"></textarea>
+      <span class="error-msg" id="error-suspend-reason" aria-live="polite" hidden>Please enter a reason.</span>
+
+      <div class="modal__actions">
+        <button type="button" id="suspend-confirm-btn" class="btn-primary">Suspend</button>
+        <button type="button" id="suspend-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESET PASSWORD MODAL -->
+  <div id="reset-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="reset-modal-title">Reset Password</h3>
+      <p id="reset-modal-name"></p>
+      <label for="reset-password">New Password:</label>
+      <input type="text" id="reset-password" value="account123">
+      <small>The user should change this after next login.</small>
+      <div class="modal__actions">
+        <button type="button" id="reset-confirm-btn" class="btn-primary">Reset Password</button>
+        <button type="button" id="reset-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/admin/accounts.js"></script>
+</body>
+</html>

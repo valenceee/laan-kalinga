@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Senior Citizens - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
+
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load senior records. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>Senior Citizens Directory</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="seniors.html" aria-current="page">Seniors List</a></li>
+        <li><a href="flagged.html">Flagged Cases</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <section id="search-filter">
+      <h2>Search Directory</h2>
+      <div class="filter-bar">
+        <input type="search" id="search-input" placeholder="Search by name or address…" aria-label="Search seniors">
+        <select id="filter-priority" aria-label="Filter by priority">
+          <option value="">All Priorities</option>
+          <option value="normal">Normal</option>
+          <option value="frail">Priority (Frail)</option>
+          <option value="pwd">Priority (PWD)</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="senior-list">
+      <h2>Resident Records</h2>
+
+      <div id="seniors-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No senior records found.</p>
+      </div>
+
+      <div id="seniors-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No records match your search or filter.</p>
+      </div>
+
+      <table id="seniors-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Senior Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Address</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="seniors-tbody"></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- PROFILE MODAL -->
+  <div id="profile-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="profile-modal-title">Senior Profile</h3>
+      <dl id="profile-details"></dl>
+      <div class="modal__actions">
+        <button type="button" id="profile-close-btn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT PRIORITY MODAL -->
+  <div id="priority-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="priority-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="priority-modal-title">Edit Priority</h3>
+      <p id="priority-modal-name"></p>
+      <label for="priority-select">Priority Tag:</label>
+      <select id="priority-select">
+        <option value="normal">Normal</option>
+        <option value="frail">Priority (Frail)</option>
+        <option value="pwd">Priority (PWD)</option>
+      </select>
+      <div class="modal__actions">
+        <button type="button" id="priority-save-btn" class="btn-primary">Save</button>
+        <button type="button" id="priority-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/staff/seniors.js"></script>
+</body>
+</html>
