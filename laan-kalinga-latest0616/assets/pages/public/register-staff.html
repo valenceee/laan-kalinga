@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Registration - Laankalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="register-header">
+            <a href="index.html" class="logo-link">
+                <img src="../../images/logo.png" alt="Laankalinga Logo" class="logo">
+            </a>
+            <h1>Staff Member Registration</h1>
+            <p>Join our professional healthcare and administrative team</p>
+        </header>
+
+        <nav class="account-type-nav">
+            <p>Need a different account type?</p>
+            <ul>
+                <li><a href="register-senior.html">Senior Resident</a></li>
+                <li><a href="register-family.html">Family Representative</a></li>
+                <li><a href="register-volunteer.html">Volunteer</a></li>
+            </ul>
+        </nav>
+
+        <form action="#" method="POST" enctype="multipart/form-data">
+            <!-- Step 1: Personal Information -->
+            <fieldset class="form-step">
+                <legend>Personal Information</legend>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-first-name">First Name <span class="required">*</span></label>
+                        <input type="text" id="staff-first-name" name="first_name" required placeholder="Enter first name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-middle-name">Middle Name</label>
+                        <input type="text" id="staff-middle-name" name="middle_name" placeholder="Enter middle name">
+                    </div>
+                </div>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-last-name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="staff-last-name" name="last_name" required placeholder="Enter last name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-suffix">Suffix</label>
+                        <select id="staff-suffix" name="suffix">
+                            <option value="">None</option>
+                            <option value="jr">Jr.</option>
+                            <option value="sr">Sr.</option>
+                            <option value="ii">II</option>
+                            <option value="iii">III</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-email">Work Email Address <span class="required">*</span></label>
+                        <input type="email" id="staff-email" name="email" required placeholder="yourname@laankalinga.com.ph">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-phone">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="staff-phone" name="phone" required placeholder="09XX XXX XXXX" pattern="09\d{2} \d{3} \d{4}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-address">Home Address <span class="required">*</span></label>
+                    <textarea id="staff-address" name="address" rows="2" required placeholder="House/Unit No., Street, Barangay, City/Municipality, Province, ZIP Code"></textarea>
+                </div>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-region">Region <span class="required">*</span></label>
+                        <select id="staff-region" name="region" required>
+                            <option value="">Select region</option>
+                            <option value="ncr">NCR – National Capital Region</option>
+                            <option value="car">CAR – Cordillera Administrative Region</option>
+                            <option value="r1">Region I – Ilocos Region</option>
+                            <option value="r2">Region II – Cagayan Valley</option>
+                            <option value="r3">Region III – Central Luzon</option>
+                            <option value="r4a">Region IV-A – CALABARZON</option>
+                            <option value="r4b">Region IV-B – MIMAROPA</option>
+                            <option value="r5">Region V – Bicol Region</option>
+                            <option value="r6">Region VI – Western Visayas</option>
+                            <option value="r7">Region VII – Central Visayas</option>
+                            <option value="r8">Region VIII – Eastern Visayas</option>
+                            <option value="r9">Region IX – Zamboanga Peninsula</option>
+                            <option value="r10">Region X – Northern Mindanao</option>
+                            <option value="r11">Region XI – Davao Region</option>
+                            <option value="r12">Region XII – SOCCSKSARGEN</option>
+                            <option value="r13">Region XIII – Caraga</option>
+                            <option value="barmm">BARMM – Bangsamoro Autonomous Region in Muslim Mindanao</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-nationality">Nationality <span class="required">*</span></label>
+                        <input type="text" id="staff-nationality" name="nationality" required value="Filipino" placeholder="e.g., Filipino">
+                    </div>
+                </div>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-philsys-id">PhilSys ID / National ID Number</label>
+                        <input type="text" id="staff-philsys-id" name="philsys_id" placeholder="Enter PhilSys Reference Number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-tin">Tax Identification Number (TIN) <span class="required">*</span></label>
+                        <input type="text" id="staff-tin" name="tin" required placeholder="XXX-XXX-XXX-XXX">
+                    </div>
+                </div>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-sss">SSS Number <span class="required">*</span></label>
+                        <input type="text" id="staff-sss" name="sss_number" required placeholder="XX-XXXXXXX-X">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-philhealth">PhilHealth Member Number (PIN) <span class="required">*</span></label>
+                        <input type="text" id="staff-philhealth" name="philhealth_number" required placeholder="XXXX-XXXXXXXX-X">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-pagibig">Pag-IBIG Member ID (MID) Number</label>
+                    <input type="text" id="staff-pagibig" name="pagibig_number" placeholder="XXXX-XXXX-XXXX">
+                </div>
+            </fieldset>
+
+            <!-- Step 2: Professional Details -->
+            <fieldset class="form-step">
+                <legend>Professional Details</legend>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-employee-id">Employee ID <span class="required">*</span></label>
+                        <input type="text" id="staff-employee-id" name="employee_id" required placeholder="Assigned by HR">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-job-title">Job Title <span class="required">*</span></label>
+                        <input type="text" id="staff-job-title" name="job_title" required placeholder="e.g., Registered Nurse, Care Coordinator">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-employment-type">Employment Type <span class="required">*</span></label>
+                    <select id="staff-employment-type" name="employment_type" required>
+                        <option value="">Select employment type</option>
+                        <option value="regular">Regular / Permanent</option>
+                        <option value="probationary">Probationary</option>
+                        <option value="contractual">Contractual / Project-based</option>
+                        <option value="casual">Casual</option>
+                        <option value="agency">Agency-hired</option>
+                        <option value="part-time">Part-time</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-department">Department <span class="required">*</span></label>
+                    <select id="staff-department" name="department" required>
+                        <option value="">Select department</option>
+                        <option value="nursing">Nursing</option>
+                        <option value="admin">Administration</option>
+                        <option value="kitchen">Kitchen / Canteen Services</option>
+                        <option value="maintenance">Maintenance / Facilities</option>
+                        <option value="housekeeping">Housekeeping</option>
+                        <option value="recreation">Recreation / Activities</option>
+                        <option value="social-services">Social Services / DSWD Liaison</option>
+                        <option value="medical">Medical / Healthcare</option>
+                        <option value="transportation">Transportation / Ambulance</option>
+                        <option value="security">Security</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-manager">Direct Supervisor / Head Nurse</label>
+                    <input type="text" id="staff-manager" name="manager_name" placeholder="Full name of your supervisor">
+                </div>
+            </fieldset>
+
+            <!-- Step 3: Credentials & Certifications -->
+            <fieldset class="form-step">
+                <legend>PRC License &amp; Credentials</legend>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-prc-number">PRC License Number (if applicable)</label>
+                        <input type="text" id="staff-prc-number" name="prc_license_number" placeholder="e.g., 0123456">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-prc-profession">PRC Profession / Board</label>
+                        <select id="staff-prc-profession" name="prc_profession">
+                            <option value="">Select profession</option>
+                            <option value="rn">Registered Nurse (RN)</option>
+                            <option value="rmt">Registered Medical Technologist (RMT)</option>
+                            <option value="rph">Registered Pharmacist (RPh)</option>
+                            <option value="pt">Physical Therapist (PT)</option>
+                            <option value="ot">Occupational Therapist (OT)</option>
+                            <option value="sw">Social Worker (RSW)</option>
+                            <option value="nutritionist">Nutritionist-Dietitian (RND)</option>
+                            <option value="doctor">Medical Doctor (MD)</option>
+                            <option value="other">Other</option>
+                            <option value="na">Not Applicable</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-prc-expiry">PRC License Validity / Expiration Date</label>
+                    <input type="date" id="staff-prc-expiry" name="prc_expiry">
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-certification-uploads">Upload Credentials / Documents</label>
+                    <input type="file" id="staff-certification-uploads" name="certifications[]" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                    <small>Upload your PRC ID, TOR, diplomas, CHED certifications, or other relevant documents (hold Ctrl to select multiple files)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-other-credentials">Other Relevant Credentials or Training</label>
+                    <textarea id="staff-other-credentials" name="other_credentials" rows="3" placeholder="e.g., BLS/ACLS training, TESDA NC certifications, DOH-accredited seminars, hospital in-service training"></textarea>
+                </div>
+            </fieldset>
+
+            <!-- Step 4: Shift Management -->
+            <fieldset class="form-step">
+                <legend>Shift Preferences &amp; Availability</legend>
+
+                <div class="form-group">
+                    <label for="staff-preferred-shift">Preferred Shift <span class="required">*</span></label>
+                    <select id="staff-preferred-shift" name="preferred_shift" required>
+                        <option value="">Select preferred shift</option>
+                        <option value="morning">Morning Shift (6AM – 2PM)</option>
+                        <option value="afternoon">Afternoon Shift (2PM – 10PM)</option>
+                        <option value="night">Night Shift (10PM – 6AM)</option>
+                        <option value="rotating">Rotating Shifts</option>
+                        <option value="flexible">Flexible / Open to any shift</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Available Days of the Week <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label"><input type="checkbox" name="available_days" value="monday" required> Monday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="available_days" value="tuesday"> Tuesday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="available_days" value="wednesday"> Wednesday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="available_days" value="thursday"> Thursday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="available_days" value="friday"> Friday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="available_days" value="saturday"> Saturday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="available_days" value="sunday"> Sunday</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-unavailable-dates">Specific Unavailable Dates</label>
+                    <textarea id="staff-unavailable-dates" name="unavailable_dates" rows="2" placeholder="List any dates you will be unavailable (e.g., scheduled leaves, provincial trips, barangay duties)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-others">Willing to work overtime / on-call when needed?</label>
+                    <select id="staff-others" name="overtime_availability">
+                        <option value="">Select option</option>
+                        <option value="yes">Yes, willing</option>
+                        <option value="limited">Limited availability</option>
+                        <option value="no">No, unable to</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <!-- Step 5: System Access & Permissions -->
+            <fieldset class="form-step">
+                <legend>System Access Level</legend>
+
+                <div class="form-group">
+                    <label for="staff-access-level">Requested Access Level <span class="tooltip-trigger">?</span></label>
+                    <select id="staff-access-level" name="access_level" required>
+                        <option value="">Select access level</option>
+                        <option value="view-only">View Only – Can view records but cannot edit</option>
+                        <option value="editor">Editor – Can create and edit records within scope</option>
+                        <option value="supervisor">Supervisor – Can manage team members and approve requests</option>
+                        <option value="admin">Admin – Full departmental access</option>
+                        <option value="super-admin">Super Admin – System-wide access (by approval only)</option>
+                    </select>
+                    <span class="tooltip-text">Access level will be reviewed and approved by your supervisor and the IT Officer</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="staff-access-justification">Justification for Access Level Requested</label>
+                    <textarea id="staff-access-justification" name="access_justification" rows="3" placeholder="Explain why you need this level of system access based on your duties and responsibilities"></textarea>
+                </div>
+            </fieldset>
+
+            <!-- Step 6: Emergency Contact -->
+            <fieldset class="form-step">
+                <legend>Emergency Contact Information</legend>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-emergency-name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="staff-emergency-name" name="emergency_contact_name" required placeholder="Enter full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-emergency-relationship">Relationship <span class="required">*</span></label>
+                        <select id="staff-emergency-relationship" name="emergency_contact_relationship" required>
+                            <option value="">Select relationship</option>
+                            <option value="spouse">Asawa / Spouse</option>
+                            <option value="parent">Magulang / Parent</option>
+                            <option value="sibling">Kapatid / Sibling</option>
+                            <option value="child">Anak / Child</option>
+                            <option value="relative">Kamag-anak / Relative</option>
+                            <option value="friend">Kaibigan / Friend</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row two-column">
+                    <div class="form-group">
+                        <label for="staff-emergency-phone">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="staff-emergency-phone" name="emergency_contact_phone" required placeholder="09XX XXX XXXX">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="staff-emergency-email">Email Address</label>
+                        <input type="email" id="staff-emergency-email" name="emergency_contact_email" placeholder="contact@email.com">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Step 7: Employment Acknowledgments -->
+            <fieldset class="form-step">
+                <legend>Employment Acknowledgments</legend>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms_accepted" required>
+                        <span>I have read and agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a> <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="accuracy_confirmed" required>
+                        <span>I confirm that all information provided is accurate and complete. I understand that providing false information is grounds for termination under the Labor Code of the Philippines. <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="data_privacy_consent" required>
+                        <span>I consent to the collection and processing of my personal data in accordance with the <strong>Data Privacy Act of 2012 (R.A. 10173)</strong> and the facility's Privacy Notice. <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="patient_confidentiality" required>
+                        <span>I acknowledge my responsibility to maintain the confidentiality of patient/resident records and information as required under applicable Philippine laws, including R.A. 11058 (OSH Law) and DOH regulations. <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="code_of_conduct" required>
+                        <span>I agree to abide by the employee code of conduct, the facility's workplace policies, and the Civil Service rules applicable to healthcare workers. <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="background_check_consent" required>
+                        <span>I consent to employment verification and NBI / police clearance checks as conditions of employment. <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="drug_screening_consent" required>
+                        <span>I consent to drug testing as required under <strong>R.A. 9165 (Comprehensive Dangerous Drugs Act of 2002)</strong> and facility policy. <span class="required">*</span></span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit Staff Registration</button>
+                <a href="login.html" class="btn btn-secondary">Already have an account? Login</a>
+            </div>
+        </form>
+
+        <footer class="form-footer">
+            <p>&copy; 2026 Laankalinga. All rights reserved.</p>
+            <nav>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Support</a>
+                <a href="#">Employee Handbook</a>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>

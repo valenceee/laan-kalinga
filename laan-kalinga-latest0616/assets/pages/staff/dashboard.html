@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
+
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load dashboard data. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
+
+  <header>
+    <h1>Staff Dashboard</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a href="appointments.html">Visit Requests</a></li>
+        <li><a href="seniors.html">Seniors List</a></li>
+        <li><a href="flagged.html">Flagged Cases</a></li>
+        <li><a href="reports.html">Reports &amp; Events</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <section id="welcome-overview">
+      <h2>Overview of barangay operations, visits, and pending requests for <span id="today-date"></span>.</h2>
+    </section>
+
+    <section id="statistics">
+      <h3>Statistics</h3>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Pending Visit Requests</p>
+          <p class="stat-card__value" id="stat-pending">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Scheduled Visits Today</p>
+          <p class="stat-card__value" id="stat-today">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Active Flagged Cases</p>
+          <p class="stat-card__value" id="stat-flagged">0</p>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div id="stats-empty" hidden>
+        <p>No activity recorded yet.</p>
+      </div>
+    </section>
+
+    <section id="quick-links">
+      <h3>Urgent Actions Required</h3>
+
+      <ul id="urgent-actions-list">
+        <!-- JS populates this -->
+      </ul>
+
+      <!-- Empty state -->
+      <div id="urgent-actions-empty" hidden>
+        <p>No urgent actions right now. Great job!</p>
+      </div>
+    </section>
+
+    <section id="today-schedule">
+      <h3>Today's Schedule</h3>
+      <a href="appointments.html?filter=today" class="btn-secondary">View Today's Visits</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/staff/dashboard.js"></script>
+
+</body>
+</html>

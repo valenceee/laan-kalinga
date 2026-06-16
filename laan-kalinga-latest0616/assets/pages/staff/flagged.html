@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flagged Cases - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
+
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load flagged cases. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>Flagged Cases &amp; Alerts</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="seniors.html">Seniors List</a></li>
+        <li><a href="flagged.html" aria-current="page">Flagged Cases</a></li>
+        <li><a href="reports.html">Reports &amp; Events</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ACTIVE FLAGS -->
+    <section id="active-flags">
+      <h2>Requires Immediate Attention</h2>
+      <p>These alerts were raised by volunteers during their recent visits or submitted by family members.</p>
+
+      <div id="flags-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No flagged cases right now.</p>
+      </div>
+
+      <div id="flags-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No flagged cases match your search or filter.</p>
+      </div>
+
+      <table id="flags-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Date Flagged</th>
+            <th scope="col">Reported By</th>
+            <th scope="col">Senior Name</th>
+            <th scope="col">Reason / Concern</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="flags-tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- RESOLVED FLAGS -->
+    <section id="resolved-flags">
+      <h2>Resolved Cases</h2>
+      <p>Flagged cases that have already been acted on.</p>
+
+      <div id="resolved-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No resolved cases yet.</p>
+      </div>
+
+      <table id="resolved-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Date Flagged</th>
+            <th scope="col">Reported By</th>
+            <th scope="col">Senior Name</th>
+            <th scope="col">Reason / Concern</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody id="resolved-tbody"></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- TAKE ACTION MODAL -->
+  <div id="action-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="action-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="action-modal-title">Take Action</h3>
+      <p id="action-modal-desc"></p>
+      <label for="action-select">Action <span aria-label="required">*</span></label>
+      <select id="action-select">
+        <option value="">— Select Action —</option>
+        <option value="mark_resolved">Mark as Resolved</option>
+        <option value="refer_medical">Refer to Medical Team</option>
+        <option value="refer_admin">Refer to Admin</option>
+        <option value="other">Other / Needs Further Review</option>
+      </select>
+
+        <textarea id="action-other-input" rows="3" placeholder="Describe the concern…" hidden></textarea>
+        <span class="error-msg" id="error-action-other" aria-live="polite" hidden>
+        Please describe the concern before submitting.
+        </span>
+        
+      <span class="error-msg" id="error-action-select" aria-live="polite" hidden>
+        Please select an action before submitting.
+      </span>
+      <div class="modal__actions">
+        <button type="button" id="action-confirm-btn" class="btn-primary">Submit</button>
+        <button type="button" id="action-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/staff/flagged.js"></script>
+
+</body>
+</html>
