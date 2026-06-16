@@ -1,111 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Audit Logs - LaanKalinga</title>
-    <link rel="stylesheet" href="../../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Logs - LaanKalinga</title>
+  <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>System Audit Logs</h1>
-            <nav>
-                <ul>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="admins.html">Manage Admins</a></li>
-                    <li><a href="audit-logs.html" class="active">Audit Logs</a></li>
-                    <li><a href="settings.html">Settings</a></li>
-                    <li><a href="../public/index.html">Logout</a></li>
-                </ul>
-            </nav>
-            <hr>
-        </header>
-        <main>
-            <section class="log-filters">
-                <h2>Filter Activity Logs</h2>
-                <form action="#" method="GET">
-                    <fieldset>
-                        <legend>Search Parameters</legend>
-                        <p>
-                            <label for="date-from">Date From:</label>
-                            <input type="date" id="date-from" name="date_from">
-                            
-                            <label for="date-to">Date To:</label>
-                            <input type="date" id="date-to" name="date_to">
-                        </p>
-                        <p>
-                            <label for="action-type">Action Type:</label>
-                            <select id="action-type" name="action_type">
-                                <option value="all">All Actions</option>
-                                <option value="login">Account Logins</option>
-                                <option value="create_account">Admin/User Created</option>
-                                <option value="delete_account">Account Deleted</option>
-                                <option value="force_cancel">Appointments Force-Cancelled</option>
-                                <option value="settings">System Settings Changed</option>
-                            </select>
-                        </p>
-                        <p>
-                            <button type="submit" class="btn">Search Logs</button>
-                        </p>
-                    </fieldset>
-                </form>
-            </section>
-            <br>
-            <section class="log-table">
-                <h2>Activity Timeline (Who did what, when)</h2>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Timestamp</th>
-                            <th>User ID / Name</th>
-                            <th>Role</th>
-                            <th>Action Performed</th>
-                            <th>Target Object / Details</th>
-                            <th>IP Address</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2026-06-12 14:30:15</td>
-                            <td>AD-012 (System Operator)</td>
-                            <td>Standard Admin</td>
-                            <td>Force-Cancelled Appointment</td>
-                            <td>Booking ID: BK-1052</td>
-                            <td>192.168.1.104</td>
-                        </tr>
-                        <tr>
-                            <td>2026-06-12 10:15:22</td>
-                            <td>SA-001 (Master Administrator)</td>
-                            <td>Super Admin</td>
-                            <td>System Settings Changed</td>
-                            <td>Enabled Maintenance Mode</td>
-                            <td>192.168.1.100</td>
-                        </tr>
-                        <tr>
-                            <td>2026-06-11 09:05:10</td>
-                            <td>SA-001 (Master Administrator)</td>
-                            <td>Super Admin</td>
-                            <td>Created Account</td>
-                            <td>Account ID: AD-014 (Standard Admin)</td>
-                            <td>192.168.1.100</td>
-                        </tr>
-                        <tr>
-                            <td>2026-06-11 08:00:05</td>
-                            <td>AD-012 (System Operator)</td>
-                            <td>Standard Admin</td>
-                            <td>Account Login</td>
-                            <td>Successful Authentication</td>
-                            <td>192.168.1.104</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-        <hr>
-        <footer>
-            <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
-        </footer>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
+
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load audit logs. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>System Audit Logs</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="admins.html">Manage Admins</a></li>
+        <li><a href="audit-logs.html" aria-current="page">Audit Logs</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- FILTERS -->
+    <section id="log-filters">
+      <h2>Filter Logs</h2>
+      <div class="filter-bar filter-bar--wrap">
+        <input type="search" id="search-input" placeholder="Search by user name or ID…" aria-label="Search logs">
+        <select id="filter-role" aria-label="Filter by role">
+          <option value="">All Roles</option>
+          <option value="super-admin">Super Admin</option>
+          <option value="standard-admin">Standard Admin</option>
+        </select>
+        <select id="filter-action" aria-label="Filter by action type">
+          <option value="">All Actions</option>
+          <option value="login">Login</option>
+          <option value="logout">Logout</option>
+          <option value="account-created">Account Created</option>
+          <option value="account-deleted">Account Deleted</option>
+          <option value="account-suspended">Account Suspended</option>
+          <option value="password-reset">Password Reset</option>
+          <option value="appointment-force-approved">Appointment Force-Approved</option>
+          <option value="appointment-force-rejected">Appointment Force-Rejected</option>
+          <option value="senior-flagged">Senior Flagged</option>
+          <option value="senior-unflagged">Senior Unflagged</option>
+          <option value="senior-deactivated">Senior Deactivated</option>
+          <option value="volunteer-assigned">Volunteer Assigned</option>
+          <option value="announcement-sent">Announcement Sent</option>
+          <option value="settings-changed">Settings Changed</option>
+        </select>
+        <select id="filter-severity" aria-label="Filter by severity">
+          <option value="">All Severities</option>
+          <option value="info">Info</option>
+          <option value="warning">Warning</option>
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+      <div class="filter-bar filter-bar--date">
+        <div class="field-group">
+          <label for="date-from">From</label>
+          <input type="date" id="date-from">
+          <span class="error-msg" id="error-date-range" aria-live="polite" hidden>
+            "From" date cannot be after "To" date.
+          </span>
+        </div>
+        <div class="field-group">
+          <label for="date-to">To</label>
+          <input type="date" id="date-to">
+        </div>
+        <button type="button" id="btn-apply-dates" class="btn-secondary">Apply</button>
+        <button type="button" id="btn-clear-dates" class="btn-secondary">Clear</button>
+        <button type="button" id="btn-export" class="btn-primary">Export CSV</button>
+      </div>
+    </section>
+
+    <!-- LOGS TABLE -->
+    <section id="log-list">
+      <h2>Activity Timeline</h2>
+
+      <div id="logs-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No audit logs on record yet.</p>
+      </div>
+
+      <div id="logs-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No logs match your search or filter.</p>
+      </div>
+
+      <table id="logs-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Timestamp</th>
+            <th scope="col">User</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+            <th scope="col">Severity</th>
+            <th scope="col">Target / Details</th>
+            <th scope="col">IP Address</th>
+            <th scope="col">View</th>
+          </tr>
+        </thead>
+        <tbody id="logs-tbody"></tbody>
+      </table>
+
+      <div id="pagination" class="pagination" hidden>
+        <button type="button" id="btn-prev" class="btn-secondary">Previous</button>
+        <span id="pagination-label"></span>
+        <button type="button" id="btn-next" class="btn-secondary">Next</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LOG DETAILS MODAL -->
+  <div id="details-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="details-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="details-modal-title">Log Entry Details</h3>
+      <dl id="details-dl"></dl>
+      <div class="modal__actions">
+        <button type="button" id="details-close-btn" class="btn-secondary">Close</button>
+      </div>
     </div>
+  </div>
+
+  <!-- EXPORT MODAL -->
+  <div id="export-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="export-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="export-modal-title">Export Audit Logs</h3>
+      <p id="export-modal-desc"></p>
+      <small>The exported file will reflect your current search and filter settings.</small>
+      <div class="modal__actions">
+        <button type="button" id="export-confirm-btn" class="btn-primary">Download CSV</button>
+        <button type="button" id="export-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/superadmin/audit-logs.js"></script>
 </body>
 </html>

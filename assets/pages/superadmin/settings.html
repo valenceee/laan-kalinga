@@ -7,75 +7,204 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>System Settings & Database Management</h1>
-            <nav>
-                <ul>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="admins.html">Manage Admins</a></li>
-                    <li><a href="audit-logs.html">Audit Logs</a></li>
-                    <li><a href="settings.html" class="active">Settings</a></li>
-                    <li><a href="../public/login.html">Logout</a></li>
-                </ul>
-            </nav>
-            <hr>
-        </header>
 
-        <main>
-            <section class="system-config">
-                <h2>Global System Configuration</h2>
-                <form action="#" method="POST">
-                    <fieldset>
-                        <legend>Platform Settings</legend>
-                        <p>
-                            <label for="site-name">Platform Name:</label><br>
-                            <input type="text" id="site-name" name="site_name" value="LaanKalinga" size="40">
-                        </p>
-                        <p>
-                            <label for="maintenance-mode">Maintenance Mode:</label><br>
-                            <select id="maintenance-mode" name="maintenance_mode">
-                                <option value="off">Off (System is Live)</option>
-                                <option value="on">On (Lockout Non-Admins)</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label for="max-bookings">Max Global Bookings Per Day:</label><br>
-                            <input type="number" id="max-bookings" name="max_bookings" value="200" min="10">
-                        </p>
-                        <p>
-                            <button type="submit" class="btn btn-success">Update Global Settings</button>
-                        </p>
-                    </fieldset>
-                </form>
-            </section>
-            <br>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <section class="database-management">
-                <h2>Database Management</h2>
-                <fieldset>
-                    <legend>Data Controls</legend>
-                    <p>Use these tools to manage the integrity and backups of the system database.</p>
-                    <form action="#" method="POST">
-                        <p>
-                            <button type="submit" name="db_action" value="backup" class="btn btn-primary">Generate Manual Database Backup</button>
-                        </p>
-                        <p>
-                            <button type="button" class="btn btn-secondary">Restore from Backup Archive...</button>
-                        </p>
-                        <p>
-                            <button type="submit" name="db_action" value="clear_cache" class="btn btn-danger">Clear Application Cache</button>
-                        </p>
-                    </form>
-                </fieldset>
-            </section>
-        </main>
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
 
-        <hr>
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load settings. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
 
-        <footer>
-            <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
-        </footer>
+  <div class="banner-warning" id="banner-maintenance" role="alert" aria-live="assertive" hidden>
+    <p>Maintenance Mode is currently <strong>ON</strong>. The system is not accessible to regular users.</p>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>System Settings</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="admins.html">Manage Admins</a></li>
+        <li><a href="audit-logs.html">Audit Logs</a></li>
+        <li><a href="settings.html" aria-current="page">Settings</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- PLATFORM SETTINGS -->
+    <section id="platform-settings">
+      <h2>Platform Settings</h2>
+
+      <div class="field-group" id="group-site-name">
+        <label for="site-name">Platform Name <span aria-label="required">*</span></label>
+        <input type="text" id="site-name" name="site_name" autocomplete="off">
+        <span class="error-msg" id="error-site-name" aria-live="polite" hidden>
+          Please enter a platform name.
+        </span>
+      </div>
+
+      <div class="field-group" id="group-max-bookings">
+        <label for="max-bookings">Max Bookings Per Day <span aria-label="required">*</span></label>
+        <small>Minimum value is 10.</small>
+        <input type="number" id="max-bookings" name="max_bookings" min="10">
+        <span class="error-msg" id="error-max-bookings" aria-live="polite" hidden>
+          Please enter a valid number (minimum 10).
+        </span>
+      </div>
+
+      <div class="field-group">
+        <label>Maintenance Mode</label>
+        <p id="maintenance-status-label">Status: <strong id="maintenance-status-text">Off</strong></p>
+        <small>While ON, only super admins can access the system.</small>
+        <div class="form-actions">
+          <button type="button" id="btn-toggle-maintenance" class="btn-primary">Enable Maintenance Mode</button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="btn-save-platform" class="btn-primary">Save Platform Settings</button>
+      </div>
+    </section>
+
+    <!-- DATABASE MANAGEMENT -->
+    <section id="database-management">
+      <h2>Database Management</h2>
+
+      <div class="field-group">
+        <p>Last backup: <strong id="last-backup-date">—</strong></p>
+      </div>
+
+      <div class="action-buttons">
+        <button type="button" id="btn-backup" class="btn-primary">Generate Backup</button>
+        <button type="button" id="btn-restore" class="btn-secondary">Restore from Backup</button>
+        <button type="button" id="btn-clear-cache" class="btn-secondary">Clear Cache</button>
+      </div>
+
+      <div id="restore-upload-group" hidden>
+        <div class="field-group">
+          <label for="restore-file">Select Backup File <span aria-label="required">*</span></label>
+          <small>Accepted: .sql, .zip</small>
+          <input type="file" id="restore-file" name="restore_file" accept=".sql,.zip">
+          <span class="error-msg" id="error-restore-file" aria-live="polite" hidden>
+            Please select a backup file.
+          </span>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="btn-restore-confirm" class="btn-primary">Confirm Restore</button>
+          <button type="button" id="btn-restore-cancel" class="btn-secondary">Cancel</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPORT DATA -->
+    <section id="export-data">
+      <h2>Export Data as CSV</h2>
+      <p>Export system data for records, reporting, or migration.</p>
+      <div class="action-buttons">
+        <button type="button" class="btn-export btn-secondary" data-type="seniors">Export Seniors</button>
+        <button type="button" class="btn-export btn-secondary" data-type="appointments">Export Appointments</button>
+        <button type="button" class="btn-export btn-secondary" data-type="accounts">Export Accounts</button>
+        <button type="button" class="btn-export btn-secondary" data-type="audit-logs">Export Audit Logs</button>
+      </div>
+    </section>
+
+    <!-- NOTIFICATION SETTINGS -->
+    <section id="notification-settings">
+      <h2>Notification Settings</h2>
+      <p>Control which system-wide notifications are sent to users.</p>
+
+      <div class="field-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="notif-appointment-reminder" name="notif_appointment_reminder">
+          <span>Send appointment reminders 24 hours before scheduled visits</span>
+        </label>
+      </div>
+
+      <div class="field-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="notif-flagged-alert" name="notif_flagged_alert">
+          <span>Notify staff when a senior case is flagged</span>
+        </label>
+      </div>
+
+      <div class="field-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="notif-new-registration" name="notif_new_registration">
+          <span>Notify admins on new senior or volunteer registrations</span>
+        </label>
+      </div>
+
+      <div class="field-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="notif-unresolved-flags" name="notif_unresolved_flags">
+          <span>Send daily digest of unresolved flagged cases to staff</span>
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="btn-save-notifications" class="btn-primary">Save Notification Settings</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MAINTENANCE MODAL -->
+  <div id="maintenance-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="maintenance-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="maintenance-modal-title">Toggle Maintenance Mode</h3>
+      <p id="maintenance-modal-desc"></p>
+      <small>This action will be logged in the audit trail.</small>
+
+      <label for="maintenance-reason">Reason <span aria-label="required">*</span></label>
+      <textarea id="maintenance-reason" rows="2"></textarea>
+      <span class="error-msg" id="error-maintenance-reason" aria-live="polite" hidden>
+        Please enter a reason.
+      </span>
+
+      <div class="modal__actions">
+        <button type="button" id="maintenance-confirm-btn" class="btn-primary">Confirm</button>
+        <button type="button" id="maintenance-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
     </div>
+  </div>
+
+  <!-- EXPORT MODAL -->
+  <div id="export-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="export-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="export-modal-title">Export Data</h3>
+      <p id="export-modal-desc"></p>
+      <small>The exported file will contain all records for this data type.</small>
+      <div class="modal__actions">
+        <button type="button" id="export-confirm-btn" class="btn-primary">Download CSV</button>
+        <button type="button" id="export-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/superadmin/settings.js"></script>
 </body>
 </html>

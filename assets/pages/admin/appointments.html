@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
+
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load appointments. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>Appointments</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="seniors.html">Seniors</a></li>
+        <li><a href="appointments.html" aria-current="page">Appointments</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- FILTERS -->
+    <section id="appointment-filters">
+      <h2>Filter Appointments</h2>
+      <div class="filter-bar">
+        <input type="search" id="search-input" placeholder="Search by name or service…" aria-label="Search appointments">
+        <select id="filter-status" aria-label="Filter by status">
+          <option value="">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="assigned">Assigned</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- PENDING -->
+    <section id="pending-requests">
+      <h2>Pending Service Requests</h2>
+      <p>Review and act on visit requests. Admin can force approve or force reject any request.</p>
+
+      <div id="pending-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No pending requests right now.</p>
+      </div>
+      <div id="pending-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No pending requests match your search or filter.</p>
+      </div>
+
+      <table id="pending-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Date Requested</th>
+            <th scope="col">Senior Name</th>
+            <th scope="col">Service</th>
+            <th scope="col">Preferred Date &amp; Time</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="pending-tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- APPROVED / NEEDS ASSIGNMENT -->
+    <section id="assign-volunteers">
+      <h2>Approved: Needs Assignment</h2>
+      <p>Assign or reassign volunteer and staff. Admin can also override the preferred date and time.</p>
+
+      <div id="approved-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No approved visits need assignment right now.</p>
+      </div>
+      <div id="approved-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No approved visits match your search or filter.</p>
+      </div>
+
+      <table id="approved-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Date &amp; Time</th>
+            <th scope="col">Senior Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Assign Volunteer</th>
+            <th scope="col">Assign Staff</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="approved-tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- ASSIGNED & REJECTED -->
+    <section id="processed-appointments">
+      <h2>Assigned &amp; Rejected</h2>
+      <p>Processed appointments. Admin can reassign, force reject, or reopen rejected requests.</p>
+
+      <div id="processed-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No processed appointments yet.</p>
+      </div>
+      <div id="processed-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No processed appointments match your search or filter.</p>
+      </div>
+
+      <table id="processed-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Date &amp; Time</th>
+            <th scope="col">Senior Name</th>
+            <th scope="col">Service</th>
+            <th scope="col">Status</th>
+            <th scope="col">Assigned To / Reason</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="processed-tbody"></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- AUDIT PANEL -->
+  <div id="audit-panel" class="modal" role="dialog" aria-modal="true" aria-labelledby="audit-panel-title" hidden>
+    <div class="modal__box">
+      <h3 id="audit-panel-title">Appointment Details</h3>
+      <dl id="audit-details"></dl>
+      <div class="modal__actions">
+        <button type="button" id="audit-close-btn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORCE REJECT MODAL -->
+  <div id="force-reject-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="force-reject-title" hidden>
+    <div class="modal__box">
+      <h3 id="force-reject-title">Force Reject</h3>
+      <p>Give a reason. The senior or family representative will be notified.</p>
+      <label for="force-reject-reason">Reason <span aria-label="required">*</span></label>
+      <textarea id="force-reject-reason" rows="3"></textarea>
+      <span class="error-msg" id="error-force-reject-reason" aria-live="polite" hidden>
+        Please enter a reason before rejecting.
+      </span>
+      <div class="modal__actions">
+        <button type="button" id="force-reject-confirm-btn" class="btn-primary">Confirm Force Reject</button>
+        <button type="button" id="force-reject-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERRIDE DATE/TIME MODAL -->
+  <div id="override-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="override-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="override-modal-title">Override Date &amp; Time</h3>
+      <p id="override-modal-name"></p>
+
+      <label for="override-date">New Date:</label>
+      <input type="date" id="override-date">
+      <span class="error-msg" id="error-override-date" aria-live="polite" hidden>Please select a date.</span>
+
+      <label for="override-time">New Time:</label>
+      <input type="time" id="override-time">
+      <span class="error-msg" id="error-override-time" aria-live="polite" hidden>Please select a time.</span>
+
+      <div class="modal__actions">
+        <button type="button" id="override-save-btn" class="btn-primary">Save Override</button>
+        <button type="button" id="override-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/admin/appointments.js"></script>
+  </body>
+</html>

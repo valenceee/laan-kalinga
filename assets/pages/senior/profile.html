@@ -45,6 +45,45 @@
       <p>Na-save ang mga pagbabago. <small>Your changes have been saved.</small></p>
     </div>
 
+    <div id="profile-rep-account" hidden>
+      <section class="profile-section" id="section-account">
+        <div class="profile-section__header">
+          <h2>Iyong Account <small>Your Account</small></h2>
+          <button type="button" class="btn-edit" data-section="account">I-edit <small>Edit</small></button>
+        </div>
+
+        <div class="profile-view" id="view-account">
+          <p><strong>Email:</strong> <span data-field="rep-email-display">—</span></p>
+          <p><strong>Numero / Mobile:</strong> <span data-field="rep-phone-display">—</span></p>
+        </div>
+
+        <div class="profile-edit" id="edit-account" hidden>
+          <form id="form-account" novalidate>
+            <div class="field-group">
+              <label for="rep-email">Email <span aria-label="required">*</span></label>
+              <input type="email" id="rep-email" name="rep_email" required
+                autocomplete="email" aria-describedby="error-rep-email">
+              <span class="error-msg" id="error-rep-email" aria-live="polite" hidden>
+                Pakisulat ang tamang email. <small>Please enter a valid email address.</small>
+              </span>
+            </div>
+            <div class="field-group">
+              <label for="rep-phone">Numero ng Cellphone <small>Mobile number</small> <span aria-label="required">*</span></label>
+              <input type="tel" id="rep-phone" name="rep_phone" required
+                autocomplete="tel" aria-describedby="error-rep-phone">
+              <span class="error-msg" id="error-rep-phone" aria-live="polite" hidden>
+                Pakisulat ang tamang numero. <small>Please enter a valid mobile number.</small>
+              </span>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-primary btn-save" data-section="account">I-save <small>Save</small></button>
+              <button type="button" class="btn-secondary btn-cancel" data-section="account">Kanselahin <small>Cancel</small></button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+
     <!-- ── PERSONAL INFORMATION ───────────────── -->
     <section class="profile-section" id="section-personal">
       <div class="profile-section__header">

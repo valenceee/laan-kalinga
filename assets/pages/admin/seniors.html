@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seniors - LaanKalinga</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
+
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load seniors. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>Seniors</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="seniors.html" aria-current="page">Seniors</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- FILTERS -->
+    <section id="senior-filters">
+      <h2>Filter Seniors</h2>
+      <div class="filter-bar">
+        <input type="search" id="search-input" placeholder="Search by name…" aria-label="Search seniors">
+        <select id="filter-barangay" aria-label="Filter by barangay">
+          <option value="">All Barangays</option>
+          <!-- JS injects options here -->
+        </select>
+        <select id="filter-status" aria-label="Filter by status">
+          <option value="">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="flagged">Flagged</option>
+          <option value="pending">Pending Verification</option>
+        </select>
+        <button type="button" id="btn-add-senior" class="btn-primary">+ Add Senior</button>
+      </div>
+    </section>
+
+    <!-- SENIORS TABLE -->
+    <section id="senior-list">
+      <h2>Senior Records</h2>
+
+      <div id="seniors-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No seniors registered yet.</p>
+      </div>
+
+      <div id="seniors-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No seniors match your search or filter.</p>
+      </div>
+
+      <table id="seniors-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Barangay</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Linked Rep(s)</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="seniors-tbody"></tbody>
+      </table>
+
+      <div id="pagination" class="pagination" hidden>
+        <button type="button" id="btn-prev" class="btn-secondary">Previous</button>
+        <span id="pagination-label"></span>
+        <button type="button" id="btn-next" class="btn-secondary">Next</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- VIEW PROFILE MODAL -->
+  <div id="profile-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="profile-modal-title">Senior Profile</h3>
+
+      <h4>Personal Information</h4>
+      <dl id="profile-personal"></dl>
+
+      <h4>Health Information</h4>
+      <dl id="profile-health"></dl>
+
+      <h4>Emergency Contacts</h4>
+      <dl id="profile-emergency"></dl>
+
+      <h4>Linked Family Representatives</h4>
+      <ul id="profile-reps"></ul>
+
+      <div id="profile-flag-indicator" class="flag-indicator" hidden>
+        <p id="profile-flag-reason"></p>
+      </div>
+
+      <div class="modal__actions">
+        <button type="button" id="profile-close-btn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT SENIOR MODAL -->
+  <div id="senior-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="senior-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="senior-modal-title">Add Senior</h3>
+
+      <label for="senior-first-name">First Name <span aria-label="required">*</span></label>
+      <input type="text" id="senior-first-name" autocomplete="off">
+      <span class="error-msg" id="error-senior-first-name" aria-live="polite" hidden>Please enter a first name.</span>
+
+      <label for="senior-last-name">Last Name <span aria-label="required">*</span></label>
+      <input type="text" id="senior-last-name" autocomplete="off">
+      <span class="error-msg" id="error-senior-last-name" aria-live="polite" hidden>Please enter a last name.</span>
+
+      <label for="senior-dob">Date of Birth <span aria-label="required">*</span></label>
+      <input type="date" id="senior-dob">
+      <span class="error-msg" id="error-senior-dob" aria-live="polite" hidden>Must be between 50 and 110 years of age.</span>
+
+      <label for="senior-gender">Sex <span aria-label="required">*</span></label>
+      <select id="senior-gender">
+        <option value="">— Select —</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="prefer-not-to-say">Prefer not to say</option>
+      </select>
+      <span class="error-msg" id="error-senior-gender" aria-live="polite" hidden>Please select a sex.</span>
+
+      <label for="senior-barangay">Barangay <span aria-label="required">*</span></label>
+      <input type="text" id="senior-barangay" list="modal-barangay-list" autocomplete="off">
+      <datalist id="modal-barangay-list"></datalist>
+      <span class="error-msg" id="error-senior-barangay" aria-live="polite" hidden>Please enter a barangay.</span>
+
+      <label for="senior-address">Street Address <span aria-label="required">*</span></label>
+      <input type="text" id="senior-address" autocomplete="off">
+      <span class="error-msg" id="error-senior-address" aria-live="polite" hidden>Please enter a street address.</span>
+
+      <label for="senior-phone">Contact Number <span aria-label="required">*</span></label>
+      <input type="tel" id="senior-phone" placeholder="09XX XXX XXXX" autocomplete="off">
+      <span class="error-msg" id="error-senior-phone" aria-live="polite" hidden>Please enter a valid mobile number (e.g. 09171234567).</span>
+
+      <label for="senior-philsys">PhilSys ID</label>
+      <input type="text" id="senior-philsys" autocomplete="off">
+      <small>Leave blank if pending follow-up verification.</small>
+
+      <label for="senior-conditions">Chronic Conditions</label>
+      <textarea id="senior-conditions" rows="2"></textarea>
+
+      <label for="senior-emergency-name">Emergency Contact Name <span aria-label="required">*</span></label>
+      <input type="text" id="senior-emergency-name" autocomplete="off">
+      <span class="error-msg" id="error-senior-emergency-name" aria-live="polite" hidden>Please enter an emergency contact name.</span>
+
+      <label for="senior-emergency-phone">Emergency Contact Number <span aria-label="required">*</span></label>
+      <input type="tel" id="senior-emergency-phone" placeholder="09XX XXX XXXX" autocomplete="off">
+      <span class="error-msg" id="error-senior-emergency-phone" aria-live="polite" hidden>Please enter a valid emergency contact number.</span>
+
+      <div class="modal__actions">
+        <button type="button" id="senior-save-btn" class="btn-primary">Save</button>
+        <button type="button" id="senior-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINK / UNLINK FAMILY REP MODAL -->
+  <div id="link-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="link-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="link-modal-title">Manage Linked Family Representatives</h3>
+      <p id="link-modal-senior-name"></p>
+
+      <h4>Currently Linked</h4>
+      <ul id="link-current-list"></ul>
+      <div id="link-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No family representatives linked yet.</p>
+      </div>
+
+      <h4>Link a Representative</h4>
+      <label for="link-search">Search by name or email</label>
+      <div class="search-row">
+        <input type="text" id="link-search" autocomplete="off">
+        <button type="button" id="link-search-btn" class="btn-secondary">Search</button>
+      </div>
+      <ul id="link-search-results"></ul>
+      <div id="link-no-results" class="empty-state" hidden>
+        <p class="empty-state__message">No matching family representatives found.</p>
+      </div>
+
+      <div class="modal__actions">
+        <button type="button" id="link-close-btn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLAG CASE MODAL -->
+  <div id="flag-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="flag-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="flag-modal-title">Flag Senior Record</h3>
+      <p id="flag-modal-senior-name"></p>
+      <small>Flagging marks this record for staff attention. It does not suspend or restrict the senior's account.</small>
+
+      <label for="flag-type">Flag Type <span aria-label="required">*</span></label>
+      <select id="flag-type">
+        <option value="">— Select —</option>
+        <option value="philsys-pending">PhilSys ID Pending Verification</option>
+        <option value="philhealth-pending">PhilHealth Pending Verification</option>
+        <option value="medical-concern">Medical Concern Reported</option>
+        <option value="unreachable">Cannot Be Reached</option>
+        <option value="dispute">Family Dispute / Authorization Issue</option>
+        <option value="other">Other</option>
+      </select>
+      <span class="error-msg" id="error-flag-type" aria-live="polite" hidden>Please select a flag type.</span>
+
+      <label for="flag-reason">Notes <span aria-label="required">*</span></label>
+      <textarea id="flag-reason" rows="3"></textarea>
+      <span class="error-msg" id="error-flag-reason" aria-live="polite" hidden>Please enter a note before flagging.</span>
+
+      <div class="modal__actions">
+        <button type="button" id="flag-confirm-btn" class="btn-primary">Flag Record</button>
+        <button type="button" id="flag-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEACTIVATE / REACTIVATE MODAL -->
+  <div id="deactivate-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="deactivate-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="deactivate-modal-title">Deactivate Senior Record</h3>
+      <p id="deactivate-modal-senior-name"></p>
+
+      <label for="deactivate-reason-type">Reason <span aria-label="required">*</span></label>
+      <select id="deactivate-reason-type">
+        <option value="">— Select —</option>
+        <option value="deceased">Passed Away</option>
+        <option value="relocated">Moved / Relocated</option>
+        <option value="request">Senior or Family Request</option>
+        <option value="other">Other</option>
+      </select>
+      <span class="error-msg" id="error-deactivate-reason-type" aria-live="polite" hidden>Please select a reason.</span>
+
+      <label for="deactivate-notes">Additional Notes</label>
+      <textarea id="deactivate-notes" rows="2"></textarea>
+
+      <div class="modal__actions">
+        <button type="button" id="deactivate-confirm-btn" class="btn-primary">Confirm</button>
+        <button type="button" id="deactivate-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/admin/seniors.js"></script>
+</body>
+</html>

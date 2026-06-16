@@ -7,181 +7,182 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Super Admin Dashboard</h1>
-            <nav>
-                <ul>
-                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
-                    <li><a href="admins.html">Manage Admins</a></li>
-                    <li><a href="audit-logs.html">Audit Logs</a></li>
-                    <li><a href="settings.html">Settings</a></li>
-                    <li><a href="../public/index.html">Logout</a></li>
-                </ul>
-            </nav>
-            <hr>
-        </header>
-        <main>
-            <section class="stats-overview">
-                <h2>Booking Analytics Overview</h2>
-                <p>Monitor system traffic and booking volume across all facilities.</p>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Bookings (Today)</td>
-                            <td>45</td>
-                        </tr>
-                        <tr>
-                            <td>Bookings (This Week)</td>
-                            <td>312</td>
-                        </tr>
-                        <tr>
-                            <td>Bookings (This Month)</td>
-                            <td>1,204</td>
-                        </tr>
-                        <tr>
-                            <td>Total System Users</td>
-                            <td<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Admin Dashboard - LaanKalinga</title>
-    <link rel="stylesheet" href="../../css/style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Super Admin Dashboard</h1>
-            <nav>
-                <ul>
-                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
-                    <li><a href="admins.html">Manage Admins</a></li>
-                    <li><a href="audit-logs.html">Audit Logs</a></li>
-                    <li><a href="settings.html">Settings</a></li>
-                    <li><a href="../public/login.html">Logout</a></li>
-                </ul>
-            </nav>
-            <hr>
-        </header>
 
-        <main>
-            <section class="stats-overview">
-                <h2>Booking Analytics Overview</h2>
-                <p>Monitor system traffic and booking volume across all facilities.</p>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Bookings (Today)</td>
-                            <td>45</td>
-                        </tr>
-                        <tr>
-                            <td>Bookings (This Week)</td>
-                            <td>312</td>
-                        </tr>
-                        <tr>
-                            <td>Bookings (This Month)</td>
-                            <td>1,204</td>
-                        </tr>
-                        <tr>
-                            <td>Total System Users</td>
-                            <td>2,543</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <br>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <section class="override-actions">
-                <h2>System Overrides</h2>
-                <p>Force-cancel any appointment across the entire system. This action overrides all standard rules.</p>
-                <form action="#" method="POST">
-                    <fieldset>
-                        <legend>Appointment Cancellation Override</legend>
-                        <p>
-                            <label for="booking-id">Booking ID:</label>
-                            <input type="text" id="booking-id" name="booking_id" placeholder="Enter Booking ID" required>
-                        </p>
-                        <p>
-                            <label for="cancel-reason">Reason for Override:</label><br>
-                            <textarea id="cancel-reason" name="cancel_reason" rows="3" cols="50" required></textarea>
-                        </p>
-                        <p>
-                            <button type="submit" class="btn btn-danger">Force Cancel Appointment</button>
-                        </form>
-                    </fieldset>
-            </section>
-            <br>
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
 
-            <section class="quick-links">
-                <h2>Administrative Views</h2>
-                <ul>
-                    <li><a href="../admin/dashboard.html">View Standard Admin Dashboard</a></li>
-                    <li><a href="../admin/users.html">View All User Accounts Directory</a></li>
-                    <li><a href="../staff/dashboard.html">View Staff Operational Dashboard</a></li>
-                </ul>
-            </section>
-        </main>
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load dashboard data. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
 
-        <hr>
+  <div class="banner-warning" id="banner-maintenance" role="alert" aria-live="assertive" hidden>
+    <p>Maintenance Mode is currently <strong>ON</strong>. The system is not accessible to regular users.</p>
+  </div>
 
-        <footer>
-            <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
-        </footer>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <header>
+    <h1>Super Admin Dashboard</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a href="admins.html">Manage Admins</a></li>
+        <li><a href="audit-logs.html">Audit Logs</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- STATS -->
+    <section id="statistics">
+      <h2>System Overview</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Bookings Today</p>
+          <p class="stat-card__value" id="stat-today">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Bookings This Week</p>
+          <p class="stat-card__value" id="stat-week">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Bookings This Month</p>
+          <p class="stat-card__value" id="stat-month">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Total System Users</p>
+          <p class="stat-card__value" id="stat-users">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Active Admins</p>
+          <p class="stat-card__value" id="stat-admins">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Flagged Cases</p>
+          <p class="stat-card__value" id="stat-flagged">0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM ALERTS -->
+    <section id="system-alerts">
+      <h2>System Alerts</h2>
+
+      <div id="alerts-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No system alerts. Everything looks good.</p>
+      </div>
+
+      <ul id="alerts-list" hidden></ul>
+    </section>
+
+    <!-- SYSTEM OVERRIDES -->
+    <section id="system-overrides">
+      <h2>System Overrides</h2>
+      <p>These actions bypass standard rules and are logged in the audit trail.</p>
+      <div class="action-buttons">
+        <button type="button" id="btn-force-cancel" class="btn-primary">Force Cancel Appointment</button>
+        <button type="button" id="btn-toggle-maintenance" class="btn-primary">Toggle Maintenance Mode</button>
+      </div>
+    </section>
+
+    <!-- RECENT CRITICAL LOGS -->
+    <section id="recent-logs">
+      <h2>Recent Critical &amp; Warning Events</h2>
+
+      <div id="logs-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No critical or warning events on record.</p>
+      </div>
+
+      <table id="logs-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">Timestamp</th>
+            <th scope="col">User</th>
+            <th scope="col">Action</th>
+            <th scope="col">Severity</th>
+            <th scope="col">Target</th>
+          </tr>
+        </thead>
+        <tbody id="logs-tbody"></tbody>
+      </table>
+
+      <a href="audit-logs.html" id="view-all-logs">View all audit logs →</a>
+    </section>
+
+    <!-- JUMP TO -->
+    <section id="jump-to">
+      <h2>Jump To</h2>
+      <div class="action-buttons">
+        <a href="../admin/dashboard.html" class="btn-secondary">Admin Dashboard</a>
+        <a href="../staff/dashboard.html" class="btn-secondary">Staff Dashboard</a>
+        <a href="audit-logs.html" class="btn-secondary">Audit Logs</a>
+        <a href="admins.html" class="btn-secondary">Manage Admins</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FORCE CANCEL MODAL -->
+  <div id="force-cancel-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="force-cancel-title" hidden>
+    <div class="modal__box">
+      <h3 id="force-cancel-title">Force Cancel Appointment</h3>
+      <p>This overrides all standard rules. The action will be logged.</p>
+
+      <label for="booking-id">Booking ID <span aria-label="required">*</span></label>
+      <input type="text" id="booking-id" autocomplete="off" placeholder="e.g. BK-1052">
+      <span class="error-msg" id="error-booking-id" aria-live="polite" hidden>Please enter a booking ID.</span>
+
+      <label for="cancel-reason">Reason <span aria-label="required">*</span></label>
+      <textarea id="cancel-reason" rows="3"></textarea>
+      <span class="error-msg" id="error-cancel-reason" aria-live="polite" hidden>Please enter a reason.</span>
+
+      <div class="modal__actions">
+        <button type="button" id="force-cancel-confirm-btn" class="btn-primary">Confirm Force Cancel</button>
+        <button type="button" id="force-cancel-close-btn" class="btn-secondary">Cancel</button>
+      </div>
     </div>
-</body>
-</html>>2,543</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <br>
-            <section class="override-actions">
-                <h2>System Overrides</h2>
-                <p>Force-cancel any appointment across the entire system. This action overrides all standard rules.</p>
-                <form action="#" method="POST">
-                    <fieldset>
-                        <legend>Appointment Cancellation Override</legend>
-                        <p>
-                            <label for="booking-id">Booking ID:</label>
-                            <input type="text" id="booking-id" name="booking_id" placeholder="Enter Booking ID" required>
-                        </p>
-                        <p>
-                            <label for="cancel-reason">Reason for Override:</label><br>
-                            <textarea id="cancel-reason" name="cancel_reason" rows="3" cols="50" required></textarea>
-                        </p>
-                        <p>
-                            <button type="submit" class="btn btn-danger">Force Cancel Appointment</button>
-                        </p>
-                    </fieldset>
-                </form>
-            </section>
-            <br>
-            <section class="quick-links">
-                <h2>Administrative Views</h2>
-                <ul>
-                    <li><a href="../admin/dashboard.html">View Standard Admin Dashboard</a></li>
-                    <li><a href="../admin/users.html">View All User Accounts Directory</a></li>
-                    <li><a href="../staff/dashboard.html">View Staff Operational Dashboard</a></li>
-                </ul>
-            </section>
-        </main>
-        <hr>
-        <footer>
-            <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
-        </footer>
+  </div>
+
+  <!-- MAINTENANCE MODE MODAL -->
+  <div id="maintenance-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="maintenance-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="maintenance-modal-title">Toggle Maintenance Mode</h3>
+      <p id="maintenance-modal-desc"></p>
+      <small>While maintenance mode is ON, only super admins can access the system.</small>
+
+      <label for="maintenance-reason">Reason <span aria-label="required">*</span></label>
+      <textarea id="maintenance-reason" rows="2"></textarea>
+      <span class="error-msg" id="error-maintenance-reason" aria-live="polite" hidden>Please enter a reason.</span>
+
+      <div class="modal__actions">
+        <button type="button" id="maintenance-confirm-btn" class="btn-primary">Confirm</button>
+        <button type="button" id="maintenance-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
     </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/superadmin/dashboard.js"></script>
 </body>
 </html>

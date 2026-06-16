@@ -16,12 +16,12 @@
 
   // dynamic dashboard link based on role
   const userRole = sessionStorage.getItem('userRole'); // 'senior' or 'family'
-  const dashboardPath = userRole === 'family' ? '../staff/fam-dashboard.html' : 'dashboard.html';
+  const dashboardPath = '../senior/dashboard.html';
   const navDashboardLink = document.getElementById('nav-dashboard-link');
   if (navDashboardLink) navDashboardLink.href = dashboardPath;
 
 
-  // zoom controls — same pattern as dashboard
+  // zoom controls
   const root = document.documentElement;
   const ZOOM_STEP = 0.1;
   const ZOOM_MIN  = 0.8;
@@ -30,10 +30,10 @@
 
   function applyZoom(level) {
     root.style.fontSize = `${level * 100}%`;
-    sessionStorage.setItem(ZOOM_KEY, level);
-  }
+    localStorage.setItem(ZOOM_KEY, level);
+}
 
-  let currentZoom = parseFloat(sessionStorage.getItem(ZOOM_KEY)) || 1;
+  let currentZoom = parseFloat(localStorage.getItem(ZOOM_KEY)) || 1;
   applyZoom(currentZoom);
 
   document.getElementById('zoom-in').addEventListener('click', () => {
@@ -55,7 +55,7 @@
   // logout
   document.getElementById('logout-link').addEventListener('click', (e) => {
     e.preventDefault();
-    sessionStorage.removeItem(ZOOM_KEY);
+    localStorage.removeItem(ZOOM_KEY);
     sessionStorage.removeItem('userRole');
     window.location.href = '../public/index.html';
   });
@@ -89,7 +89,7 @@
       service: 'Pagkuha ng Gamot / Medicine Pick-up',
       location: 'Barangay Health Center',
       volunteer: '',
-      status: 'waiting',
+      status: 'ongoing',
       notes: '',
       followUp: ''
     },
@@ -99,7 +99,7 @@
       service: 'Bakuna / Vaccination',
       location: 'Barangay Health Center',
       volunteer: '',
-      status: 'cancelled',
+      status: 'completed',
       notes: '',
       cancelReason: 'Walang available na volunteer sa araw na iyon.',
       cancelDate: '2026-05-27',

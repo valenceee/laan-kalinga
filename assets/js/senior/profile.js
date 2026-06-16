@@ -16,7 +16,7 @@
 
   // dynamic dashboard link based on role
   const userRole = sessionStorage.getItem('userRole');
-  const dashboardPath = userRole === 'family' ? '../staff/fam-dashboard.html' : 'dashboard.html';
+  const dashboardPath = '../senior/dashboard.html'; 
   const navDashboardLink = document.getElementById('nav-dashboard-link');
   if (navDashboardLink) navDashboardLink.href = dashboardPath;
 

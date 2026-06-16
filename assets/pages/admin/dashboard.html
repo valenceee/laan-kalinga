@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,92 +7,149 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Admin Dashboard</h1>
-            <nav>
-                <ul>
-                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
-                    <li><a href="users.html">Users</a></li>
-                    <li><a href="../public/index.html">Logout</a></li>
-                </ul>
-            </nav>
-        </header>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-        <main>
-            <section class="stats-overview">
-                <h2>Overview</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Total Users</h3>
-                        <p class="stat-number">1,245</p> <!--sample data, replace with dynamic value -->
-                    </div>
-                    <div class="stat-card">
-                        <h3>Active Seniors</h3>
-                        <p class="stat-number">856</p> <!--sample data, replace with dynamic value -->  
-                    </div>
-                    <div class="stat-card">
-                        <h3>Staff Members</h3>
-                        <p class="stat-number">42</p> <!--sample data, replace with dynamic value -->
-                    </div>
-                    <div class="stat-card">
-                        <h3>Volunteers</h3>
-                        <p class="stat-number">128</p> <!--sample data, replace with dynamic value -->
-                    </div>
-                </div>
-            </section>
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>No internet connection. Please check your network and try again.</p>
+  </div>
 
-            <section class="recent-activity">
-                <h2>Recent Activity</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Action</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Kier Justine Baldomero</td> <!--sample data, replace with dynamic value -->
-                            <td>New Registration</td>
-                            <td>2025-01-15</td>
-                            <td>Active</td>
-                        </tr>
-                        <tr>
-                            <td>Katherine Salvacion</td> <!--sample data, replace with dynamic value -->
-                            <td>Appointment Booked</td>
-                            <td>2025-01-15</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr>
-                            <td>Carmen Rianna</td> <!--sample data, replace with dynamic value -->
-                            <td>Profile Updated</td>
-                            <td>2025-01-14</td>
-                            <td>Active</td>
-                        </tr>
-                        <tr>
-                            <td>Jayson Mendoza </td> <!--sample data, replace with dynamic value -->
-                            <td>Visit Completed</td>
-                            <td>2025-01-14</td>
-                            <td>Completed</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+  <div class="banner-error" id="banner-load-error" role="alert" aria-live="assertive" hidden>
+    <p>Could not load dashboard data. <button type="button" id="btn-retry-load" class="btn-secondary">Retry</button></p>
+  </div>
 
-            <section class="quick-actions">
-                <h2>Quick Actions</h2>
-                <div class="action-buttons">
-                    <a href="users.html" class="btn">Manage Users</a>
-                </div>
-            </section>
-        </main>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
 
-        <footer>
-            <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
-        </footer>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a href="seniors.html">Seniors</a></li>
+        <li><a href="appointments.html">Appointments</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- OVERVIEW STATS -->
+    <section id="statistics">
+      <h2>Overview</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Total Seniors</p>
+          <p class="stat-card__value" id="stat-seniors">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Active Staff</p>
+          <p class="stat-card__value" id="stat-staff">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Active Volunteers</p>
+          <p class="stat-card__value" id="stat-volunteers">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Pending Appointments</p>
+          <p class="stat-card__value" id="stat-appointments">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Active Flagged Cases</p>
+          <p class="stat-card__value" id="stat-flagged">0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM ALERTS -->
+    <section id="system-alerts">
+      <h2>System Alerts</h2>
+
+      <div id="alerts-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No system alerts. Everything looks good.</p>
+      </div>
+
+      <ul id="alerts-list" hidden></ul>
+    </section>
+
+    <!-- QUICK ACTIONS -->
+    <section id="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="action-buttons">
+        <button type="button" id="btn-add-senior" class="btn-primary">Add Senior</button>
+        <button type="button" id="btn-add-account" class="btn-primary">Add Account</button>
+      </div>
+    </section>
+
+    <!-- RECENT ACTIVITY -->
+    <section id="recent-activity">
+      <h2>Recent Activity</h2>
+
+      <div id="activity-empty" class="empty-state" hidden>
+        <p class="empty-state__message">No recent activity.</p>
+      </div>
+
+      <table id="activity-table" hidden>
+        <thead>
+          <tr>
+            <th scope="col">User</th>
+            <th scope="col">Action</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody id="activity-tbody"></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- SEND ANNOUNCEMENT MODAL -->
+  <div id="announcement-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="announcement-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="announcement-modal-title">Send Announcement</h3>
+
+      <label for="announcement-audience">Target Audience:</label>
+      <select id="announcement-audience">
+        <option value="all">All Users</option>
+        <option value="seniors">Senior Residents Only</option>
+        <option value="volunteers">Volunteers Only</option>
+        <option value="staff">Staff Only</option>
+        <option value="families">Family Representatives Only</option>
+      </select>
+
+      <label for="announcement-subject">Subject:</label>
+      <input type="text" id="announcement-subject" autocomplete="off">
+      <span class="error-msg" id="error-announcement-subject" aria-live="polite" hidden>Please enter a subject.</span>
+
+      <label for="announcement-body">Message:</label>
+      <textarea id="announcement-body" rows="4"></textarea>
+      <span class="error-msg" id="error-announcement-body" aria-live="polite" hidden>Please enter a message.</span>
+
+      <div class="modal__actions">
+        <button type="button" id="announcement-send-btn" class="btn-primary">Send</button>
+        <button type="button" id="announcement-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
     </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL -->
+  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+    <div class="modal__box">
+      <h3 id="confirm-modal-title">Are you sure?</h3>
+      <p id="confirm-modal-message"></p>
+      <div class="modal__actions">
+        <button type="button" id="confirm-modal-yes" class="btn-primary">Yes</button>
+        <button type="button" id="confirm-modal-no" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
+  </footer>
+
+  <script src="../../js/admin/dashboard.js"></script>
 </body>
 </html>

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-
   <a href="#main-content" class="skip-link">Laktawan ang nilalaman / Skip to main content</a>
 
   <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
@@ -18,59 +17,72 @@
     <p>Nag-expire ang iyong session. <small>Your session expired. Please log in again.</small></p>
   </div>
 
-  <!-- Zoom controls -->
   <div class="zoom-controls" aria-label="Laki ng teksto / Text size">
-    <button type="button" id="zoom-in" aria-label="Palakihin ang teksto / Increase text size">+</button>
+    <button type="button" id="zoom-in"    aria-label="Palakihin ang teksto / Increase text size">+</button>
     <button type="button" id="zoom-reset" aria-label="I-reset ang laki / Reset text size">A</button>
-    <button type="button" id="zoom-out" aria-label="Paliitin ang teksto / Decrease text size">−</button>
+    <button type="button" id="zoom-out"   aria-label="Paliitin ang teksto / Decrease text size">−</button>
   </div>
 
   <header>
-    <h1 id="welcome-message">Maligayang Pagbabalik!<h1>
-      <nav aria-label="Main navigation">
-        <ul>
-          <li><a href="dashboard.html" id="nav-dashboard-link">Dashboard</a></li>
-          <li><a href="profile.html">Profile</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="history.html" aria-current="page">History</a></li>
-          <li><a href="#" id="logout-link">Logout</a></li>
-        </ul>
-      </nav>
+    <h1 id="welcome-message">Maligayang Pagbabalik!</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="book.html">Book</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main id="main-content">
 
-    <section id="welcome-overview">
-      <h2>Buod ng Dashboard <small>Dashboard Overview</small></h2>
-      <p>Ito ang buod ng iyong mga susunod na aktibidad. <small>Here is a summary of your upcoming activities.</small></p>
+    <!-- empty state: family rep with no linked seniors yet -->
+    <div id="dashboard-empty" hidden>
+      <p>Wala ka pang nakaugnay na senior. <small>You have no linked seniors yet.</small></p>
+      <a href="fam-setup.html" class="btn-primary">Magdagdag ng Senior <small>Add a Senior</small></a>
+    </div>
+
+    <!-- senior switcher: only shown for family reps with multiple linked seniors -->
+    <section id="senior-switcher-section" hidden>
+      <h2 id="switcher-heading">Iyong Nakaugnay na Senior <small>Your Linked Senior</small></h2>
+      <div class="field-group">
+        <label for="senior-switcher">Piliin ang senior <small>Select a senior</small></label>
+        <select id="senior-switcher">
+          <!-- populated by JS -->
+        </select>
+      </div>
     </section>
 
-    <!-- Upcoming visit -->
-    <section id="upcoming-appointment">
-      <h3>Ang Iyong Susunod na Bisita <small>Your Next Visit</small></h3>
+    <!-- upcoming visit -->
+    <section id="upcoming-appointment" aria-labelledby="upcoming-heading">
+      <h2 id="upcoming-heading">Susunod na Bisita <small>Next Scheduled Visit</small></h2>
 
-      <div id="appointment-details">
-        <p><strong>Petsa / Date:</strong> Lunes, Hunyo 15, 2026</p>
-        <p><strong>Oras / Time:</strong> 9:00 AM</p>
-        <p><strong>Serbisyo / Service:</strong> Pangkalahatang Pagsusuri / General Check-up</p>
-        <p><strong>Lugar / Location:</strong> Sa tahanan / Home Visit</p>
-        <p><strong>Boluntaryo / Volunteer:</strong> Maria Santos - <a href="tel:+639171234567">0917 123 4567</a></p>
+      <div id="appointment-details" hidden>
+        <p><strong>Para kay / For:</strong> <span id="appt-senior-name">—</span></p>
+        <p><strong>Petsa / Date:</strong> <span id="appt-date">—</span></p>
+        <p><strong>Oras / Time:</strong> <span id="appt-time">—</span></p>
+        <p><strong>Serbisyo / Service:</strong> <span id="appt-service">—</span></p>
+        <p><strong>Lugar / Location:</strong> <span id="appt-location">—</span></p>
+        <p><strong>Boluntaryo / Volunteer:</strong> <span id="appt-volunteer">—</span> —
+          <a id="appt-volunteer-phone" href="#">—</a></p>
 
         <div class="form-actions">
           <button type="button" id="btn-reschedule">Ibahin ang Iskedyul <small>Reschedule</small></button>
-          <button type="button" id="btn-cancel">Kanselahin <small>Cancel</small></button>
+          <button type="button" id="btn-cancel">Kanselahin <small>Cancel Visit</small></button>
         </div>
       </div>
 
-      <!-- Empty state -->
       <div id="appointment-empty" hidden>
-        <p>Walang naka-schedule na bisita sa ngayon. <small>You have no upcoming visits.</small></p>
-        <a href="book.html" class="btn-primary">Humiling ng Bisita <small>Request a Visit</small></a>
+        <p>Walang naka-schedule na bisita sa ngayon. <small>No upcoming visits scheduled.</small></p>
+        <a href="book.html" class="btn-primary" id="btn-book">Humiling ng Bisita <small>Request a Visit</small></a>
       </div>
     </section>
 
-    <!-- Reschedule modal -->
-    <div class="modal" id="reschedule-modal" role="dialog" aria-modal="true" aria-labelledby="reschedule-title" hidden>
+    <!-- reschedule modal -->
+    <div class="modal" id="reschedule-modal" role="dialog" aria-modal="true"
+      aria-labelledby="reschedule-title" hidden>
       <div class="modal-content">
         <h3 id="reschedule-title">Ibahin ang Iskedyul <small>Reschedule Visit</small></h3>
 
@@ -79,20 +91,20 @@
           <ul class="error-summary__list" id="reschedule-error-list"></ul>
         </div>
 
-        <div class="field-group" id="group-reschedule-date">
+        <div class="field-group">
           <label for="reschedule-date">Bagong Petsa <small>New date</small> <span aria-label="required">*</span></label>
           <small>Lunes hanggang Biyernes lamang. / Monday to Friday only.</small>
           <input type="date" id="reschedule-date" name="reschedule_date" required
-                 aria-describedby="error-reschedule-date">
+            aria-describedby="error-reschedule-date">
           <span class="error-msg" id="error-reschedule-date" aria-live="polite" hidden>
             Pumili ng valid na araw (Lunes–Biyernes). <small>Please pick a valid weekday.</small>
           </span>
         </div>
 
-        <div class="field-group" id="group-reschedule-time">
+        <div class="field-group">
           <label for="reschedule-time">Bagong Oras <small>New time</small> <span aria-label="required">*</span></label>
           <select id="reschedule-time" name="reschedule_time" required
-                  aria-describedby="error-reschedule-time">
+            aria-describedby="error-reschedule-time">
             <option value="">— Pumili / Choose —</option>
             <option value="08:00">8:00 AM</option>
             <option value="09:00">9:00 AM</option>
@@ -110,36 +122,40 @@
 
         <div class="form-actions">
           <button type="button" id="btn-reschedule-confirm" class="btn-primary">Kumpirmahin <small>Confirm</small></button>
-          <button type="button" id="btn-reschedule-cancel" class="btn-secondary">Hindi na <small>Cancel</small></button>
+          <button type="button" id="btn-reschedule-cancel"  class="btn-secondary">Hindi na <small>Cancel</small></button>
         </div>
       </div>
     </div>
 
-    <!-- Cancel confirmation -->
-    <div class="modal" id="cancel-modal" role="dialog" aria-modal="true" aria-labelledby="cancel-title" hidden>
+    <!-- cancel confirmation modal -->
+    <div class="modal" id="cancel-modal" role="dialog" aria-modal="true"
+      aria-labelledby="cancel-title" hidden>
       <div class="modal-content">
         <h3 id="cancel-title">Sigurado ka ba? <small>Are you sure?</small></h3>
-        <p>Kakanselahin ang iyong bisita sa Lunes, Hunyo 15. <small>This will cancel your visit on Monday, June 15.</small></p>
+        <p id="cancel-modal-msg">Kakanselahin ang bisita. <small>This will cancel the scheduled visit.</small></p>
         <div class="form-actions">
-          <button type="button" id="btn-cancel-confirm" class="btn-primary">Oo, Kanselahin <small>Yes, Cancel</small></button>
-          <button type="button" id="btn-cancel-dismiss" class="btn-secondary">Hindi na <small>No, Keep It</small></button>
+          <button type="button" id="btn-cancel-confirm"  class="btn-primary">Oo, Kanselahin <small>Yes, Cancel</small></button>
+          <button type="button" id="btn-cancel-dismiss"  class="btn-secondary">Hindi na <small>No, Keep It</small></button>
         </div>
       </div>
     </div>
 
-    <!-- Quick actions -->
-    <section id="quick-links">
-      <h3>Mga Aksyon <small>Quick Actions</small></h3>
+    <!-- quick actions -->
+    <section id="quick-links" aria-labelledby="quick-links-heading">
+      <h3 id="quick-links-heading">Mga Aksyon <small>Quick Actions</small></h3>
       <ul>
-        <li><a href="book.html">+ Humiling ng Bagong Bisita <small>Request a New Visit</small></a></li>
-        <li><a href="profile.html">I-update ang Medikal na Impormasyon <small>Update Medical Profile</small></a></li>
+        <li><a href="book.html" id="link-book">+ Humiling ng Bagong Bisita <small>Request a New Visit</small></a></li>
+        <li><a href="profile.html">I-update ang Impormasyon <small>Update Profile</small></a></li>
         <li><a href="history.html">Tingnan ang Nakaraang Bisita <small>View Past Visits</small></a></li>
+        <li id="quick-add-senior" hidden>
+          <a href="fam-setup.html">+ Magdagdag ng Senior <small>Add Another Senior</small></a>
+        </li>
       </ul>
     </section>
 
-    <!-- Hotline -->
-    <section class="hotline-cta">
-      <h3>Kailangan ng Tulong? <small>Need Help?</small></h3>
+    <!-- hotline -->
+    <section class="hotline-cta" aria-labelledby="hotline-heading">
+      <h3 id="hotline-heading">Kailangan ng Tulong? <small>Need Help?</small></h3>
       <p class="hotline-number"><a href="tel:+6302XXXXXXXX">(02) XXXX XXXX</a></p>
       <p>Lunes - Biyernes, 8 AM - 5 PM</p>
     </section>
