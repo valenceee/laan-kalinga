@@ -57,6 +57,29 @@ if (!$firstName || !$lastName || !$phone || !$dob || !$gender || !$civilStatus |
     redirect('missing_personal_fields');
 }
 
+// Start OTP Gate
+require_once __DIR__ . '/helpers/generateOTP.php';
+
+$otpVerified = ($_SESSION['otp_verified'] ?? false) === true;
+$otpEmail    = $_SESSION['otp_email'] ?? '';
+
+if (!$otpVerified || $otpEmail !== $email) {
+    $_SESSION['pending_registration'] = $_POST;
+    $_SESSION['pending_role']         = 'senior'; // change to 'volunteer' or 'family'
+    $_SESSION['otp_verified']         = false;
+
+    if (!generateAndSendOTP($email)) {
+        redirect('otp_send_failed'); // use redirectError() for volunteer
+    }
+
+    header('Location: ../pages/public/verify-otp.html');
+    exit;
+}
+
+// Clear after use
+unset($_SESSION['otp_verified'], $_SESSION['otp_email']);
+// End of OTP Gate
+
 // Find user
 $query = $connection->prepare("
     SELECT * FROM users

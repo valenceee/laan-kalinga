@@ -9,7 +9,6 @@ if($_SERVER["REQUEST_METHOD"] !== "POST"){
     exit("forbidden");
 }
 
-$errors = [];
 $userId = $_SESSION['user_id'];
  
 $serviceType      = $_POST['service-type'] ?? '';

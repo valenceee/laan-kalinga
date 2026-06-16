@@ -145,6 +145,29 @@ if ($password !== $confirmPassword) {
     redirectError('password_mismatch');
 }
 
+// Start OTP Gate
+require_once __DIR__ . '/helpers/generateOTP.php';
+
+$otpVerified = ($_SESSION['otp_verified'] ?? false) === true;
+$otpEmail    = $_SESSION['otp_email'] ?? '';
+
+if (!$otpVerified || $otpEmail !== $email) {
+    $_SESSION['pending_registration'] = $_POST;
+    $_SESSION['pending_role']         = 'volunteer'; // change to 'volunteer' or 'family'
+    $_SESSION['otp_verified']         = false;
+
+    if (!generateAndSendOTP($email)) {
+        redirectError('otp_send_failed'); // use redirectError() for volunteer
+    }
+
+    header('Location: ../pages/public/verify-otp.html');
+    exit;
+}
+
+// Clear after use
+unset($_SESSION['otp_verified'], $_SESSION['otp_email']);
+// End of OTP Gate
+
 // CHECK EMAIL DUPLICATE
 
 $checkEmail = $connection->prepare(

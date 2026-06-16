@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Email - Laan-Kalinga</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <main id="main-content">
+    <header class="register-header">
+      <a href="index.html" class="logo-link">
+        <img src="../../img/logo.png" alt="LaanKalinga Logo" class="logo">
+      </a>
+      <h1>I-verify ang Email <small>Verify Your Email</small></h1>
+    </header>
+
+    <div class="form-step" style="max-width:480px; margin:2rem auto;">
+      <p>
+        Nagpadala kami ng 6-digit na code sa iyong email.
+        <small>We sent a 6-digit code to your email. It expires in 10 minutes.</small>
+      </p>
+
+      <div class="error-summary" id="error-box" role="alert" hidden>
+        <p id="error-msg"></p>
+      </div>
+
+      <div class="field-group">
+        <label for="otp-input">OTP Code <span aria-label="required">*</span></label>
+        <input type="text" id="otp-input" inputmode="numeric" pattern="\d{6}"
+          maxlength="6" placeholder="000000" autocomplete="one-time-code">
+      </div>
+
+      <div class="form-actions">
+        <button id="btn-verify" class="btn-primary">
+          I-verify <small>Verify</small>
+        </button>
+        <button id="btn-resend" class="btn-secondary" type="button">
+          Magpadala muli <small>Resend OTP</small>
+        </button>
+      </div>
+
+      <p id="resend-msg" hidden style="color:green; margin-top:1rem;">
+        Napadala na ang bagong OTP. <small>A new OTP has been sent.</small>
+      </p>
+    </div>
+  </main>
+
+  <script>
+    const btnVerify = document.getElementById('btn-verify');
+    const btnResend = document.getElementById('btn-resend');
+    const errorBox  = document.getElementById('error-box');
+    const errorMsg  = document.getElementById('error-msg');
+    const resendMsg = document.getElementById('resend-msg');
+
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorBox.hidden = false;
+    }
+
+    btnVerify.addEventListener('click', async () => {
+      const otp = document.getElementById('otp-input').value.trim();
+      if (!/^\d{6}$/.test(otp)) {
+        showError('Pakisulat ang 6-digit na code. / Please enter the 6-digit code.');
+        return;
+      }
+
+      btnVerify.disabled = true;
+      errorBox.hidden = true;
+
+      const fd = new FormData();
+      fd.append('action', 'verify');
+      fd.append('otp', otp);
+
+      const res  = await fetch('../../php/verifyOTP.php', { method: 'POST', body: fd });
+      const data = await res.json();
+
+      if (data.success) {
+        // Use a hidden form POST so completeRegistration.php sees REQUEST_METHOD === POST
+        const form  = document.createElement('form');
+        form.method = 'POST';
+        form.action = '../../php/completeRegistration.php';
+ 
+        const field   = document.createElement('input');
+        field.type    = 'hidden';
+        field.name    = 'otp_confirmed';
+        field.value   = '1';
+        form.appendChild(field);
+ 
+        document.body.appendChild(form);
+        form.submit();
+      } else {
+        showError(data.message);
+        btnVerify.disabled = false;
+      }
+    });
+
+    btnResend.addEventListener('click', async () => {
+      btnResend.disabled = true;
+      resendMsg.hidden = true;
+      errorBox.hidden  = true;
+
+      const fd = new FormData();
+      fd.append('action', 'resend');
+
+      const res  = await fetch('../../php/verifyOTP.php', { method: 'POST', body: fd });
+      const data = await res.json();
+
+      if (data.success) {
+        resendMsg.hidden = false;
+      } else {
+        showError('Hindi mapadala ang OTP. / Could not resend OTP.');
+      }
+
+      // 30 second cooldown before allowing resend again
+      setTimeout(() => { btnResend.disabled = false; }, 30000);
+    });
+  </script>
+</body>
+</html>
