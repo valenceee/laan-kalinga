@@ -192,12 +192,6 @@ function hidePageError() {
 
 // simulated submission — replace with real fetch() call (wala pa tong backend API, so just simulating success or error response)
 function submitBooking() {
-    // Example: simulate a server error
-    // showPageError('The time slot you chose is no longer available. Please pick a different time.');
-
-    // On success, redirect to confirmation page:
-    // window.location.href = 'confirmation.html';
-
-    alert('Booking submitted! (Integrate real API here.)');
+    form.submit();
 }
 })();

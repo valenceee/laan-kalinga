@@ -289,15 +289,7 @@
     }
 
     summaryBox.hidden = true;
-
-    const submitBtn = document.getElementById('submit-btn');
-    submitBtn.disabled    = true;
-    submitBtn.textContent = 'Nagsusumite… / Submitting…';
-
-    // TODO: POST /api/register/senior
-    document.getElementById('register-senior-form').hidden = true;
-    document.getElementById('register-success').hidden = false;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    form.submit();
   });
 
 })();

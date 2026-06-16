@@ -41,7 +41,8 @@
       <ul class="error-summary__list" id="error-summary-list"></ul>
     </div>
 
-    <form id="register-volunteer-form" action="#" method="POST" enctype="multipart/form-data" novalidate>
+    <form id="register-volunteer-form" action="../../php/registerVolunteer.php" method="POST" enctype="multipart/form-data" novalidate>
+      <input type="hidden" id="role-input" name="role" value="volunteer">
 
       <!-- STEP 1: PERSONAL INFORMATION -->
       <fieldset class="form-step">
@@ -107,6 +108,26 @@
                    autocomplete="tel" aria-describedby="error-phone">
             <span class="error-msg" id="error-phone" aria-live="polite" hidden>
               Please enter a valid mobile number (e.g. 09171234567).
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group" id="group-password">
+            <label for="password">Password <span aria-label="required">*</span></label>
+            <input type="password" id="password" name="password" required placeholder="Minimum 8 characters"
+                   autocomplete="new-password" aria-describedby="error-password">
+            <span class="error-msg" id="error-password" aria-live="polite" hidden>
+              Please enter a password with at least 8 characters.
+            </span>
+          </div>
+
+          <div class="field-group" id="group-confirm-password">
+            <label for="confirm-password">Confirm password <span aria-label="required">*</span></label>
+            <input type="password" id="confirm-password" name="confirm_password" required placeholder="Re-enter password"
+                   autocomplete="new-password" aria-describedby="error-confirm-password">
+            <span class="error-msg" id="error-confirm-password" aria-live="polite" hidden>
+              Passwords must match.
             </span>
           </div>
         </div>
@@ -270,13 +291,13 @@
 
         <div class="field-group" id="group-availability-days">
           <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" name="availability_days" value="monday"> Monday</label>
-            <label class="checkbox-label"><input type="checkbox" name="availability_days" value="tuesday"> Tuesday</label>
-            <label class="checkbox-label"><input type="checkbox" name="availability_days" value="wednesday"> Wednesday</label>
-            <label class="checkbox-label"><input type="checkbox" name="availability_days" value="thursday"> Thursday</label>
-            <label class="checkbox-label"><input type="checkbox" name="availability_days" value="friday"> Friday</label>
-            <label class="checkbox-label"><input type="checkbox" name="availability_days" value="saturday"> Saturday</label>
-            <label class="checkbox-label"><input type="checkbox" name="availability_days" value="sunday"> Sunday</label>
+            <label class="checkbox-label"><input type="checkbox" name="availability_days[]" value="monday"> Monday</label>
+            <label class="checkbox-label"><input type="checkbox" name="availability_days[]" value="tuesday"> Tuesday</label>
+            <label class="checkbox-label"><input type="checkbox" name="availability_days[]" value="wednesday"> Wednesday</label>
+            <label class="checkbox-label"><input type="checkbox" name="availability_days[]" value="thursday"> Thursday</label>
+            <label class="checkbox-label"><input type="checkbox" name="availability_days[]" value="friday"> Friday</label>
+            <label class="checkbox-label"><input type="checkbox" name="availability_days[]" value="saturday"> Saturday</label>
+            <label class="checkbox-label"><input type="checkbox" name="availability_days[]" value="sunday"> Sunday</label>
           </div>
           <span class="error-msg" id="error-availability-days" aria-live="polite" hidden>
             Please select at least one day.
@@ -307,14 +328,14 @@
         <div class="field-group" id="group-interests">
           <label>Areas of interest <span aria-label="required">*</span><small>At least one</small></label>
           <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="companionship"> Companionship (Kuwentuhan, Pakikinig, Samahan)</label>
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="transportation"> Transportation (Escort to appointments, Errands)</label>
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="tech-help"> Technology Help (Smartphones, Video Calls)</label>
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="activity-facilitation"> Activity Facilitation (Palaro, Crafts, Exercises)</label>
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="light-housekeeping"> Light Housekeeping</label>
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="shopping"> Grocery / Palengke Shopping Assistance</label>
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="reading"> Reading Assistance</label>
-            <label class="checkbox-label"><input type="checkbox" name="interests" value="religious"> Religious / Spiritual Companionship</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="companionship"> Companionship (Kuwentuhan, Pakikinig, Samahan)</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="transportation"> Transportation (Escort to appointments, Errands)</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="tech-help"> Technology Help (Smartphones, Video Calls)</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="activity-facilitation"> Activity Facilitation (Palaro, Crafts, Exercises)</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="light-housekeeping"> Light Housekeeping</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="shopping"> Grocery / Palengke Shopping Assistance</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="reading"> Reading Assistance</label>
+            <label class="checkbox-label"><input type="checkbox" name="interests[]" value="religious"> Religious / Spiritual Companionship</label>
           </div>
           <span class="error-msg" id="error-interests" aria-live="polite" hidden>
             Please select at least one area of interest.
@@ -324,15 +345,15 @@
         <div class="field-group">
           <label>Languages / dialects spoken</label>
           <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="filipino"> Filipino / Tagalog</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="english"> English</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="cebuano"> Cebuano / Bisaya</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="ilocano"> Ilocano</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="hiligaynon"> Hiligaynon / Ilonggo</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="waray"> Waray</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="kapampangan"> Kapampangan</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="bicolano"> Bicolano</label>
-            <label class="checkbox-label"><input type="checkbox" name="languages" value="other"> Other</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="filipino"> Filipino / Tagalog</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="english"> English</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="cebuano"> Cebuano / Bisaya</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="ilocano"> Ilocano</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="hiligaynon"> Hiligaynon / Ilonggo</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="waray"> Waray</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="kapampangan"> Kapampangan</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="bicolano"> Bicolano</label>
+            <label class="checkbox-label"><input type="checkbox" name="languages[]" value="other"> Other</label>
           </div>
         </div>
 

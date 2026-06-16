@@ -196,7 +196,7 @@
     check('government-id',   'error-government-id',  document.getElementById('government-id').files.length > 0, 'Please upload a government-issued ID.');
     check('background-check','error-background-check',document.getElementById('background-check').checked,       'You must consent to a background check.');
 
-    if (!isGroupChecked('availability_days')) {
+    if (!isGroupChecked('availability_days[]')) {
       showError('error-availability-days', true);
       errors.push({ id: null, msg: 'Please select at least one available day.' });
     } else {
@@ -206,7 +206,7 @@
     check('availability-time','error-availability-time', document.getElementById('availability-time').value !== '', 'Please select your preferred time.');
 
     // Step 3
-    if (!isGroupChecked('interests')) {
+    if (!isGroupChecked('interests[]')) {
       showError('error-interests', true);
       errors.push({ id: null, msg: 'Please select at least one area of interest.' });
     } else {
@@ -240,11 +240,7 @@
     }
 
     summaryBox.hidden = true;
-
-
-    // on success: hide form, show register-success
-    form.hidden = true;
-    document.getElementById('register-success').hidden = false;
+    form.submit();
   });
 
 })();

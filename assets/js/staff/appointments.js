@@ -1,3 +1,4 @@
+/*
 // data
 const APPOINTMENTS = [
   {
@@ -43,6 +44,7 @@ const APPOINTMENTS = [
     rejectReason: null,
   },
 ];
+*/
 
 const VOLUNTEERS = [
   { id: 'vol1', name: 'Ana Garcia' },
@@ -55,7 +57,7 @@ const STAFF = [
 ];
 
 // state
-let appointments = [...APPOINTMENTS];
+let appointments = [];
 let pendingRejectId = null;
 let pendingConfirmAction = null;
 
@@ -370,8 +372,34 @@ document.addEventListener('click', e => {
   if (e.target.matches('#reject-cancel-btn'))  closeRejectModal();
 });
 
+// Karl -----
 document.getElementById('search-input').addEventListener('input', render);
 document.getElementById('filter-status').addEventListener('change', render);
 
+async function loadAppointments() {
+    try {
+        const response = await fetch('../../php/displaybooking.php');
+        const data = await response.json();
+
+        appointments = data.map(a => ({
+            id: Number(a.id),
+            dateRequested: a.createdAt,
+            seniorName: a.pName,
+            serviceType: a.serviceType,
+            preferredDate: a.appointmentDate,
+            preferredTime: a.timeSlot,
+            location: a.address,
+            contact: a.contactNum,
+            status: a.status.toLowerCase(),
+            assignedTo: null
+        }));
+
+        render();
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 // init
-render();
+loadAppointments();
