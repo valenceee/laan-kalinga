@@ -3,103 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volunteer: Dashboard</title>
+    <title>Volunteer Dashboard - LaanKalinga</title>
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/volunteer/dashboard.css">
+  
 </head>
 <body>
+    <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+      <p>No internet connection. Please check your network and try again.</p>
+    </div>
+
     <header>
         <h1>Volunteer Dashboard</h1>
-        <nav>
+        <nav aria-label="Main navigation">
             <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="dashboard.html" aria-current="page">Home</a></li>
+                <li><a href="#events-section">Upcoming events</a></li>
+                <li><a href="#visits-upcoming">Upcoming visits</a></li>
+                <li><a href="#announcements-section">Announcements</a></li>
+                
+                <li>
+                    <button type="button" aria-label="Notifications" class="btn-notification" title="Notifications">
+                        🔔 
+                    </button>
+                </li>
+
                 <li><a href="availability.html">Set Availability</a></li>
-                <li><a href="../public/index.html">Logout</a></li>
+                <li><a href="../public/login.php" id="logout-link">Logout</a></li>
             </ul>
         </nav>
         <hr>
     </header>
 
-    <main>
+    <main id="main-content">
+        <section id="welcome-overview">
+            <h2 id="welcome-msg">Welcome back!</h2>
+            <p>Here are your assignments for today and the rest of the week.</p>
+        </section>
 
-    <section id="welcome-overview">
-        <h2 id="welcome-msg">Welcome back!</h2>
-        <p>Here are your assignments for today and the rest of the week.</p>
-    </section>
+        <section id="visits-today">
+            <h2>Today's Visits</h2>
+            <div id="today-empty" class="empty-state" hidden>
+                <p class="empty-state__message">No visits assigned for today. Enjoy your day!</p>
+            </div>
+            <table id="today-table" hidden>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Senior Name</th>
+                        <th>Service</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="today-tbody">
+                    </tbody>
+            </table>
+        </section>
 
-    <!-- TODAY'S VISITS -->
-    <section id="visits-today">
-        <h2>Today's Visits</h2>
+        <section id="visits-upcoming">
+            <h2>Upcoming Visits This Week</h2>
+            <div id="upcoming-empty" class="empty-state" hidden>
+                <p class="empty-state__message">No more visits scheduled for this week.</p>
+            </div>
+            <table id="upcoming-table" hidden>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Senior Name</th>
+                        <th>Service</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="upcoming-tbody">
+                    </tbody>
+            </table>
+        </section>
 
-        <div id="today-empty" class="empty-state" hidden>
-        <p class="empty-state__message">No visits assigned for today. Enjoy your day!</p>
-        </div>
+        <section id="flagged-visits">
+            <h2>Your Flagged Visits</h2>
+            <p>These are visits you flagged that staff has not yet resolved.</p>
+            <div id="flagged-empty" class="empty-state" hidden>
+                <p class="empty-state__message">No unresolved flags. Good work!</p>
+            </div>
+            <table id="flagged-table" hidden>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Senior Name</th>
+                        <th>Flag Reason</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="flagged-tbody">
+                    </tbody>
+            </table>
+        </section>
 
-        <table id="today-table" hidden>
-        <thead>
-            <tr>
-            <th>Time</th>
-            <th>Senior Name</th>
-            <th>Service</th>
-            <th>Address</th>
-            <th>Status</th>
-            <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="today-tbody">
-            <!-- JS here -->
-        </tbody>
-        </table>
-    </section>
+        <section id="events-section">
+            <h2>Upcoming Events</h2>
+            <div id="events-container">
+                <p class="loading-text">Loading events...</p>
+                </div>
+        </section>
 
-    <!-- UPCOMING VISITS -->
-    <section id="visits-upcoming">
-        <h2>Upcoming Visits This Week</h2>
-
-        <div id="upcoming-empty" class="empty-state" hidden>
-        <p class="empty-state__message">No more visits scheduled for this week.</p>
-        </div>
-
-        <table id="upcoming-table" hidden>
-        <thead>
-            <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Senior Name</th>
-            <th>Service</th>
-            <th>Address</th>
-            <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="upcoming-tbody">
-            <!-- JS here -->
-        </tbody>
-        </table>
-    </section>
-
-    <!-- FLAGGED VISITS -->
-    <section id="flagged-visits">
-        <h2>Your Flagged Visits</h2>
-        <p>These are visits you flagged that staff has not yet resolved.</p>
-
-        <div id="flagged-empty" class="empty-state" hidden>
-        <p class="empty-state__message">No unresolved flags. Good work!</p>
-        </div>
-
-        <table id="flagged-table" hidden>
-        <thead>
-            <tr>
-            <th>Date</th>
-            <th>Senior Name</th>
-            <th>Flag Reason</th>
-            <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="flagged-tbody">
-            <!-- JS here -->
-        </tbody>
-        </table>
-    </section>
+        <section id="announcements-section">
+            <h2>Announcements</h2>
+            <div id="announcements-container">
+                <p class="loading-text">Loading announcements...</p>
+                </div>
+        </section>
 
     </main>
     <hr>

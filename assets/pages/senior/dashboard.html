@@ -6,6 +6,7 @@
     <title>Senior Dashboard - LaanKalinga</title>
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/senior/dashboard.css">
+ 
 </head>
 <body>
   <a href="#main-content" class="skip-link">Laktawan ang nilalaman / Skip to main content</a>
@@ -19,9 +20,9 @@
   </div>
 
   <div class="zoom-controls" aria-label="Laki ng teksto / Text size">
-    <button type="button" id="zoom-in"    aria-label="Palakihin ang teksto / Increase text size">+</button>
+    <button type="button" id="zoom-in" aria-label="Palakihin ang teksto / Increase text size">+</button>
     <button type="button" id="zoom-reset" aria-label="I-reset ang laki / Reset text size">A</button>
-    <button type="button" id="zoom-out"   aria-label="Paliitin ang teksto / Decrease text size">−</button>
+    <button type="button" id="zoom-out" aria-label="Paliitin ang teksto / Decrease text size">−</button>
   </div>
 
   <div class="dashboard-wrap">
@@ -34,7 +35,13 @@
     </div>
     <nav aria-label="Main navigation">
       <ul>
-        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <!-- Updated Navigation Links -->
+        <li><a href="dashboard.html" aria-current="page">Home</a></li>
+        <li><a href="#events-section">Upcoming events</a></li>
+        <li><a href="#upcoming-appointment">Upcoming visits</a></li>
+        <li><a href="#announcements-section">Announcements</a></li>
+        
+        <!-- Existing Links -->
         <li><a href="profile.html">Profile</a></li>
         <li><a href="book.html">Book</a></li>
         <li><a href="history.html">History</a></li>
@@ -49,6 +56,11 @@
       <div class="topbar__user">
         <span class="topbar__name" id="topbar-name">Juan Dela Cruz</span>
         <span class="topbar__role" id="topbar-role">Senior</span>
+        
+        <!-- Notifications Bell -->
+        <button type="button" aria-label="Notifications" class="btn-notification" title="Notifications">
+            🔔 
+        </button>
       </div>
       <div class="topbar__avatar" aria-hidden="true">
         <span id="topbar-initials">J</span>
@@ -88,8 +100,8 @@
           <a id="appt-volunteer-phone" href="#">—</a></p>
 
         <div class="form-actions">
-          <button type="button" id="btn-reschedule">Ibahin ang Iskedyul</button>
-          <button type="button" id="btn-cancel">Kanselahin</button>
+          <button type="button" id="btn-reschedule" class="btn-primary">Ibahin ang Iskedyul</button>
+          <button type="button" id="btn-cancel" class="btn-secondary">Kanselahin</button>
         </div>
       </div>
 
@@ -99,67 +111,107 @@
       </div>
     </section>
 
-    <!-- reschedule modal -->
-    <div class="modal" id="reschedule-modal" role="dialog" aria-modal="true"
-      aria-labelledby="reschedule-title" hidden>
-      <div class="modal-content">
-        <h3 id="reschedule-title">Ibahin ang Iskedyul <small>Reschedule Visit</small></h3>
-
-        <div class="error-summary" id="reschedule-error-summary" role="alert" aria-live="assertive" hidden>
-          <p class="error-summary__heading">Pakitama ang mga ito. <small>Please fix these.</small></p>
-          <ul class="error-summary__list" id="reschedule-error-list"></ul>
+    <!-- UPCOMING EVENTS SECTION (Rendered by JS) -->
+    <section id="events-section" aria-labelledby="events-heading">
+        <h2 id="events-heading">Paparating na Aktibidad <small>Upcoming Events</small></h2>
+        <div id="events-container">
+            <p class="loading-text">Loading events...</p>
+            <!-- JS will inject events here -->
         </div>
+    </section>
 
-        <div class="field-group">
-          <label for="reschedule-date">Bagong Petsa <small>New date</small> <span aria-label="required">*</span></label>
-          <small>Lunes hanggang Biyernes lamang. / Monday to Friday only.</small>
-          <input type="date" id="reschedule-date" name="reschedule_date" required
-            aria-describedby="error-reschedule-date">
-          <span class="error-msg" id="error-reschedule-date" aria-live="polite" hidden>
-            Pumili ng valid na araw (Lunes–Biyernes). <small>Please pick a valid weekday.</small>
-          </span>
+    <!-- ANNOUNCEMENTS SECTION (Rendered by JS) -->
+    <section id="announcements-section" aria-labelledby="announcements-heading">
+        <h2 id="announcements-heading">Mga Anunsyo <small>Announcements</small></h2>
+        <div id="announcements-container">
+            <p class="loading-text">Loading announcements...</p>
+            <!-- JS will inject announcements here -->
         </div>
-
-        <div class="field-group">
-          <label for="reschedule-time">Bagong Oras <small>New time</small> <span aria-label="required">*</span></label>
-          <select id="reschedule-time" name="reschedule_time" required
-            aria-describedby="error-reschedule-time">
-            <option value="">— Pumili / Choose —</option>
-            <option value="08:00">8:00 AM</option>
-            <option value="09:00">9:00 AM</option>
-            <option value="10:00">10:00 AM</option>
-            <option value="11:00">11:00 AM</option>
-            <option value="13:00">1:00 PM</option>
-            <option value="14:00">2:00 PM</option>
-            <option value="15:00">3:00 PM</option>
-            <option value="16:00">4:00 PM</option>
-          </select>
-          <span class="error-msg" id="error-reschedule-time" aria-live="polite" hidden>
-            Pumili ng oras. <small>Please choose a time.</small>
-          </span>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" id="btn-reschedule-confirm" class="btn-primary">Kumpirmahin <small>Confirm</small></button>
-          <button type="button" id="btn-reschedule-cancel"  class="btn-secondary">Hindi na <small>Cancel</small></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- cancel confirmation modal -->
-    <div class="modal" id="cancel-modal" role="dialog" aria-modal="true"
-      aria-labelledby="cancel-title" hidden>
-      <div class="modal-content">
-        <h3 id="cancel-title">Sigurado ka ba? <small>Are you sure?</small></h3>
-        <p id="cancel-modal-msg">Kakanselahin ang bisita. <small>This will cancel the scheduled visit.</small></p>
-        <div class="form-actions">
-          <button type="button" id="btn-cancel-confirm"  class="btn-primary">Oo, Kanselahin <small>Yes, Cancel</small></button>
-          <button type="button" id="btn-cancel-dismiss"  class="btn-secondary">Hindi na <small>No, Keep It</small></button>
-        </div>
-      </div>
-    </div>
+    </section>
 
     <!-- quick actions -->
+    <section id="quick-links" aria-labelledby="quick-links-heading">
+      <h3 id="quick-links-heading">Mga Aksyon <small>Quick Actions</small></h3>
+      <ul>
+        <li><a href="book.html" id="link-book">+ Humiling ng Bagong Bisita <small>Request a New Visit</small></a></li>
+        <li><a href="profile.html">I-update ang Impormasyon <small>Update Profile</small></a></li>
+        <li><a href="history.html">Tingnan ang Nakaraang Bisita <small>View Past Visits</small></a></li>
+        <li id="quick-add-senior" hidden>
+          <a href="fam-setup.html">+ Magdagdag ng Senior <small>Add Another Senior</small></a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- hotline -->
+    <section class="hotline-cta" aria-labelledby="hotline-heading">
+      <h3 id="hotline-heading">Kailangan ng Tulong? <small>Need Help?</small></h3>
+      <p class="hotline-number"><a href="tel:+6302XXXXXXXX">0920-9250113</a></p>
+      <p>Lunes - Biyernes, 8 AM - 5 PM</p>
+    </section>
+
+  </main>
+  </div>
+
+  <!-- reschedule modal -->
+  <div class="modal" id="reschedule-modal" role="dialog" aria-modal="true"
+    aria-labelledby="reschedule-title" hidden>
+    <div class="modal-content">
+      <h3 id="reschedule-title">Ibahin ang Iskedyul <small>Reschedule Visit</small></h3>
+
+      <div class="error-summary" id="reschedule-error-summary" role="alert" aria-live="assertive" hidden>
+        <p class="error-summary__heading">Pakitama ang mga ito. <small>Please fix these.</small></p>
+        <ul class="error-summary__list" id="reschedule-error-list"></ul>
+      </div>
+
+      <div class="field-group">
+        <label for="reschedule-date">Bagong Petsa <small>New date</small> <span aria-label="required">*</span></label>
+        <small>Lunes hanggang Biyernes lamang. / Monday to Friday only.</small>
+        <input type="date" id="reschedule-date" name="reschedule_date" required
+          aria-describedby="error-reschedule-date">
+        <span class="error-msg" id="error-reschedule-date" aria-live="polite" hidden>
+          Pumili ng valid na araw (Lunes–Biyernes). <small>Please pick a valid weekday.</small>
+        </span>
+      </div>
+
+      <div class="field-group">
+        <label for="reschedule-time">Bagong Oras <small>New time</small> <span aria-label="required">*</span></label>
+        <select id="reschedule-time" name="reschedule_time" required
+          aria-describedby="error-reschedule-time">
+          <option value="">— Pumili / Choose —</option>
+          <option value="08:00">8:00 AM</option>
+          <option value="09:00">9:00 AM</option>
+          <option value="10:00">10:00 AM</option>
+          <option value="11:00">11:00 AM</option>
+          <option value="13:00">1:00 PM</option>
+          <option value="14:00">2:00 PM</option>
+          <option value="15:00">3:00 PM</option>
+          <option value="16:00">4:00 PM</option>
+        </select>
+        <span class="error-msg" id="error-reschedule-time" aria-live="polite" hidden>
+          Pumili ng oras. <small>Please choose a time.</small>
+        </span>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="btn-reschedule-confirm" class="btn-primary">Kumpirmahin <small>Confirm</small></button>
+        <button type="button" id="btn-reschedule-cancel"  class="btn-secondary">Hindi na <small>Cancel</small></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- cancel confirmation modal -->
+  <div class="modal" id="cancel-modal" role="dialog" aria-modal="true"
+    aria-labelledby="cancel-title" hidden>
+    <div class="modal-content">
+      <h3 id="cancel-title">Sigurado ka ba? <small>Are you sure?</small></h3>
+      <p id="cancel-modal-msg">Kakanselahin ang bisita. <small>This will cancel the scheduled visit.</small></p>
+      <div class="form-actions">
+        <button type="button" id="btn-cancel-confirm"  class="btn-primary">Oo, Kanselahin <small>Yes, Cancel</small></button>
+        <button type="button" id="btn-cancel-dismiss"  class="btn-secondary">Hindi na <small>No, Keep It</small></button>
+      </div>
+    </div>
+  </div>
+<!-- quick actions -->
     <section id="quick-links" aria-labelledby="quick-links-heading">
       <h3 id="quick-links-heading">Mga Aksyon <small>Quick Actions</small></h3>
       <ul>
