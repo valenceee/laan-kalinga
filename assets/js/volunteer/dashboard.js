@@ -49,6 +49,23 @@ const FLAGGED_VISITS = [
 // state (state = copies the ...XXX and puts it in the variable let. ganyan sa lahat so the js can load it)
 let visits = [...VOLUNTEER_VISITS];
 
+// FIX: Added missing offline/online network listener boilerplate
+const bannerOffline = document.getElementById('banner-offline');
+if (bannerOffline) {
+  window.addEventListener('offline', () => { bannerOffline.hidden = false; });
+  window.addEventListener('online',  () => { bannerOffline.hidden = true;  });
+  if (!navigator.onLine) bannerOffline.hidden = false;
+}
+
+// FIX: Added missing logout listener boilerplate pointing to login.php
+const logoutLink = document.getElementById('logout-link');
+if (logoutLink) {
+  logoutLink.addEventListener('click', e => {
+    e.preventDefault();
+    window.location.href = '../public/login.php';
+  });
+}
+
 // helpers: badge, status select
 function buildBadge(status) {
   const span = document.createElement('span');
@@ -92,16 +109,17 @@ function renderToday() {
   const table = document.getElementById('today-table');
   const empty = document.getElementById('today-empty');
 
+  if(!tbody) return;
   tbody.innerHTML = '';
 
   if (todays.length === 0) {
-    table.hidden = true;
-    empty.hidden = false;
+    if(table) table.hidden = true;
+    if(empty) empty.hidden = false;
     return;
   }
 
-  table.hidden = false;
-  empty.hidden = true;
+  if(table) table.hidden = false;
+  if(empty) empty.hidden = true;
 
   todays.forEach(v => {
     const tr = document.createElement('tr');
@@ -126,16 +144,17 @@ function renderUpcoming() {
   const table = document.getElementById('upcoming-table');
   const empty = document.getElementById('upcoming-empty');
 
+  if(!tbody) return;
   tbody.innerHTML = '';
 
   if (upcoming.length === 0) {
-    table.hidden = true;
-    empty.hidden = false;
+    if(table) table.hidden = true;
+    if(empty) empty.hidden = false;
     return;
   }
 
-  table.hidden = false;
-  empty.hidden = true;
+  if(table) table.hidden = false;
+  if(empty) empty.hidden = true;
 
   upcoming.forEach(v => {
     const tr = document.createElement('tr');
@@ -160,16 +179,17 @@ function renderFlagged() {
   const table = document.getElementById('flagged-table');
   const empty = document.getElementById('flagged-empty');
 
+  if(!tbody) return;
   tbody.innerHTML = '';
 
   if (unresolved.length === 0) {
-    table.hidden = true;
-    empty.hidden = false;
+    if(table) table.hidden = true;
+    if(empty) empty.hidden = false;
     return;
   }
 
-  table.hidden = false;
-  empty.hidden = true;
+  if(table) table.hidden = false;
+  if(empty) empty.hidden = true;
 
   unresolved.forEach(f => {
     const tr = document.createElement('tr');
@@ -200,7 +220,9 @@ document.addEventListener('change', e => {
 });
 
 // init
-document.getElementById('welcome-msg').textContent = `Welcome back, ${VOLUNTEER.name}!`;
+const welcomeMsg = document.getElementById('welcome-msg');
+if(welcomeMsg) welcomeMsg.textContent = `Welcome back, ${VOLUNTEER.name}!`;
+
 renderToday();
 renderUpcoming();
 renderFlagged();

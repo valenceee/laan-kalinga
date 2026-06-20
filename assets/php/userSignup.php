@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-
 require_once __DIR__. '/../connections/conn.php';
 
 if($_SERVER["REQUEST_METHOD"] !== "POST"){
@@ -9,49 +7,29 @@ if($_SERVER["REQUEST_METHOD"] !== "POST"){
     exit("forbidden");
 }
 
+$role = $_POST['role'] ?? 'user';
+
 // Get Personal Information
 $fName = $_POST['first_name'] ?? '';
 $mName = $_POST['middle_name'] ?? '';
 $lName = $_POST['last_name'] ?? '';
 $suffix = $_POST['suffix'] ?? '';
 $email = $_POST['email'] ?? '';
-$pass = $_POST['']??'';
+$pass = $_POST['password'] ?? ''; 
 $phone = $_POST['phone'] ?? '';
 $address = $_POST['address'] ?? '';
 $region = $_POST['region'] ?? '';
 $philID = $_POST['philsys_id'] ?? '';
 
-// Get Background
-$occu = $_POST['occupation'] ?? '';
-$school = $_POST['school_org'] ?? '';
-$prog = $_POST['program_type'] ?? '';
 
-// Emergency Contact
-$emcName = $_POST['emergency_contact_name'] ?? '';
-$emcRel = $_POST['emergency_contact_relationship'] ?? '';
-$emcPhone = $_POST['emergency_contact_phone'] ?? '';
-$emcEmail = $_POST['emergency_contact_email'] ?? '';
 
-// Get Documents
-$govID = $_POST['government_id'] ?? '';
-$nbi = $_POST['nbi_clearance'] ?? '';
-$bgcheck = $_POST['background_check_consent'] ?? '';
-
-// Get Availability, Interests, Language, Skills, and Certifications
-$daysAvailable = $_POST['availability_days'] ?? '';
-$interests = $_POST['interests'] ?? '';
-$languages = $_POST['languages'] ?? '';
-$otherSkills = $_POST['other_skills'] ?? '';
-$cprCert = $_POST['has_cpr_certification'] ?? '';
-$fAidCert = $_POST['has_first_aid_certification'] ?? '';
-$otherCert = $_POST['other_certifications'] ?? '';
+// FIX: Validate empty variables BEFORE performing expensive hashing
+if(!$fName || !$lName || !$email || !$address || !$pass){
+    header("Location: ../pages/public/createAcc.php?error=invalid");
+    exit;
+}
 
 $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
-
-    if(!$fName || !$lName || !$email || !$address || !$pass){
-        header("Location: createAcc.php?error=invalid");
-        exit;
-    }
 
 $check = $connection->prepare("
     SELECT role_id FROM logindata
@@ -59,40 +37,37 @@ $check = $connection->prepare("
 ");
 
 $check->bind_param("s", $email);
-
 $check->execute();
-
 $result = $check->get_result();
 
 if($result->num_rows > 0){
-    header("Location: createAcc.php?error=email_exists");
+    header("Location: ../pages/public/createAcc.php?error=email_exists");
     exit;
 }
 
-    $insert = $connection->prepare("
-        INSERT INTO logindata
-        (role, email, password, firstN, lastN, address)
-        VALUES(?, ?, ?, ?, ?, ?)
-        ");
+$insert = $connection->prepare("
+    INSERT INTO logindata
+    (role, email, password, firstN, lastN, address)
+    VALUES(?, ?, ?, ?, ?, ?)
+");
 
-    $insert->bind_param(
-        "ssssss",
-        $role,
-        $email,
-        $hashedPassword,
-        $fName,
-        $lName,
-        $address
-    );
+$insert->bind_param(
+    "ssssss",
+    $role, 
+    $email,
+    $hashedPassword,
+    $fName,
+    $lName,
+    $address
+);
 
-// Execute and check
 if ($insert->execute()) {
-    header("Location: login.php?success=Successfully_Created");
+    header("Location: ../pages/public/login.php?success=Successfully_Created");
     exit;
 } else {
-    header("Location: createAcc.php?error=email_exists");
-        exit;
-    echo "Error: " . $insert->error; //lagyan to ng error message na invalid email
+    error_log("Error: " . $insert->error); 
+    header("Location: ../pages/public/createAcc.php?error=db_error");
+    exit;
 }
 
 $insert->close();

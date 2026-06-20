@@ -8,16 +8,6 @@
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
-    <p>No internet connection. Please check your network and try again.</p>
-  </div>
-
-  <div class="banner-warning" id="banner-session" role="alert" aria-live="assertive" hidden>
-    <p>Your session expired. Please log in again.</p>
-  </div>
-
   <main id="main-content">
     <div class="login-wrapper">
 
@@ -27,79 +17,36 @@
         <p class="hero-barangay">Barangay XXX, Quezon City</p>
       </div>
 
-      <!-- roles -->
       <section class="role-picker" aria-labelledby="role-heading">
         <h2 id="role-heading">Select a role</h2>
         <div class="role-grid">
-          <button type="button" class="role-btn" data-role="senior" aria-pressed="false">
-            Senior Citizen
-          </button>
-          <button type="button" class="role-btn" data-role="family" aria-pressed="false">
-            Family Representative
-          </button>
-          <button type="button" class="role-btn" data-role="volunteer" aria-pressed="false">
-            Volunteer
-          </button>
+          <button type="button" class="role-btn" data-role="senior" aria-pressed="false">Senior Citizen</button>
+          <button type="button" class="role-btn" data-role="family" aria-pressed="false">Family Representative</button>
+          <button type="button" class="role-btn" data-role="volunteer" aria-pressed="false">Volunteer</button>
         </div>
-        <span class="error-msg" id="error-role" aria-live="polite" hidden>
-          Please select who you are before signing in.
-        </span>
       </section>
 
-      <!-- login form -->
       <section class="form-section" id="login-form-section">
         <h2>Sign In</h2>
-
-        <div class="error-summary" id="error-summary" role="alert" aria-live="assertive" hidden>
-          <p class="error-summary__heading">Please fix these before continuing:</p>
-          <ul class="error-summary__list" id="error-summary-list"></ul>
-        </div>
 
         <form id="login-form" action="../../php/signin.php" method="POST" novalidate>
           <input type="hidden" id="role-input" name="role" value="">
 
           <div class="field-group" id="group-email">
             <label for="email">Email address <span aria-label="required">*</span></label>
-            <input type="email" id="email" name="email" required
-                   autocomplete="email"
-                   aria-describedby="error-email">
-            <span class="error-msg" id="error-email" aria-live="polite" hidden>
-              Please enter a valid email address.
-            </span>
+            <input type="email" id="email" name="email" required autocomplete="email">
           </div>
 
           <div class="field-group" id="group-password">
             <label for="password">Password <span aria-label="required">*</span></label>
             <div class="input-wrapper">
-              <input type="password" id="password" name="password" required
-                     autocomplete="current-password"
-                     aria-describedby="error-password">
-              <button type="button" class="toggle-pw" id="toggle-pw"
-                      aria-label="Show password">
+              <input type="password" id="password" name="password" required autocomplete="current-password">
+              <button type="button" class="toggle-pw" id="toggle-pw" aria-label="Show password">
                 <img src="../../icons/hidepass.svg" id="icon-hide" alt="">
                 <img src="../../icons/viewpass.svg" id="icon-show" alt="">
               </button>
             </div>
-            <span class="error-msg" id="error-password" aria-live="polite" hidden>
-              Please enter your password.
-            </span>
           </div>
-
-          <!-- wrong credentials error -->
-          <span class="error-msg" id="error-credentials" aria-live="assertive" hidden>
-            Incorrect email or password. Please try again.
-          </span>
-
-          <!-- account not found -->
-          <span class="error-msg" id="error-not-found" aria-live="assertive" hidden>
-            No account found with that email.
-            <a href="register.html">Register here.</a>
-          </span>
-
-          <!-- account locked -->
-          <span class="error-msg" id="error-locked" aria-live="assertive" hidden>
-            Your account has been locked. Call <strong>(02) XXXX XXXX</strong> for help.
-          </span>
 
           <div class="form-options">
             <label class="checkbox-label">
@@ -110,7 +57,6 @@
           </div>
 
           <button type="submit" class="btn-primary">Sign In</button>
-
         </form>
 
         <p class="register-link" id="register-prompt">
@@ -118,22 +64,23 @@
         </p>
 
       </section>
-
     </div>
   </main>
 
-  <footer class="login-footer">
-    <p>&copy; 2026 Laan-Kalinga. All rights reserved.</p>
-  </footer>
-
   <script src="../../js/public/login.js"></script>
 
-  <?php if(isset($_GET['error']) && $_GET['error'] === 'invalid'): ?>
-
+  <?php if(isset($_GET['error'])): ?>
     <script>
-      alert("Invalid email or password");
+      const error = "<?php echo htmlspecialchars($_GET['error']); ?>";
+      if (error === 'invalid') {
+          alert("Invalid email or password.");
+      } else if (error === 'missing_fields') {
+          alert("Please fill in both email and password.");
+      } else if (error === 'unauthorized') {
+          alert("You must be logged in to view that page.");
+      }
     </script>
+  <?php endif; ?>
 
-    <?php endif; ?>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management - LaanKalinga</title>
+    <title>Appointments - LaanKalinga</title>
     <link rel="stylesheet" href="../../css/other-style.css">
     <link rel="stylesheet" href="../../css/admin/appointments.css">
 </head>
@@ -37,7 +37,6 @@
 
   <main id="main-content">
 
-    <!-- FILTERS -->
     <section id="appointment-filters">
       <h2>Filter Appointments</h2>
       <div class="filter-bar">
@@ -52,7 +51,6 @@
       </div>
     </section>
 
-    <!-- PENDING -->
     <section id="pending-requests">
       <h2>Pending Service Requests</h2>
       <p>Review and act on visit requests. Admin can force approve or force reject any request.</p>
@@ -79,7 +77,6 @@
       </table>
     </section>
 
-    <!-- APPROVED / NEEDS ASSIGNMENT -->
     <section id="assign-volunteers">
       <h2>Approved: Needs Assignment</h2>
       <p>Assign or reassign volunteer and staff. Admin can also override the preferred date and time.</p>
@@ -107,7 +104,6 @@
       </table>
     </section>
 
-    <!-- ASSIGNED & REJECTED -->
     <section id="processed-appointments">
       <h2>Assigned &amp; Rejected</h2>
       <p>Processed appointments. Admin can reassign, force reject, or reopen rejected requests.</p>
@@ -136,7 +132,6 @@
 
   </main>
 
-  <!-- AUDIT PANEL -->
   <div id="audit-panel" class="modal" role="dialog" aria-modal="true" aria-labelledby="audit-panel-title" hidden>
     <div class="modal__box">
       <h3 id="audit-panel-title">Appointment Details</h3>
@@ -147,7 +142,6 @@
     </div>
   </div>
 
-  <!-- FORCE REJECT MODAL -->
   <div id="force-reject-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="force-reject-title" hidden>
     <div class="modal__box">
       <h3 id="force-reject-title">Force Reject</h3>
@@ -164,7 +158,6 @@
     </div>
   </div>
 
-  <!-- OVERRIDE DATE/TIME MODAL -->
   <div id="override-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="override-modal-title" hidden>
     <div class="modal__box">
       <h3 id="override-modal-title">Override Date &amp; Time</h3>
@@ -185,7 +178,6 @@
     </div>
   </div>
 
-  <!-- GENERIC CONFIRM MODAL -->
   <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
     <div class="modal__box">
       <h3 id="confirm-modal-title">Are you sure?</h3>

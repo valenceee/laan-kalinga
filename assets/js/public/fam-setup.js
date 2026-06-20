@@ -263,11 +263,8 @@
     // mark setup as complete
     localStorage.setItem('fam_setup_complete', 'true');
 
-    // TODO: POST /api/family/seniors with the form data
-    // on success: redirect to dashboard
-    form.hidden = true;
-    document.getElementById('setup-success').hidden = false;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // FIX: Replaced fake form submission hiding with an actual form.submit() call
+    form.submit();
   });
 
 })();

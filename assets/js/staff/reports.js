@@ -72,7 +72,8 @@ if (!navigator.onLine) bannerOffline.hidden = false;
 // logout
 document.getElementById('logout-link').addEventListener('click', (e) => {
   e.preventDefault();
-  window.location.href = '../public/index.html';
+  // FIX: Corrected logout routing
+  window.location.href = '../public/login.php';
 });
 
 
@@ -83,7 +84,6 @@ function showToast(message) {
   toast.hidden = false;
   setTimeout(() => { toast.hidden = true; }, 3000);
 }
-
 
 // confirm modal
 function openConfirmModal(message, onConfirm) {
@@ -129,10 +129,10 @@ function getFilteredVisits() {
     const matchesService = service ? v.service === service : true;
     const matchesFrom    = activeDateFrom ? v.date >= activeDateFrom : true;
     const matchesTo      = activeDateTo   ? v.date <= activeDateTo   : true;
+
     return matchesSearch && matchesService && matchesFrom && matchesTo;
   });
 }
-
 
 // render stats
 function renderStats() {
@@ -142,7 +142,6 @@ function renderStats() {
   document.getElementById('stat-flagged-pending').textContent  = STATS.flaggedPending;
   document.getElementById('stat-flagged-resolved').textContent = STATS.flaggedResolved;
 }
-
 
 // render visit logs
 function renderVisits() {
@@ -182,7 +181,6 @@ function renderVisits() {
   });
 }
 
-
 // render flagged summary
 function renderFlaggedSummary() {
   const tbody = document.getElementById('flagged-summary-tbody');
@@ -204,7 +202,6 @@ function renderFlaggedSummary() {
     tbody.appendChild(tr);
   });
 }
-
 
 // render events (read-only)
 function renderEvents() {
@@ -246,16 +243,19 @@ function render() {
 // export CSV
 function exportCSV(rows, filename) {
   if (!rows.length) { showToast('No data to export.'); return; }
+
   const headers = Object.keys(rows[0]);
   const csv = [
     headers.join(','),
     ...rows.map(r => headers.map(h => `"${String(r[h]).replace(/"/g, '""')}"`).join(','))
   ].join('\n');
+
   const blob = new URL(`data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`);
   const a = document.createElement('a');
   a.href = blob;
   a.download = filename;
   a.click();
+
   showToast(`${filename} downloaded.`);
 }
 
@@ -278,7 +278,6 @@ function exportFlagged() {
   openConfirmModal('Download flagged cases summary as CSV?', () => exportCSV(rows, 'flagged-summary.csv'));
 }
 
-
 // date filter
 function applyFilter() {
   activeDateFrom = document.getElementById('filter-date-from').value || null;
@@ -294,7 +293,6 @@ function resetFilter() {
   renderVisits();
 }
 
-
 // event listeners
 document.getElementById('btn-apply-filter').addEventListener('click', applyFilter);
 document.getElementById('btn-reset-filter').addEventListener('click', resetFilter);
@@ -308,7 +306,6 @@ document.getElementById('filter-service').addEventListener('change', renderVisit
 let calYear  = new Date().getFullYear();
 let calMonth = new Date().getMonth(); // 0-indexed
 let calSelectedDate = null;
-
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 function getCalData(dateStr) {
@@ -389,7 +386,6 @@ function renderCalendar() {
     cell.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectCalDate(dateStr); }
     });
-
     grid.appendChild(cell);
   }
 }

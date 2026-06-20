@@ -95,7 +95,8 @@ if (!navigator.onLine) bannerOffline.hidden = false;
 // logout
 document.getElementById('logout-link').addEventListener('click', (e) => {
   e.preventDefault();
-  window.location.href = '../public/index.html';
+  // FIX: Corrected logout routing
+  window.location.href = '../public/login.php';
 });
 
 
@@ -106,7 +107,6 @@ function showToast(message) {
   toast.hidden = false;
   setTimeout(() => { toast.hidden = true; }, 3000);
 }
-
 
 // confirm modal
 function openConfirmModal(message, onConfirm) {
@@ -126,7 +126,6 @@ document.getElementById('confirm-modal-yes').addEventListener('click', () => {
   closeConfirmModal();
 });
 document.getElementById('confirm-modal-no').addEventListener('click', closeConfirmModal);
-
 
 // helpers
 function formatDate(dateStr) {
@@ -182,6 +181,7 @@ function buildPersonnelDropdown(apptId, list, currentValue, label, dataAttr) {
 function getFiltered() {
   const query  = document.getElementById('search-input').value.toLowerCase();
   const status = document.getElementById('filter-status').value;
+
   return appointments.filter(a => {
     const matchesSearch = a.seniorName.toLowerCase().includes(query) ||
                           a.serviceType.toLowerCase().includes(query);
@@ -206,6 +206,7 @@ function renderPending(filtered) {
     table.hidden = true; empty.hidden = false; noRes.hidden = true; return;
   }
   empty.hidden = true;
+
   if (list.length === 0) {
     table.hidden = true; noRes.hidden = false; return;
   }
@@ -232,7 +233,6 @@ function renderPending(filtered) {
   });
 }
 
-
 // render approved
 function renderApproved(filtered) {
   const all   = appointments.filter(a => a.status === 'approved');
@@ -248,6 +248,7 @@ function renderApproved(filtered) {
     table.hidden = true; empty.hidden = false; noRes.hidden = true; return;
   }
   empty.hidden = true;
+
   if (list.length === 0) {
     table.hidden = true; noRes.hidden = false; return;
   }
@@ -275,7 +276,6 @@ function renderApproved(filtered) {
   });
 }
 
-
 // render processed
 function renderProcessed(filtered) {
   const all   = appointments.filter(a => a.status === 'assigned' || a.status === 'rejected');
@@ -291,6 +291,7 @@ function renderProcessed(filtered) {
     table.hidden = true; empty.hidden = false; noRes.hidden = true; return;
   }
   empty.hidden = true;
+
   if (list.length === 0) {
     table.hidden = true; noRes.hidden = false; return;
   }
@@ -328,7 +329,6 @@ function renderProcessed(filtered) {
     tbody.appendChild(tr);
   });
 }
-
 
 function render() {
   const filtered = getFiltered();
@@ -404,11 +404,13 @@ function confirmForceReject() {
     document.getElementById('error-force-reject-reason').hidden = false;
     return;
   }
+
   appointments = appointments.map(a =>
     a.id === pendingForceRejectId
       ? { ...a, status: 'rejected', rejectReason: reason }
       : a
   );
+
   closeForceRejectModal();
   render();
   showToast('Appointment force rejected.');
@@ -420,6 +422,7 @@ function confirmForceReject() {
 function openOverrideModal(id) {
   const a = appointments.find(a => a.id === id);
   if (!a) return;
+
   pendingOverrideId = id;
   document.getElementById('override-modal-name').textContent =
     `${a.seniorName} — ${formatDate(a.preferredDate)} ${formatTime(a.preferredTime)}`;
@@ -448,6 +451,7 @@ function saveOverride() {
   if (!valid) return;
 
   const a = appointments.find(a => a.id === pendingOverrideId);
+
   openConfirmModal(
     `Override date/time for ${a.seniorName} to ${formatDate(date)} ${formatTime(time)}?`,
     () => {
@@ -542,6 +546,7 @@ function reopenAppointment(id) {
 document.getElementById('search-input').addEventListener('input', render);
 document.getElementById('filter-status').addEventListener('change', render);
 document.getElementById('btn-retry-load').addEventListener('click', render);
+
 document.getElementById('audit-close-btn').addEventListener('click', closeAuditPanel);
 document.getElementById('force-reject-confirm-btn').addEventListener('click', confirmForceReject);
 document.getElementById('force-reject-cancel-btn').addEventListener('click', closeForceRejectModal);
@@ -559,7 +564,6 @@ document.addEventListener('click', e => {
   if (e.target.matches('.btn-override'))      openOverrideModal(Number(e.target.dataset.id));
   if (e.target.matches('.btn-audit'))         openAuditPanel(Number(e.target.dataset.id));
 });
-
 
 // init
 render();

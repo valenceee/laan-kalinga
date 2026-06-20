@@ -37,6 +37,23 @@ const SENIORS_DB = [
   },
 ];
 
+// FIX: Added missing offline/online network listener boilerplate
+const bannerOffline = document.getElementById('banner-offline');
+if (bannerOffline) {
+  window.addEventListener('offline', () => { bannerOffline.hidden = false; });
+  window.addEventListener('online',  () => { bannerOffline.hidden = true;  });
+  if (!navigator.onLine) bannerOffline.hidden = false;
+}
+
+// FIX: Added missing logout listener boilerplate pointing to login.php
+const logoutLink = document.getElementById('logout-link');
+if (logoutLink) {
+  logoutLink.addEventListener('click', e => {
+    e.preventDefault();
+    window.location.href = '../public/login.php';
+  });
+}
+
 // read url param (for example: laankalinga.com/something/id=3?)
 function getVisitId() {
   const params = new URLSearchParams(window.location.search);
@@ -147,6 +164,7 @@ function validateDate() {
   }
   const chosen = new Date(dateEl.value + 'T00:00:00');
   const today  = new Date(); today.setHours(0, 0, 0, 0);
+
   if (chosen > today) {
     showError('visit-date', 'error-visit-date', 'Date cannot be in the future.');
     return false;
@@ -194,7 +212,6 @@ document.getElementById('visit-date').addEventListener('input', () => {
 
 // unsave changes
 let hasUnsavedChanges = false;
-
 document.getElementById('form-visit-log').addEventListener('input', () => {
   hasUnsavedChanges = true;
 });
@@ -218,12 +235,12 @@ document.getElementById('form-visit-log').addEventListener('submit', e => {
   // no double submission
   const submitBtn = document.getElementById('submit-btn');
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Submitting…';
+  submitBtn.textContent = 'Submitting...';
 
   hasUnsavedChanges = false;
 
-  // TODO: POST /api/visits/log
-  alert('Visit log submitted!');
+  // FIX: Form is now actually submitted instead of just alerting
+  e.target.submit();
 });
 
 document.getElementById('form-visit-log').addEventListener('reset', () => {

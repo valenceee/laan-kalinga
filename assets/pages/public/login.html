@@ -25,7 +25,6 @@
         <h1>Laan-Kalinga</h1>
       </div>
 
-      <!-- roles -->
       <section class="role-picker" aria-labelledby="role-heading">
         <h2 id="role-heading">Select a role</h2>
         <div class="role-grid">
@@ -44,13 +43,12 @@
         </span>
       </section>
 
-      <!-- login form -->
       <section class="form-section" id="login-form-section">
         <h2>Sign In</h2>
 
         <div class="error-summary" id="error-summary" role="alert" aria-live="assertive" hidden>
-          <p class="error-summary_heading">Please fix these before continuing:</p>
-          <ul class="error-summary_list" id="error-summary-list"></ul>
+          <p class="error-summary__heading">Please fix these before continuing:</p>
+          <ul class="error-summary__list" id="error-summary-list"></ul>
         </div>
 
         <form id="login-form" action="#" method="POST" novalidate>
@@ -87,18 +85,15 @@
             </span>
           </div>
 
-          <!-- wrong credentials error -->
           <span class="error-msg" id="error-credentials" aria-live="assertive" hidden>
             Incorrect email or password. Please try again.
           </span>
 
-          <!-- account not found -->
           <span class="error-msg" id="error-not-found" aria-live="assertive" hidden>
             No account found with that email.
             <a href="register.html">Register here.</a>
           </span>
 
-          <!-- account locked -->
           <span class="error-msg" id="error-locked" aria-live="assertive" hidden>
             Your account has been locked. Call <strong>(02) XXXX XXXX</strong> for help.
           </span>

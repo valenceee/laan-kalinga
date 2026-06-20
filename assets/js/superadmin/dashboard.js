@@ -36,7 +36,8 @@ if (!navigator.onLine) bannerOffline.hidden = false;
 // logout
 document.getElementById('logout-link').addEventListener('click', e => {
   e.preventDefault();
-  window.location.href = '../public/login.html';
+  // FIX: Directed to the updated login.php file
+  window.location.href = '../public/login.php';
 });
 
 // toast

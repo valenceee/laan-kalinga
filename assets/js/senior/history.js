@@ -57,7 +57,8 @@
     e.preventDefault();
     localStorage.removeItem(ZOOM_KEY);
     sessionStorage.removeItem('userRole');
-    window.location.href = '../public/index.html';
+    // FIX: Redirect to the updated login.php file
+    window.location.href = '../public/login.php';
   });
 
 

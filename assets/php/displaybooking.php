@@ -1,9 +1,18 @@
 <?php
-
+session_start();
 require_once __DIR__. '/../connections/conn.php';
 
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
+// FIX: Added Auth Check to prevent unauthorized data access
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Unauthorized']);
+    exit;
+}
+
+if (isset($connection->connect_error) && $connection->connect_error) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Database connection failed']);
+    exit;
 }
 
 $sql = "
@@ -25,6 +34,13 @@ FROM appointments AS a
 
 $result = $connection->query($sql);
 
+// FIX: Handle cases where the query fails
+if (!$result) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Failed to fetch appointments']);
+    exit;
+}
+
 $appointments = [];
 
 while($row = $result->fetch_assoc()){
@@ -33,3 +49,4 @@ while($row = $result->fetch_assoc()){
 
 header('Content-Type: application/json');
 echo json_encode($appointments);
+?>

@@ -19,7 +19,6 @@
     <p>Nag-expire ang iyong session. <small>Your session expired. Please log in again.</small></p>
   </div>
 
-  <!-- zoom controls -->
   <div class="zoom-controls" aria-label="Laki ng teksto / Text size">
     <button type="button" id="zoom-in" aria-label="Palakihin ang teksto / Increase text size">+</button>
     <button type="button" id="zoom-reset" aria-label="I-reset ang laki / Reset text size">A</button>
@@ -63,7 +62,6 @@
       <h2>Mga Nakaraang Bisita <small>Past Visits</small></h2>
       <p>Tingnan ang iyong mga naunang bisita at status nito. <small>Review your previous visits and their status.</small></p>
 
-      <!-- status filter -->
       <div class="field-group" id="group-status-filter">
         <label for="status-filter">I-filter ayon sa status <small>Filter by status</small></label>
         <select id="status-filter">
@@ -73,18 +71,14 @@
         </select>
       </div>
 
-      <!-- cards container -->
       <div id="history-list" class="history-list">
-        <!-- JS populates cards here -->
-      </div>
+        </div>
 
-      <!-- empty state: no history at all -->
       <div id="history-empty" hidden>
         <p>Walang pang naitatalang bisita. <small>You have no recorded visits yet.</small></p>
         <a href="book.html" class="btn-primary">Mag-request ng serbisyo</a>
       </div>
 
-      <!-- empty state: no results for filter -->
       <div id="history-no-results" hidden>
         <p>Walang nahanap na bisita para sa filter na ito. <small>No visits found for this filter.</small></p>
       </div>
@@ -93,14 +87,12 @@
 
   </main>
 
-  <!-- View Notes modal -->
   <div class="modal" id="notes-modal" role="dialog" aria-modal="true" aria-labelledby="notes-title" hidden>
     <div class="modal-content">
       <h3 id="notes-title">Detalye ng Bisita <small>Visit Details</small></h3>
 
       <div id="notes-body">
-        <!-- JS populates this -->
-      </div>
+        </div>
 
       <div class="form-actions">
         <button type="button" id="btn-notes-close" class="btn-secondary">Isara <small>Close</small></button>
@@ -114,67 +106,5 @@
   </footer>
 
   <script src="../../js/senior/history.js"></script>
-
-    <header>
-        <h1>Your Appointment History</h1>
-        <nav>
-            <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="book.html">Book Appointment</a></li>
-                <li><a href="history.html">History</a></li>
-                <li><a href="../public/index.html">Logout</a></li>
-            </ul>
-        </nav>
-        <hr>
-    </header>
-    <main>
-        <section id="history-section">
-            <h2>Past Health Visits</h2>
-            <p>Review your previous consultations and health records below.</p>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Service</th>
-                        <th>Location</th>
-                        <th>Attending Staff</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>May 10, 2026</td>
-                        <td>Blood Pressure Check</td>
-                        <td>Barangay Health Center</td>
-                        <td>Nurse Maria Santos</td>
-                        <td>Completed</td>
-                        <td><button type="button">View Notes</button></td>
-                    </tr>
-                    <tr>
-                        <td>April 22, 2026</td>
-                        <td>Vaccination (Flu)</td>
-                        <td>Municipal Health Center</td>
-                        <td>Dr. Reyes</td>
-                        <td>Completed</td>
-                        <td><button type="button">View Notes</button></td>
-                    </tr>
-                    <tr>
-                        <td>March 05, 2026</td>
-                        <td>General Checkup</td>
-                        <td>Barangay Health Center</td>
-                        <td>Dr. Lim</td>
-                        <td>Cancelled</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
-    <hr>
-    <footer>
-        <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
-    </footer>
 </body>
 </html>

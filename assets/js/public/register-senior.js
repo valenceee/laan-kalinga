@@ -328,10 +328,8 @@
     submitBtn.disabled    = true;
     submitBtn.textContent = 'Nagsusumite… / Submitting…';
 
-    // TODO: POST /api/register/senior
-    document.getElementById('register-senior-form').hidden = true;
-    document.getElementById('register-success').hidden = false;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // FIX: Actually let PHP handle the backend submission
+    form.submit();
   });
 
 })();

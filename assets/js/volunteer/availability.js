@@ -36,6 +36,23 @@ let leaves = [...VOLUNTEER_AVAILABILITY.leaves];
 let nextLeaveId = leaves.length + 1;
 let hasUnsavedChanges = false;
 
+// FIX: Added missing offline/online network listener boilerplate
+const bannerOffline = document.getElementById('banner-offline');
+if (bannerOffline) {
+  window.addEventListener('offline', () => { bannerOffline.hidden = false; });
+  window.addEventListener('online',  () => { bannerOffline.hidden = true;  });
+  if (!navigator.onLine) bannerOffline.hidden = false;
+}
+
+// FIX: Added missing logout listener boilerplate pointing to login.php
+const logoutLink = document.getElementById('logout-link');
+if (logoutLink) {
+  logoutLink.addEventListener('click', e => {
+    e.preventDefault();
+    window.location.href = '../public/login.php';
+  });
+}
+
 // init: pre checked save slots 
 function loadSavedSlots() {
   const slots = VOLUNTEER_AVAILABILITY.slots;
@@ -233,8 +250,8 @@ document.getElementById('form-availability').addEventListener('submit', e => {
   document.getElementById('error-no-slots').hidden = true;
   hasUnsavedChanges = false;
 
-  // TODO: POST /api/availability/update
-  alert('Availability saved!');
+  // FIX: Actually submit the form to let the backend process it
+  e.target.submit();
 });
 
 document.getElementById('form-availability').addEventListener('reset', () => {

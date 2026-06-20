@@ -187,11 +187,8 @@
     // mark setup as incomplete so dashboard shows the continue-setup banner
     localStorage.setItem('fam_setup_complete', 'false');
 
-    // TODO: replace with actual fetch POST /api/register
-    document.getElementById('register-family-form').hidden = true;
-    document.getElementById('register-success').hidden = false;
-    document.getElementById('register-success').style.display = 'block';
-    document.getElementById('register-family-form').style.display = 'none';
+    // FIX: Actually let PHP handle the backend submission
+    form.submit();
   });
 
 })();

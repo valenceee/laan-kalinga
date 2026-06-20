@@ -48,12 +48,12 @@
 
   document.getElementById('logout-link').addEventListener('click', e => {
     e.preventDefault();
-    // TODO: POST /api/logout, then redirect
-    window.location.href = '../../pages/public/login.html';
+    // FIX: Redirect to the proper login.php handler instead of a dead HTML file
+    window.location.href = '../public/login.php';
   });
 
 
-  /*  simulated data 
+  /* simulated data 
      TODO: replace with actual fetch from GET /api/me
      Expected shape:
      {

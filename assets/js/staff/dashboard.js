@@ -16,8 +16,8 @@
   // logout
   document.getElementById('logout-link').addEventListener('click', (e) => {
     e.preventDefault();
-    // clear staff session here (handled by backend session/JS function)
-    window.location.href = '../public/index.html';
+    // FIX: Redirect to the proper login.php handler instead of a dead HTML file
+    window.location.href = '../public/login.php';
   });
 
 

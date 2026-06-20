@@ -242,28 +242,39 @@ document.addEventListener('click', e => {
 document.getElementById('search-input').addEventListener('input', render);
 document.getElementById('filter-status').addEventListener('change', render);
 
+// FIX: Added authorization check & safe mapping
 async function loadAppointments() {
     try {
         const response = await fetch('../../php/displaybooking.php');
+        if (!response.ok) {
+            if (response.status === 401) {
+                 window.location.href = '../public/login.php?error=unauthorized';
+                 return;
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
-
-        appointments = data.map(a => ({
-            id: Number(a.id),
-            dateRequested: a.createdAt,
-            seniorName: a.pName,
-            serviceType: a.serviceType,
-            preferredDate: a.appointmentDate,
-            preferredTime: a.timeSlot,
-            location: a.address,
-            contact: a.contactNum,
-            status: a.status.toLowerCase(),
-            assignedTo: null
-        }));
-
-        render();
-
+        
+        if(Array.isArray(data)) {
+            appointments = data.map(a => ({
+                id: Number(a.id),
+                dateRequested: a.createdAt,
+                seniorName: a.pName,
+                serviceType: a.serviceType,
+                preferredDate: a.appointmentDate,
+                preferredTime: a.timeSlot,
+                location: a.address,
+                contact: a.contactNum,
+                status: a.status.toLowerCase(),
+                assignedTo: null
+            }));
+            render();
+        } else {
+            console.error("Invalid data format received from API");
+        }
     } catch (err) {
-        console.error(err);
+        console.error("Failed to load appointments:", err);
     }
 }
 

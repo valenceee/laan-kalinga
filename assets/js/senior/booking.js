@@ -225,7 +225,8 @@ form.addEventListener('submit', (e) => {
 
     // no errors
     document.getElementById('error-summary').hidden = true;
-    form.submit();
+    
+    // FIX: Removed duplicate form.submit()
     form.submit();
 });
 

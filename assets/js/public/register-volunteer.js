@@ -241,10 +241,8 @@
 
     summaryBox.hidden = true;
 
-
-    // on success: hide form, show register-success
-    form.hidden = true;
-    document.getElementById('register-success').hidden = false;
+    // FIX: Actually submit the form to the backend
+    form.submit();
   });
 
 })();
