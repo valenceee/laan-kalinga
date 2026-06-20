@@ -6,18 +6,22 @@
   window.addEventListener('online',  () => { bannerOffline.hidden = true;  });
   if (!navigator.onLine) bannerOffline.hidden = false;
 
-
-  // sesh expired
+  // session expired
   const params = new URLSearchParams(window.location.search);
   if (params.get('reason') === 'session-expired') {
     document.getElementById('banner-session').hidden = false;
   }
 
+  // ensure all errors hidden on load
+  document.querySelectorAll('.error-msg').forEach(el => el.hidden = true);
+  document.getElementById('error-summary').hidden = true;
 
   // pick role
-  const roleBtns = document.querySelectorAll('.role-btn');
-  const errorRole = document.getElementById('error-role');
-  let selectedRole = null;
+  const contactInput = document.getElementById('email');
+  const contactLabel = document.querySelector('label[for="email"]');
+  const roleBtns     = document.querySelectorAll('.role-btn');
+  const errorRole    = document.getElementById('error-role');
+  let selectedRole   = null;
 
   const registerRoutes = {
     senior:    'register-senior.html',
@@ -31,17 +35,28 @@
         b.setAttribute('aria-pressed', 'false');
         b.classList.remove('role-btn--active');
       });
+
       btn.setAttribute('aria-pressed', 'true');
       btn.classList.add('role-btn--active');
+
       selectedRole = btn.dataset.role;
+
+      if (selectedRole === 'senior') {
+        contactLabel.innerHTML = 'Mobile Number <span aria-label="required">*</span>';
+        contactInput.placeholder = '09171234567';
+      } else {
+        contactLabel.innerHTML = 'Email Address <span aria-label="required">*</span>';
+        contactInput.placeholder = 'example@email.com';
+      }
+
       errorRole.hidden = true;
       document.getElementById('register-prompt').hidden = false;
-
       document.getElementById('register-link').href = registerRoutes[selectedRole];
       document.getElementById('role-input').value = selectedRole;
     });
   });
 
+  // password toggle
   const passwordInput = document.getElementById('password');
   const toggleBtn     = document.getElementById('toggle-pw');
   const iconHide      = document.getElementById('icon-hide');
@@ -57,27 +72,18 @@
     iconShow.hidden = !isHidden;
   });
 
-
-  // field validations
+  // validation helpers
   function showError(id, show) {
     document.getElementById(id).hidden = !show;
   }
 
-  function isValidEmail(val) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
-  // blur-time validation
-  const emailInput = document.getElementById('email');
-
-  emailInput.addEventListener('blur', () => {
-    showError('error-email', !isValidEmail(emailInput.value));
-  });
-
-  passwordInput.addEventListener('blur', () => {
-    showError('error-password', passwordInput.value.trim() === '');
-  });
-
+  function isValidPhone(value) {
+    return /^09\d{9}$/.test(value);
+  }
 
   // submit
   const form        = document.getElementById('login-form');
@@ -91,19 +97,32 @@
     showError('error-credentials', false);
     showError('error-not-found',   false);
     showError('error-locked',      false);
+    showError('error-email',       false);
+    showError('error-password',    false);
 
     const errors = [];
+    const contactValue = contactInput.value.trim();
+    const emailError = document.getElementById('error-email');
 
-    // role check
+    // role check first
     if (!selectedRole) {
       errorRole.hidden = false;
       errors.push({ id: null, msg: 'Please select who you are.' });
     }
 
-    // email check
-    if (!isValidEmail(emailInput.value)) {
-      showError('error-email', true);
-      errors.push({ id: 'email', msg: 'Please enter a valid email address.' });
+    // contact check
+    if (selectedRole === 'senior') {
+      emailError.textContent = 'Please enter a valid mobile number.';
+      if (!isValidPhone(contactValue)) {
+        showError('error-email', true);
+        errors.push({ id: 'email', msg: 'Please enter a valid mobile number.' });
+      }
+    } else if (selectedRole) {
+      emailError.textContent = 'Please enter a valid email address.';
+      if (!isValidEmail(contactValue)) {
+        showError('error-email', true);
+        errors.push({ id: 'email', msg: 'Please enter a valid email address.' });
+      }
     }
 
     // password check
@@ -120,8 +139,6 @@
           : `<li>${err.msg}</li>`)
         .join('');
       summaryBox.hidden = false;
-
-      // focus first errored field
       const firstId = errors.find(e => e.id)?.id;
       if (firstId) document.getElementById(firstId).focus();
       return;
@@ -130,15 +147,12 @@
     summaryBox.hidden = true;
     form.submit();
 
-    // simulate server response here
-    // replace with actual fetch/POST call.
-    // on success: redirect to dashboard
-    // on failure: show the right error below
-
-    const simulatedResponse = 'credentials'; // 'success' | 'credentials' | 'not-found' | 'locked'
+    // TODO: replace with actual fetch/POST call
+    const simulatedResponse = 'success'; // 'success' | 'credentials' | 'not-found' | 'locked'
 
     if (simulatedResponse === 'success') {
-      window.location.href = `dashboard-${selectedRole}.html`;
+      sessionStorage.setItem('userRole', selectedRole);
+      window.location.href = '../senior/dashboard.html';
     } else if (simulatedResponse === 'credentials') {
       showError('error-credentials', true);
     } else if (simulatedResponse === 'not-found') {

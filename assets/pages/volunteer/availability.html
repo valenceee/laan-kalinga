@@ -5,22 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer: Set Availability</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/volunteer/availability.css">
 </head>
 <body>
-    <header>
-        <h1>Manage Your Schedule</h1>
-        <nav>
-            <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="availability.html">Set Availability</a></li>
-                <li><a href="../public/index.html">Logout</a></li>
-            </ul>
-        </nav>
-        <hr>
-    </header>
+    
+<div class="dashboard-wrap">
 
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="sidebar__brand">
+      <a href="index.html" class="logo-link">
+        <img src="../../images/logo.png" alt="LaanKalinga" class="logo">
+      </a>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="availability.html">Set Availability</a></li>
+        <li><a href="../public/index.html">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
     <main>
-
+        <h1>Manage Your Schedule</h1>
     <!-- CURRENT AVAILABILITY SUMMARY -->
     <section id="current-availability">
         <h2>Your Current Schedule</h2>
@@ -37,6 +43,12 @@
         <form id="form-availability" action="#" method="POST" novalidate>
 
         <fieldset>
+
+            <div class="week-toggle">
+  <button type="button" class="active" aria-pressed="true">This Week</button>
+  <button type="button" aria-pressed="false">Next Week</button>
+</div>
+
             <legend>Weekly Availability</legend>
 
             <span class="error-msg" id="error-no-slots" aria-live="polite" hidden> Please select at least one available slot. </span>
@@ -146,7 +158,8 @@
         </form>
     </section>
 
-    </main>               
+    </main>         
+    </div>      
           
     <hr>
     <footer>

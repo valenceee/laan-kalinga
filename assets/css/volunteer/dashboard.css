@@ -1,0 +1,469 @@
+/* ============================================================
+   volunteer/dashboard.css
+   Styles for Volunteer Dashboard
+   Depends on: other-style.css (design tokens + reset)
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   HEADER
+   ---------------------------------------------------------- */
+
+header {
+  background: var(--color-brand-600);
+  padding: 0 var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-overlay);
+  box-shadow: var(--shadow-md);
+  min-height: 64px;
+}
+
+header hr { display: none; }
+
+header h1 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  border-radius: var(--radius-sm);
+  min-height: var(--touch-target-min);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--color-text-inverse);
+}
+
+nav a[aria-current="page"] {
+  background: var(--color-secondary-500);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Logout link — last item */
+nav li:last-child a {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+nav li:last-child a:hover {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  border-color: transparent;
+}
+
+/* ----------------------------------------------------------
+   BODY & MAIN
+   ---------------------------------------------------------- */
+
+body {
+  background: var(--color-surface-cream);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-base);
+}
+
+main {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-8) var(--space-8) var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ----------------------------------------------------------
+   WELCOME SECTION
+   ---------------------------------------------------------- */
+
+#welcome-overview {
+  background: var(--color-brand-600);
+  border-radius: var(--radius-md);
+  padding: var(--space-6) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+#welcome-overview h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  margin: 0;
+}
+
+#welcome-overview p {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+
+/* ----------------------------------------------------------
+   SHARED SECTION CARD
+   ---------------------------------------------------------- */
+
+#visits-today,
+#visits-upcoming,
+#flagged-visits {
+  background: var(--color-surface-white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+#visits-today > h2,
+#visits-upcoming > h2,
+#flagged-visits > h2 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-caps);
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-surface-cream);
+  margin: 0;
+}
+
+/* Today's visits — accent the heading to signal urgency */
+#visits-today > h2 {
+  border-left: 4px solid var(--color-brand-400);
+}
+
+/* Flagged — warning accent */
+#flagged-visits > h2 {
+  border-left: 4px solid var(--color-secondary-500);
+}
+
+#flagged-visits > p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding: var(--space-3) var(--space-6) 0;
+  margin: 0;
+}
+
+/* ----------------------------------------------------------
+   SHARED TABLE STYLES
+   ---------------------------------------------------------- */
+
+#today-table,
+#upcoming-table,
+#flagged-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+#today-table[hidden],
+#upcoming-table[hidden],
+#flagged-table[hidden] { display: none; }
+
+#today-table thead tr,
+#upcoming-table thead tr,
+#flagged-table thead tr {
+  background: var(--color-brand-600);
+}
+
+#today-table thead th,
+#upcoming-table thead th,
+#flagged-table thead th {
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-caps);
+  text-align: left;
+  white-space: nowrap;
+}
+
+#today-table tbody tr,
+#upcoming-table tbody tr,
+#flagged-table tbody tr {
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background var(--transition-fast);
+}
+
+#today-table tbody tr:last-child,
+#upcoming-table tbody tr:last-child,
+#flagged-table tbody tr:last-child { border-bottom: none; }
+
+#today-table tbody tr:hover,
+#upcoming-table tbody tr:hover,
+#flagged-table tbody tr:hover { background: var(--color-surface-cream); }
+
+#today-table tbody tr:nth-child(even),
+#upcoming-table tbody tr:nth-child(even),
+#flagged-table tbody tr:nth-child(even) { background: var(--color-surface-sand); }
+
+#today-table tbody tr:nth-child(even):hover,
+#upcoming-table tbody tr:nth-child(even):hover,
+#flagged-table tbody tr:nth-child(even):hover { background: var(--color-border-light); }
+
+#today-table td,
+#upcoming-table td,
+#flagged-table td {
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-primary);
+  vertical-align: middle;
+}
+
+/* Time / Date columns */
+#today-table td:first-child,
+#upcoming-table td:first-child,
+#upcoming-table td:nth-child(2) {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Senior Name */
+#today-table td:nth-child(2),
+#upcoming-table td:nth-child(3),
+#flagged-table td:nth-child(2) {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Address — muted, allow wrap */
+#today-table td:nth-child(4),
+#upcoming-table td:nth-child(5) {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  max-width: 200px;
+}
+
+/* Action column — shrink to content */
+#today-table th:last-child,
+#today-table td:last-child,
+#upcoming-table th:last-child,
+#upcoming-table td:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Flag Reason — allow wrap */
+#flagged-table td:nth-child(3) {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  max-width: 240px;
+}
+
+/* ----------------------------------------------------------
+   BADGES
+   ---------------------------------------------------------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  min-height: 22px;
+  line-height: 1;
+}
+
+.badge--assigned   { background: var(--color-brand-100);     color: var(--color-brand-500);      border: 1px solid rgba(42,95,158,0.20); }
+.badge--completed  { background: var(--color-success-light);  color: var(--color-success);         }
+.badge--no-show    { background: var(--color-error-light);    color: var(--color-error);           }
+.badge--pending    { background: var(--color-secondary-100);  color: var(--color-secondary-500);   border: 1px solid rgba(184,134,11,0.20); }
+.badge--flagged    { background: var(--color-error-light);    color: var(--color-error);           border: 1px solid rgba(183,28,28,0.22); }
+.badge--resolved   { background: var(--color-success-light);  color: var(--color-success);         }
+
+/* ----------------------------------------------------------
+   ACTION BUTTONS IN TABLE
+   ---------------------------------------------------------- */
+
+.actions-cell {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-warning,
+.btn-danger,
+.btn-view-log {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-sm);
+  min-height: var(--touch-target-min);
+  padding: var(--space-2) var(--space-5);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-sm);
+  min-height: var(--touch-target-min);
+  padding: var(--space-2) var(--space-5);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  background-color: var(--color-brand-100);
+}
+.btn-primary {
+  background: var(--color-brand-500);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-brand);
+}
+.btn-primary:hover  { background: var(--color-brand-600); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-brand-500);
+  border: 1.5px solid var(--color-brand-400);
+}
+.btn-secondary:hover { background: var(--color-brand-100); }
+
+.btn-warning {
+  background: var(--color-secondary-100);
+  color: var(--color-secondary-500);
+  border: 1.5px solid rgba(184, 134, 11, 0.25);
+}
+.btn-warning:hover {
+  background: var(--color-secondary-500);
+  color: var(--color-text-inverse);
+}
+
+.btn-danger {
+  background: var(--color-error-light);
+  color: var(--color-error);
+  border: 1.5px solid rgba(183, 28, 28, 0.22);
+}
+.btn-danger:hover {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+}
+
+.btn-sm {
+  font-size: var(--font-size-xs);
+  padding: var(--space-1) var(--space-3);
+  min-height: 30px;
+}
+
+/* ----------------------------------------------------------
+   EMPTY STATES
+   ---------------------------------------------------------- */
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-10) var(--space-6);
+  border: 2px dashed var(--color-border-medium);
+  border-radius: var(--radius-md);
+  margin: var(--space-6);
+  background: var(--color-surface-cream);
+}
+.empty-state[hidden] { display: none; }
+
+.empty-state__message {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ----------------------------------------------------------
+   FOOTER
+   ---------------------------------------------------------- */
+
+footer {
+  background: var(--color-brand-600);
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  padding: var(--space-5) var(--space-6);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+footer + hr { display: none; }
+
+/* ----------------------------------------------------------
+   RESPONSIVE
+   ---------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  #today-table,
+  #upcoming-table,
+  #flagged-table { font-size: var(--font-size-xs); }
+
+  #today-table td,  #today-table th,
+  #upcoming-table td, #upcoming-table th,
+  #flagged-table td,  #flagged-table th { padding: var(--space-2) var(--space-3); }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-4);
+    min-height: unset;
+    gap: var(--space-2);
+  }
+
+  main {
+    padding: var(--space-5) var(--space-4) var(--space-12);
+  }
+
+  #welcome-overview {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  #visits-today,
+  #visits-upcoming,
+  #flagged-visits { overflow-x: auto; }
+
+  .actions-cell { flex-wrap: wrap; }
+}

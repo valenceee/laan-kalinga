@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login – Laan-Kalinga</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/public/login.css">
 </head>
 <body>
 
@@ -48,19 +49,24 @@
         <h2>Sign In</h2>
 
         <div class="error-summary" id="error-summary" role="alert" aria-live="assertive" hidden>
-          <p class="error-summary__heading">Please fix these before continuing:</p>
-          <ul class="error-summary__list" id="error-summary-list"></ul>
+          <p class="error-summary_heading">Please fix these before continuing:</p>
+          <ul class="error-summary_list" id="error-summary-list"></ul>
         </div>
 
         <form id="login-form" action="#" method="POST" novalidate>
 
           <div class="field-group" id="group-email">
-            <label for="email">Email address <span aria-label="required">*</span></label>
-            <input type="email" id="email" name="email" required
-                   autocomplete="email"
-                   aria-describedby="error-email">
+            <label for="email">Email or Mobile Number <span aria-label="required">*</span></label>
+            <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="example@email.com or 09171234567"
+                  aria-describedby="error-email">
             <span class="error-msg" id="error-email" aria-live="polite" hidden>
-              Please enter a valid email address.
+              Please enter a valid email address or mobile number.
             </span>
           </div>
 
@@ -118,7 +124,7 @@
     </div>
   </main>
 
-  <footer class="login-footer">
+  <footer class="form-footer">
     <p>&copy; 2026 Laan-Kalinga. All rights reserved.</p>
   </footer>
 

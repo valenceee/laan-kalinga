@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Representative Registration - Laan-Kalinga</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/public/reg-fam.css">
 </head>
 <body>
-
-  <a href="#main-content" class="skip-link">Laktawan ang nilalaman / Skip to main content</a>
-
   <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
     <p>Walang koneksyon sa internet. <small>No internet connection. Please check your network and try again.</small></p>
   </div>
@@ -23,8 +21,7 @@
       <a href="index.html" class="logo-link">
         <img src="../../images/logo.png" alt="LaanKalinga Logo" class="logo">
       </a>
-      <h1>Pagpaparehistro ng Miyembro ng Pamilya <small>Family Representative Registration</small></h1>
-      <p class="hero-barangay">Barangay XXX, Lungsod Quezon</p>
+      <h1>Pagpaparehistro Bilang Miyembro ng Pamilya <small>Family Representative Registration</small></h1>
     </header>
 
     <nav class="account-type-nav" aria-label="Iba pang uri ng pagpaparehistro">
@@ -40,16 +37,16 @@
       <ul class="error-summary__list" id="error-summary-list"></ul>
     </div>
 
-    <form id="register-family-form" action="../../php/registerFamily.php" method="POST" enctype="multipart/form-data" novalidate>
+    <form id="register-family-form" action="#" method="POST" novalidate>
 
-      <!-- Step 1 -->
       <fieldset class="form-step">
-        <legend>Hakbang 1 ng 5:  Personal na Impormasyon <small>Step 1 of 5: Personal Information</small></legend>
+        <legend>Personal na Impormasyon <small>Personal Information</small></legend>
 
         <div class="form-row two-column">
-          <div class="field-group" id="group-first-name">
+          <div class="field-group">
             <label for="first-name">Pangalan <small>First name</small> <span aria-label="required">*</span></label>
-            <input type="text" id="first-name" name="first_name" required placeholder="e.g. Juan" autocomplete="given-name" aria-describedby="error-first-name">
+            <input type="text" id="first-name" name="first_name" required placeholder="e.g. Juan"
+              autocomplete="given-name" aria-describedby="error-first-name">
             <span class="error-msg" id="error-first-name" aria-live="polite" hidden>
               Pakisulat ang iyong pangalan. <small>Please enter your first name.</small>
             </span>
@@ -57,14 +54,16 @@
 
           <div class="field-group">
             <label for="middle-name">Gitnang Pangalan <small>Middle name</small></label>
-            <input type="text" id="middle-name" name="middle_name" placeholder="e.g. Garcia" autocomplete="additional-name">
+            <input type="text" id="middle-name" name="middle_name" placeholder="e.g. Garcia"
+              autocomplete="additional-name">
           </div>
         </div>
 
         <div class="form-row two-column">
-          <div class="field-group" id="group-last-name">
+          <div class="field-group">
             <label for="last-name">Apelyido <small>Last name</small> <span aria-label="required">*</span></label>
-            <input type="text" id="last-name" name="last_name" required placeholder="e.g. Dela Cruz" autocomplete="family-name" aria-describedby="error-last-name">
+            <input type="text" id="last-name" name="last_name" required placeholder="e.g. Dela Cruz"
+              autocomplete="family-name" aria-describedby="error-last-name">
             <span class="error-msg" id="error-last-name" aria-live="polite" hidden>
               Pakisulat ang iyong apelyido. <small>Please enter your last name.</small>
             </span>
@@ -83,44 +82,19 @@
         </div>
 
         <div class="form-row two-column">
-          <div class="field-group" id="group-email">
+          <div class="field-group">
             <label for="email">Email <span aria-label="required">*</span></label>
-            <input type="email" id="email" name="email" required placeholder="example@email.com" autocomplete="email" aria-describedby="error-email">
+            <input type="email" id="email" name="email" required placeholder="example@email.com"
+              autocomplete="email" aria-describedby="error-email">
             <span class="error-msg" id="error-email" aria-live="polite" hidden>
               Pakisulat ang tamang email. <small>Please enter a valid email address.</small>
             </span>
           </div>
 
-          <div class="form-row two-column">
-          <div class="field-group" id="group-password">
-            <label for="password">Password <span aria-label="required">*</span></label>
-            <small>Dapat 8 o higit pang karakter. / Must be at least 8 characters.</small>
-            <div class="input-wrapper">
-              <input type="password" id="password" name="password" required minlength="8"
-                    autocomplete="new-password" aria-describedby="error-password">
-              <button type="button" class="toggle-pw" id="toggle-pw" aria-label="Ipakita ang password / Show password">
-                <img src="../../icons/hidepass.svg" id="icon-hide" alt="">
-                <img src="../../icons/viewpass.svg" id="icon-show" alt="">
-              </button>
-            </div>
-            <span class="error-msg" id="error-password" aria-live="polite" hidden>
-              Dapat 8 o higit pang karakter ang password. <small>Password must be at least 8 characters.</small>
-            </span>
-          </div>
-
-          <div class="field-group" id="group-confirm-password">
-            <label for="confirm-password">Kumpirmahin ang Password <small>Confirm password</small> <span aria-label="required">*</span></label>
-            <input type="password" id="confirm-password" name="confirm_password" required
-                  autocomplete="new-password" aria-describedby="error-confirm-password">
-            <span class="error-msg" id="error-confirm-password" aria-live="polite" hidden>
-              Hindi tugma ang password. <small>Passwords do not match.</small>
-            </span>
-          </div>
-        </div>
-
-          <div class="field-group" id="group-phone">
+          <div class="field-group">
             <label for="phone">Numero ng Cellphone <small>Mobile number</small> <span aria-label="required">*</span></label>
-            <input type="tel" id="phone" name="phone" required placeholder="09XX XXX XXXX" autocomplete="tel" aria-describedby="error-phone">
+            <input type="tel" id="phone" name="phone" required placeholder="09XX XXX XXXX"
+              autocomplete="tel" aria-describedby="error-phone">
             <span class="error-msg" id="error-phone" aria-live="polite" hidden>
               Pakisulat ang tamang numero. <small>Please enter a valid mobile number (e.g. 09171234567).</small>
             </span>
@@ -133,16 +107,47 @@
         </div>
 
         <div class="form-row two-column">
-          <div class="field-group" id="group-house-number">
-            <label for="house-number">Numero ng Bahay / Unit <small>House or unit no.</small> <span aria-label="required">*</span></label>
-            <input type="text" id="house-number" name="house_number" required aria-describedby="error-house-number">
+          <div class="field-group">
+            <label for="password">Password <span aria-label="required">*</span></label>
+            <div class="input-wrapper">
+              <input type="password" id="password" name="password" required minlength="8"
+                autocomplete="new-password" aria-describedby="error-password">
+              <button type="button" class="toggle-pw" id="toggle-pw" aria-label="Ipakita ang password / Show password">
+                <img src="../../icons/hidepass.svg" id="icon-hide" alt="">
+                <img src="../../icons/viewpass.svg" id="icon-show" alt="">
+              </button>
+            </div>
+            <span class="error-msg" id="error-password" aria-live="polite" hidden>
+              Dapat 8 o higit pang karakter ang password. <small>Password must be at least 8 characters.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="confirm-password">Kumpirmahin ang Password <span aria-label="required">*</span><br></label>
+            <input type="password" id="confirm-password" name="confirm_password" required
+              autocomplete="new-password" aria-describedby="error-confirm-password">
+            <span class="error-msg" id="error-confirm-password" aria-live="polite" hidden>
+              Hindi tugma ang password. <small>Passwords do not match.</small>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step">
+        <legend>Address <small>Home Address</small></legend>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="house-number">Numero ng Bahay / Unit <span aria-label="required">*</span></label>
+            <input type="text" id="house-number" name="house_number" required
+              aria-describedby="error-house-number">
             <span class="error-msg" id="error-house-number" aria-live="polite" hidden>
               Pakisulat ang numero ng iyong bahay o unit. <small>Please enter your house or unit number.</small>
             </span>
           </div>
 
-          <div class="field-group" id="group-street">
-            <label for="street">Kalye <small>Street</small> <span aria-label="required">*</span></label>
+          <div class="field-group">
+            <label for="street">Kalye<span aria-label="required">*</span></label>
             <input type="text" id="street" name="street" required aria-describedby="error-street">
             <span class="error-msg" id="error-street" aria-live="polite" hidden>
               Pakisulat ang pangalan ng kalye. <small>Please enter your street name.</small>
@@ -151,243 +156,65 @@
         </div>
 
         <div class="form-row two-column">
-          <div class="field-group" id="group-barangay">
+          <div class="field-group">
             <label for="barangay-search">Barangay <span aria-label="required">*</span></label>
-            <input type="text" id="barangay-search" name="barangay_search" list="barangay-list" autocomplete="off" aria-describedby="error-barangay">
+            <input type="text" id="barangay-search" name="barangay_search" list="barangay-list"
+              autocomplete="off" aria-describedby="error-barangay">
             <datalist id="barangay-list"></datalist>
             <input type="hidden" id="barangay" name="barangay">
             <span class="error-msg" id="error-barangay" aria-live="polite" hidden>
-              Pumili ng barangay sa Lungsod Quezon. <small>Please select a valid barangay in Quezon City.</small>
+              Pumili ng barangay sa listahan. <small>Please select a valid barangay.</small>
             </span>
           </div>
 
           <div class="field-group">
-            <label for="city">Lungsod <small>City</small></label>
-            <input type="text" id="city" name="city" value="Quezon City" readonly autocomplete="address-level2">
+            <label for="philsys-id">PhilSys ID / National ID</label>
+            <small>Opsyonal ngunit inirerekomenda. / Optional but recommended for verification.</small>
+            <input type="text" id="philsys-id" name="philsys_id" placeholder="XXXX-XXXX-XXXX-XXXX">
           </div>
         </div>
-
-        <div class="form-row two-column">
-          <div class="field-group">
-            <label for="province">Probinsya <small>Province</small></label>
-            <input type="text" id="province" name="province" value="Metro Manila" readonly>
-          </div>
-
-          <div class="field-group" id="group-zip">
-            <label for="zip">ZIP Code <span aria-label="required">*</span></label>
-            <input type="text" id="zip" name="zip" required aria-describedby="error-zip">
-            <span class="error-msg" id="error-zip" aria-live="polite" hidden>
-              Pakisulat ang iyong ZIP code. <small>Please enter your ZIP code.</small>
-            </span>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label for="philsys-id">PhilSys ID / National ID</label>
-          <small>Opsyonal ngunit inirerekomenda para sa pagpapatunay. / Optional but recommended for verification.</small>
-          <input type="text" id="philsys-id" name="philsys_id">
-        </div>
-
       </fieldset>
 
-      <!-- Step 2 -->
       <fieldset class="form-step">
-        <legend>Hakbang 2 ng 5: Impormasyon ng Relasyon <small>Step 2 of 5: Relationship Information</small></legend>
-
-        <div class="form-row two-column">
-          <div class="field-group" id="group-relationship">
-            <label for="relationship">Relasyon sa Senior <small>Relationship to senior</small> <span aria-label="required">*</span></label>
-            <select id="relationship" name="relationship" required aria-describedby="error-relationship">
-              <option value="">— Pumili / Choose one —</option>
-              <option value="child">Anak / Child</option>
-              <option value="spouse">Asawa / Spouse</option>
-              <option value="sibling">Kapatid / Sibling</option>
-              <option value="parent">Magulang / Parent</option>
-              <option value="grandchild">Apo / Grandchild</option>
-              <option value="nephew-niece">Pamangkin / Nephew or Niece</option>
-              <option value="legal-guardian">Legal Guardian</option>
-              <option value="other">Iba pa / Other</option>
-            </select>
-            <span class="error-msg" id="error-relationship" aria-live="polite" hidden>
-              Pumili ng relasyon. <small>Please select your relationship to the senior.</small>
-            </span>
-          </div>
-
-          <div class="field-group" id="group-decision-maker">
-            <label for="decision-maker">Ikaw ba ang pangunahing nagdedesisyon? <small>Are you the primary decision maker?</small> <span aria-label="required">*</span></label>
-            <small>Ang pangunahing nagdedesisyon ay may huling desisyon sa pangangalaga ng senior. / The primary decision maker has final say on care decisions.</small>
-            <select id="decision-maker" name="is_primary_decision_maker" required aria-describedby="error-decision-maker">
-              <option value="">— Pumili / Choose one —</option>
-              <option value="yes">Oo / Yes </option>
-              <option value="no">Hindi / No </option>
-            </select>
-            <span class="error-msg" id="error-decision-maker" aria-live="polite" hidden>
-              Pakisagot ang tanong na ito. <small>Please answer this question.</small>
-            </span>
-          </div>
-        </div>
-
-        <div class="field-group" id="group-verification-doc">
-          <label for="verification-doc">Patunay ng Relasyon <small>Proof of relationship</small> <span aria-label="required">*</span></label>
-          <small>Mag-upload ng isa sa mga sumusunod: PSA Birth Certificate, PSA Marriage Certificate, Court Order, notarized SPA, o DSWD guardianship certificate. Tinatanggap: PDF, JPG, PNG. / Upload any one: PSA Birth Certificate, PSA Marriage Certificate, Court Order, notarized SPA, or DSWD guardianship certificate. Accepted: PDF, JPG, PNG.</small>
-          <input type="file" id="verification-doc" name="verification_document" accept=".pdf,.jpg,.jpeg,.png" required aria-describedby="error-verification-doc">
-          <span class="error-msg" id="error-verification-doc" aria-live="polite" hidden>
-            Pakiupload ang patunay ng relasyon. <small>Please upload a proof of relationship document.</small>
-          </span>
-        </div>
+        <legend>Mga Pahintulot <small>Agreements & Consent</small></legend>
 
         <div class="field-group">
-          <label for="spa-doc">Special Power of Attorney (SPA)</label>
-          <small>Kailangan lamang kung kinakatawan mo ang ibang awtorisadong miyembro ng pamilya. Dapat notarized. Ang mga OFW ay dapat magsumite ng consularized na kopya. / Required only if acting on behalf of another authorized family member. Must be notarized. OFWs must submit a consularized copy.</small>
-          <input type="file" id="spa-doc" name="spa_document" accept=".pdf,.jpg,.jpeg,.png">
-        </div>
-
-        <div class="field-group">
-          <label for="ofw-status">Nakatira ka ba sa labas ng Pilipinas? <small>Are you based outside the Philippines?</small></label>
-          <select id="ofw-status" name="ofw_status">
-            <option value="">— Pumili / Choose one —</option>
-            <option value="no">Hindi, nandito ako sa Pilipinas. / No, I am in the Philippines.</option>
-            <option value="ofw">Oo, OFW ako. / Yes, I am an OFW.</option>
-            <option value="abroad">Oo, nakatira ako sa ibang bansa. / Yes, I live abroad.</option>
-          </select>
-          <small>Ang mga OFW at nakatira sa ibang bansa ay makakatanggap ng updates sa pamamagitan ng email o messaging apps. / OFW and abroad-based representatives will receive updates via email or messaging apps.</small>
-        </div>
-
-      </fieldset>
-
-      <!-- Step 3 -->
-      <fieldset class="form-step">
-        <legend>Hakbang 3 ng 5: I-link ang Senior <small>Step 3 of 5: Link to Senior</small></legend>
-
-        <div class="field-group">
-          <label for="senior-search">Hanapin ang nakarehistrong senior <small>Search for a registered senior</small></label>
-          <small>Ilagay ang buong pangalan o petsa ng kapanganakan. / Enter their full name or date of birth.</small>
-          <div class="search-row">
-            <input type="text" id="senior-search" name="senior_search" autocomplete="off" aria-describedby="senior-search-status">
-            <button type="button" id="btn-senior-search" class="btn-secondary">
-              Hanapin <small>Search</small>
-            </button>
-          </div>
-          <span id="senior-search-status" aria-live="polite"></span>
-          <div id="senior-search-results" hidden></div>
-          <span class="error-msg" id="error-senior-not-found" aria-live="polite" hidden>
-            Walang nahanap na senior. Maaari kang gumawa ng bagong profile sa ibaba. <small>No senior found. You can create a new profile below.</small>
-          </span>
-        </div>
-
-        <div class="form-divider"><span>o / or</span></div>
-
-        <div class="field-group">
-          <label>Gumawa ng bagong profile ng senior <small>Add a new senior profile</small></label>
-          <small>Kung hindi pa nakarehistrong ang senior, maaari kang gumawa ng profile para sa kanila. / If the senior is not yet registered, you can create their profile on their behalf.</small>
-          <a href="register-senior.html?added_by=family" class="btn-secondary">
-            Gumawa ng Profile ng Senior <small>Create Senior Profile</small>
-          </a>
-        </div>
-
-        <div class="field-group" id="group-linked-seniors">
-          <label>Mga naka-link na senior <small>Linked seniors</small> <span aria-label="required">*</span></label>
-          <ul id="linked-seniors-list" class="linked-list"></ul>
-          <input type="hidden" id="linked-seniors-input" name="linked_seniors">
-          <span class="error-msg" id="error-linked-seniors" aria-live="polite" hidden>
-            Pakiugnay ang kahit isang senior bago magpatuloy. <small>Please link at least one senior before continuing.</small>
-          </span>
-        </div>
-
-      </fieldset>
-
-      <!-- Step 4 -->
-      <fieldset class="form-step">
-        <legend>Hakbang 4 ng 5: Paraan ng Komunikasyon <small>Step 4 of 5: Communication Preferences</small></legend>
-
-        <div class="field-group" id="group-contact-method">
-          <label for="contact-method">Paano ka namin makakausap? <small>How should we contact you?</small> <span aria-label="required">*</span></label>
-          <select id="contact-method" name="preferred_contact_method" required
-                  aria-describedby="error-contact-method">
-            <option value="">— Pumili / Choose one —</option>
-            <option value="sms">SMS / Text</option>
-            <option value="email">Email</option>
-          </select>
-          <span class="error-msg" id="error-contact-method" aria-live="polite" hidden>
-            Pumili ng paraan ng komunikasyon. <small>Please choose a contact method.</small>
-          </span>
-        </div>
-
-        <div class="field-group" id="group-update-frequency">
-          <label for="update-frequency">Gaano kadalas mo gustong makatanggap ng updates? <small>How often do you want updates?</small> <span aria-label="required">*</span></label>
-          <select id="update-frequency" name="update_frequency" required aria-describedby="error-update-frequency">
-            <option value="">— Pumili / Choose one —</option>
-            <option value="daily">Araw-araw / Daily</option>
-            <option value="weekly">Linggu-linggo / Weekly</option>
-            <option value="bi-weekly">Tuwing dalawang linggo / Every two weeks</option>
-            <option value="monthly">Buwanan / Monthly</option>
-            <option value="as-needed">Para lang sa mahahalagang updates / Only for important updates</option>
-          </select>
-          <span class="error-msg" id="error-update-frequency" aria-live="polite" hidden>
-            Pumili ng dalas ng updates. <small>Please choose an update frequency.</small>
-          </span>
-        </div>
-
-        <div class="field-group">
-          <label class="checkbox-label">
-            <input type="checkbox" name="emergency_notifications" value="yes">
-            <span>Abisuhan ako agad sa emergency. <small>Notify me immediately for emergencies.</small></span>
-          </label>
-        </div>
-
-        <div class="field-group">
-          <label class="checkbox-label">
-            <input type="checkbox" name="care_plan_updates" value="yes">
-            <span>Abisuhan ako kapag may pagbabago sa plano ng pangangalaga. <small>Notify me when care plans are updated.</small></span>
-          </label>
-        </div>
-
-      </fieldset>
-
-      <!-- Step 5 -->
-      <fieldset class="form-step">
-        <legend>Hakbang 5 ng 5: Mga Tuntunin at Kondisyon <small>Step 5 of 5: Terms and Conditions</small></legend>
-
-        <div class="field-group" id="group-terms">
           <label class="checkbox-label">
             <input type="checkbox" id="terms" name="terms_accepted" required aria-describedby="error-terms">
-            <span>Sumasang-ayon ako sa <a href="#" target="_blank">Mga Tuntunin at Kondisyon</a> at <a href="#" target="_blank">Patakaran sa Pagkapribado</a>. <small>I agree to the Terms and Conditions and Privacy Policy.</small> <span aria-label="required">*</span></span>
+            <span>Sumasang-ayon ako sa <a href="#" target="_blank">Mga Tuntunin at Kondisyon</a> at
+              <a href="#" target="_blank">Patakaran sa Pagkapribado</a>.
+              <small>I agree to the Terms and Conditions and Privacy Policy. <span aria-label="required">*</span></small>
+            </span>
           </label>
           <span class="error-msg" id="error-terms" aria-live="polite" hidden>
             Kailangan mong sumang-ayon bago magpatuloy. <small>You must agree to the terms to continue.</small>
           </span>
         </div>
 
-        <div class="field-group" id="group-accuracy">
+        <div class="field-group">
           <label class="checkbox-label">
             <input type="checkbox" id="accuracy" name="accuracy_confirmed" required aria-describedby="error-accuracy">
-            <span>Tama at kumpleto ang lahat ng impormasyong ibinigay ko. <small>All information I provided is true and accurate.</small> <span aria-label="required">*</span></span>
+            <span>Tama at kumpleto ang lahat ng impormasyong ibinigay ko.
+              <small>All information I provided is true and accurate. <span aria-label="required">*</span></small>
+            </span>
           </label>
           <span class="error-msg" id="error-accuracy" aria-live="polite" hidden>
             Pakikumpirma na tama ang iyong impormasyon. <small>Please confirm that your information is accurate.</small>
           </span>
         </div>
 
-        <div class="field-group" id="group-data-privacy">
+        <div class="field-group">
           <label class="checkbox-label">
             <input type="checkbox" id="data-privacy" name="data_privacy_consent" required aria-describedby="error-data-privacy">
-            <span>Pumapayag ako sa pagkolekta at paggamit ng aking personal na datos alinsunod sa <strong>Data Privacy Act of 2012 (R.A. 10173)</strong>. <small>I consent to the collection and use of my personal data under the Data Privacy Act of 2012.</small> <span aria-label="required">*</span></span>
+            <span>Pumapayag ako sa pagkolekta at paggamit ng aking personal na datos alinsunod sa
+              <strong>Data Privacy Act of 2012 (R.A. 10173)</strong>.
+              <small>I consent to the collection and use of my personal data under the Data Privacy Act of 2012. <span aria-label="required">*</span></small>
+            </span>
           </label>
           <span class="error-msg" id="error-data-privacy" aria-live="polite" hidden>
             Pakibigay ang iyong pahintulot bago magpatuloy. <small>Please give your consent to continue.</small>
           </span>
         </div>
-
-        <div class="field-group" id="group-authorization">
-          <label class="checkbox-label">
-            <input type="checkbox" id="authorization" name="authorization_confirmed" required aria-describedby="error-authorization">
-            <span>Kinukumpirma ko na legal akong awtorisadong kumatawan sa mga senior na aking ni-link. <small>I confirm I am legally authorized to represent the senior(s) I have linked.</small> <span aria-label="required">*</span></span>
-          </label>
-          <span class="error-msg" id="error-authorization" aria-live="polite" hidden>
-            Pakikumpirma ang iyong awtorisasyon. <small>Please confirm your authorization.</small>
-          </span>
-        </div>
-
       </fieldset>
 
       <div class="form-actions">
@@ -399,7 +226,8 @@
 
     <div id="register-success" hidden>
       <h2>Naisumite ang pagpaparehistro! <small>Registration submitted!</small></h2>
-      <p>Susuriin namin ang iyong mga dokumento at makikipag-ugnayan sa iyo sa loob ng 1–2 araw na trabaho. <small>We will review your documents and contact you within 1–2 business days.</small></p>
+      <p>Susuriin namin ang iyong mga dokumento at makikipag-ugnayan sa iyo sa loob ng 1–2 araw na trabaho.
+        <small>We will review your documents and contact you within 1–2 business days.</small></p>
       <a href="login.html" class="btn-primary">Pumunta sa Login <small>Go to Login</small></a>
     </div>
 

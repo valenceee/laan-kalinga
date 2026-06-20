@@ -5,107 +5,557 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - LaanKalinga</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/senior/profile.css">
 </head>
 <body>
-    <header>
-        <h1>Your Health Profile</h1>
-        <nav>
-            <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="book.html">Book Appointment</a></li>
-                <li><a href="history.html">History</a></li>
-                <li><a href="../public/index.html">Logout</a></li>
-            </ul>
-        </nav>
-        <hr>
+
+  <a href="#main-content" class="skip-link">Laktawan ang nilalaman / Skip to main content</a>
+
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>Walang koneksyon sa internet. <small>No internet connection. Please check your network and try again.</small></p>
+  </div>
+
+  <div class="banner-warning" id="banner-session" role="alert" aria-live="assertive" hidden>
+    <p>Nag-expire ang iyong session. <small>Your session expired. Please log in again.</small></p>
+  </div>
+
+  <!-- Zoom controls -->
+  <div class="zoom-controls" aria-label="Laki ng teksto / Text size">
+    <button type="button" id="zoom-in" aria-label="Palakihin ang teksto / Increase text size">+</button>
+    <button type="button" id="zoom-reset" aria-label="I-reset ang laki / Reset text size">A</button>
+    <button type="button" id="zoom-out" aria-label="Paliitin ang teksto / Decrease text size">−</button>
+  </div>
+
+  <div class="dashboard-wrap">
+
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="sidebar__brand">
+      <a href="index.html" class="logo-link">
+        <img src="../../images/logo.png" alt="LaanKalinga" class="logo">
+      </a>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="book.html">Book</a></li>
+        <li><a href="history.html" aria-current="page">History</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="dashboard-body">
+
+    <header class="topbar">
+      <div class="topbar__user">
+        <span class="topbar__name" id="topbar-name">Juan Dela Cruz</span>
+        <span class="topbar__role" id="topbar-role">Senior</span>
+      </div>
+      <div class="topbar__avatar" aria-hidden="true">
+        <span id="topbar-initials">J</span>
+      </div>
     </header>
-    <main>
-        <section id="profile-details">
-            
-            <h2>Personal Information</h2>
-            <fieldset>
-                <legend>Basic Details</legend>
-                <p><strong>Profile Picture:</strong> [Profile Image Placeholder]</p>
-                
-                <p><strong>First Name:</strong> Juan</p>
-                <p><strong>Middle Name:</strong> Mercado</p>
-                <p><strong>Last Name:</strong> Dela Cruz</p>
-                <p><strong>Suffix:</strong> Sr.</p>
-                
-                <p><strong>Date of Birth:</strong> January 15, 1955</p>
-                <p><strong>Place of Birth:</strong> Manila, NCR</p>
-                <p><strong>Sex:</strong> Male</p>
-                <p><strong>Civil Status:</strong> Married</p>
-                
-                <p><strong>PhilSys ID / National ID Number:</strong> 1234-5678-9012-3456</p>
-                <p><strong>OSCA ID Number:</strong> 12345-QC</p>
-                
-                <p><strong>Email Address:</strong> juan.delacruz@example.com</p>
-                <p><strong>Mobile Number:</strong> 0917 123 4567</p>
-                <p><strong>Home Address:</strong> 123 Sampaguita St., Brgy. Pag-asa, Quezon City</p>
-                <p><strong>Region:</strong> NCR   National Capital Region</p>
-            </fieldset>
-            <h2>Health Profile</h2>
-            <fieldset>
-                <legend>Medical Details</legend>
-                <p><strong>Primary Physician / Attending Doctor:</strong> Dr. Jose Reyes</p>
-                <p><strong>Doctor's Mobile / Clinic Number:</strong> (02) 8123 4567</p>
-                <p><strong>Hospital / Clinic Affiliation:</strong> Philippine General Hospital</p>
-                
-                <p><strong>Blood Type:</strong> O+</p>
-                <p><strong>Chronic Conditions:</strong> Hypertension, Type 2 Diabetes</p>
-                <p><strong>Known Allergies:</strong> Penicillin</p>
-                <p><strong>Current Medications:</strong> Amlodipine 5mg (1x daily), Metformin 500mg (2x daily)</p>
-                
-                <p><strong>PWD Status:</strong> None</p>
-            </fieldset>
-            <h2>Government Benefits & Insurance</h2>
-            <fieldset>
-                <legend>Benefits Information</legend>
-                <p><strong>PhilHealth Member Number (PIN):</strong> 1234-56789012-3</p>
-                <p><strong>PhilHealth Membership Category:</strong> Lifetime Member</p>
-                <p><strong>SSS / GSIS Number:</strong> SSS: 01-2345678-9</p>
-                <p><strong>Pension / Retirement Benefit Type:</strong> SSS Pension</p>
-                
-                <p><strong>Private Health Insurance Provider:</strong> Maxicare</p>
-                <p><strong>Insurance Policy Number:</strong> MAX-987654321</p>
-            </fieldset>
-            <h2>Care Preferences</h2>
-            <fieldset>
-                <legend>Preferences & Needs</legend>
-                <p><strong>Language / Dialect Preference:</strong> Filipino / Tagalog</p>
-                <p><strong>Religion:</strong> Roman Catholic</p>
-                <p><strong>Mobility Needs:</strong> Cane / Baston</p>
-                <p><strong>Dietary Restrictions:</strong> Diabetic Diet, Low Sodium</p>
-                <p><strong>Additional Dietary Notes:</strong> No pork, prefers soft foods.</p>
-            </fieldset>
-            <h2>Emergency Contacts</h2>
-            <fieldset>
-                <legend>Primary Contact</legend>
-                <p><strong>Full Name:</strong> Maria Dela Cruz</p>
-                <p><strong>Relationship:</strong> Anak / Child</p>
-                <p><strong>Mobile Number:</strong> 0917 111 2222</p>
-                <p><strong>Email Address:</strong> maria.dc@example.com</p>
-            </fieldset>
-            <fieldset>
-                <legend>Secondary Contact</legend>
-                <p><strong>Full Name:</strong> Pedro Dela Cruz</p>
-                <p><strong>Relationship:</strong> Anak / Child</p>
-                <p><strong>Mobile Number:</strong> 0918 333 4444</p>
-                <p><strong>Email Address:</strong> pedro.dc@example.com</p>
-            </fieldset>
-            <div>
-                <br>
-                <button type="button">
-                    Edit Profile Information
-                </button>
+
+  <main id="main-content">
+
+    <!-- Save confirmation banner -->
+    <div class="banner-success" id="banner-saved" role="status" aria-live="polite" hidden>
+      <p>Na-save ang mga pagbabago. <small>Your changes have been saved.</small></p>
+    </div>
+
+    <div id="profile-rep-account" hidden>
+      <section class="profile-section" id="section-account">
+        <div class="profile-section__header">
+          <h2>Iyong Account <small>Your Account</small></h2>
+          <button type="button" class="btn-edit" data-section="account"> Edit </button>
+        </div>
+
+        <div class="profile-view" id="view-account">
+          <p><strong>Email:</strong> <span data-field="rep-email-display">—</span></p>
+          <p><strong>Numero / Mobile:</strong> <span data-field="rep-phone-display">—</span></p>
+        </div>
+
+        <div class="profile-edit" id="edit-account" hidden>
+          <form id="form-account" novalidate>
+            <div class="field-group">
+              <label for="rep-email">Email <span aria-label="required">*</span></label>
+              <input type="email" id="rep-email" name="rep_email" required
+                autocomplete="email" aria-describedby="error-rep-email">
+              <span class="error-msg" id="error-rep-email" aria-live="polite" hidden>
+                Pakisulat ang tamang email. <small>Please enter a valid email address.</small>
+              </span>
             </div>
-        </section>
-    </main>
-    <hr>
-    <footer>
-        <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
-    </footer>
+            <div class="field-group">
+              <label for="rep-phone">Numero ng Cellphone <small>Mobile number</small> <span aria-label="required">*</span></label>
+              <input type="tel" id="rep-phone" name="rep_phone" required
+                autocomplete="tel" aria-describedby="error-rep-phone">
+              <span class="error-msg" id="error-rep-phone" aria-live="polite" hidden>
+                Pakisulat ang tamang numero. <small>Please enter a valid mobile number.</small>
+              </span>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-primary btn-save" data-section="account">I-save</button>
+              <button type="button" class="btn-secondary btn-cancel" data-section="account">Kanselahin</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── PERSONAL INFORMATION ───────────────── -->
+    <section class="profile-section" id="section-personal">
+      <div class="profile-section__header">
+        <h2>Personal na Impormasyon <small>Personal Information</small></h2>
+        <button type="button" class="btn-edit" data-section="personal">Edit</button>
+      </div>
+
+      <!-- View mode -->
+      <div class="profile-view" id="view-personal">
+        <p><strong>Larawan / Profile Picture:</strong> <span data-field="profile-pic-display">[Walang larawan / No photo]</span></p>
+        <p><strong>Pangalan / First name:</strong> <span data-field="first-name-display">Juan</span></p>
+        <p><strong>Gitnang Pangalan / Middle name:</strong> <span data-field="middle-name-display">Mercado</span></p>
+        <p><strong>Apelyido / Last name:</strong> <span data-field="last-name-display">Dela Cruz</span></p>
+        <p><strong>Suffix:</strong> <span data-field="suffix-display">Sr.</span></p>
+        <p><strong>Petsa ng Kapanganakan / Date of birth:</strong> <span data-field="dob-display">January 15, 1955</span></p>
+        <p><strong>Kasarian / Sex:</strong> <span data-field="gender-display">Lalaki / Male</span></p>
+        <p><strong>Katayuang Sibil / Civil status:</strong> <span data-field="civil-status-display">May asawa / Married</span></p>
+        <p><strong>Numero ng Cellphone / Mobile number:</strong> <span data-field="phone-display">0917 123 4567</span></p>
+        <p><strong>Email:</strong> <span data-field="email-display">juan.delacruz@example.com</span></p>
+        <p><strong>PhilSys ID / National ID:</strong> <span data-field="philsys-display">1234-5678-9012-3456</span></p>
+        <p><strong>OSCA ID:</strong> <span data-field="osca-display">12345-QC</span></p>
+        <p><strong>Tirahan / Address:</strong> <span data-field="address-display">123 Sampaguita St., Brgy. Pag-asa, Quezon City, Metro Manila</span></p>
+      </div>
+
+      <!-- Edit mode -->
+      <div class="profile-edit" id="edit-personal" hidden>
+        <form id="form-personal" novalidate>
+
+          <div class="field-group">
+            <label for="profile-pic">Larawan <small>Profile picture</small></label>
+            <small>Tinatanggap: JPG, PNG. / Accepted: JPG, PNG.</small>
+            <input type="file" id="profile-pic" name="profile_pic" accept=".jpg,.jpeg,.png">
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-first-name">
+              <label for="first-name">Pangalan <small>First name</small> <span aria-label="required">*</span></label>
+              <input type="text" id="first-name" name="first_name" required value="Juan"
+                     autocomplete="given-name" aria-describedby="error-first-name">
+              <span class="error-msg" id="error-first-name" aria-live="polite" hidden>
+                Pakisulat ang iyong pangalan. <small>Please enter your first name.</small>
+              </span>
+            </div>
+
+            <div class="field-group">
+              <label for="middle-name">Gitnang Pangalan <small>Middle name</small></label>
+              <input type="text" id="middle-name" name="middle_name" value="Mercado" autocomplete="additional-name">
+            </div>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-last-name">
+              <label for="last-name">Apelyido <small>Last name</small> <span aria-label="required">*</span></label>
+              <input type="text" id="last-name" name="last_name" required value="Dela Cruz"
+                     autocomplete="family-name" aria-describedby="error-last-name">
+              <span class="error-msg" id="error-last-name" aria-live="polite" hidden>
+                Pakisulat ang iyong apelyido. <small>Please enter your last name.</small>
+              </span>
+            </div>
+
+            <div class="field-group">
+              <label for="suffix">Suffix</label>
+              <select id="suffix" name="suffix">
+                <option value="">Wala / None</option>
+                <option value="jr">Jr.</option>
+                <option value="sr" selected>Sr.</option>
+                <option value="ii">II</option>
+                <option value="iii">III</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-dob">
+              <label for="dob">Petsa ng Kapanganakan <small>Date of birth</small> <span aria-label="required">*</span></label>
+              <input type="date" id="dob" name="date_of_birth" required value="1955-01-15"
+                     aria-describedby="error-dob">
+              <span class="error-msg" id="error-dob" aria-live="polite" hidden>
+                Pakilagay ang tamang petsa. <small>Please enter a valid date of birth.</small>
+              </span>
+            </div>
+
+            <div class="field-group" id="group-gender">
+              <label for="gender">Kasarian <small>Sex</small> <span aria-label="required">*</span></label>
+              <select id="gender" name="gender" required aria-describedby="error-gender">
+                <option value="male" selected>Lalaki / Male</option>
+                <option value="female">Babae / Female</option>
+                <option value="prefer-not-to-say">Ayaw sabihin / Prefer not to say</option>
+              </select>
+              <span class="error-msg" id="error-gender" aria-live="polite" hidden>
+                Pumili ng kasarian. <small>Please select your sex.</small>
+              </span>
+            </div>
+          </div>
+
+          <div class="field-group" id="group-civil-status">
+            <label for="civil-status">Katayuang Sibil <small>Civil status</small> <span aria-label="required">*</span></label>
+            <select id="civil-status" name="civil_status" required aria-describedby="error-civil-status">
+              <option value="single">Walang asawa / Single</option>
+              <option value="married" selected>May asawa / Married</option>
+              <option value="widowed">Biyudo/Biyuda / Widowed</option>
+              <option value="separated">Hiwalay / Separated</option>
+              <option value="annulled">Annulled</option>
+            </select>
+            <span class="error-msg" id="error-civil-status" aria-live="polite" hidden>
+              Pumili ng katayuang sibil. <small>Please select your civil status.</small>
+            </span>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-phone">
+              <label for="phone">Numero ng Cellphone <small>Mobile number</small> <span aria-label="required">*</span></label>
+              <input type="tel" id="phone" name="phone" required value="09171234567"
+                     autocomplete="tel" aria-describedby="error-phone">
+              <span class="error-msg" id="error-phone" aria-live="polite" hidden>
+                Pakisulat ang tamang numero. <small>Please enter a valid mobile number.</small>
+              </span>
+            </div>
+
+            <div class="field-group" id="group-email">
+              <label for="email">Email <small>Optional</small></label>
+              <input type="email" id="email" name="email" value="juan.delacruz@example.com"
+                     autocomplete="email" aria-describedby="error-email">
+              <span class="error-msg" id="error-email" aria-live="polite" hidden>
+                Pakisulat ang tamang email. <small>Please enter a valid email address.</small>
+              </span>
+            </div>
+          </div>
+
+          <div class="field-group" id="group-philsys-id">
+            <label for="philsys-id">PhilSys ID / National ID</label>
+            <input type="text" id="philsys-id" name="philsys_id" value="1234-5678-9012-3456">
+          </div>
+
+          <div class="field-group" id="group-osca-id">
+            <label for="osca-id">OSCA ID</label>
+            <small>Makukuha sa Office for Senior Citizens Affairs. / Issued by the Office for Senior Citizens Affairs.</small>
+            <input type="text" id="osca-id" name="osca_id" value="12345-QC">
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-house-number">
+              <label for="house-number">Numero ng Bahay / Unit <small>House or unit no.</small> <span aria-label="required">*</span></label>
+              <input type="text" id="house-number" name="house_number" required value="123"
+                     aria-describedby="error-house-number">
+              <span class="error-msg" id="error-house-number" aria-live="polite" hidden>
+                Pakisulat ang numero ng iyong bahay o unit. <small>Please enter your house or unit number.</small>
+              </span>
+            </div>
+
+            <div class="field-group" id="group-street">
+              <label for="street">Kalye <small>Street</small> <span aria-label="required">*</span></label>
+              <input type="text" id="street" name="street" required value="Sampaguita St."
+                     aria-describedby="error-street">
+              <span class="error-msg" id="error-street" aria-live="polite" hidden>
+                Pakisulat ang pangalan ng kalye. <small>Please enter your street name.</small>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-barangay">
+              <label for="barangay-search">Barangay <span aria-label="required">*</span></label>
+              <input type="text" id="barangay-search" name="barangay_search"
+                     list="barangay-list" autocomplete="off" value="Pag-Ibig sa Nayon"
+                     aria-describedby="error-barangay">
+              <datalist id="barangay-list"></datalist>
+              <input type="hidden" id="barangay" name="barangay" value="Pag-Ibig sa Nayon">
+              <span class="error-msg" id="error-barangay" aria-live="polite" hidden>
+                Pumili ng barangay sa Lungsod Quezon. <small>Please select a valid barangay in Quezon City.</small>
+              </span>
+            </div>
+
+            <div class="field-group">
+              <label for="city">Lungsod <small>City</small></label>
+              <input type="text" id="city" name="city" value="Quezon City" readonly autocomplete="address-level2">
+            </div>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group">
+              <label for="province">Probinsya <small>Province</small></label>
+              <input type="text" id="province" name="province" value="Metro Manila" readonly>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary btn-save" data-section="personal">I-save</button>
+            <button type="button" class="btn-secondary btn-cancel" data-section="personal">Kanselahin</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- ── HEALTH PROFILE ───────────────── -->
+    <section class="profile-section" id="section-health">
+      <div class="profile-section__header">
+        <h2>Kalusugan <small>Health Profile</small></h2>
+        <button type="button" class="btn-edit" data-section="health">Edit</button>
+      </div>
+
+      <div class="profile-view" id="view-health">
+        <p><strong>Uri ng Dugo / Blood type:</strong> <span data-field="blood-type-display">O+</span></p>
+        <p><strong>Mga Sakit / Chronic conditions:</strong> <span data-field="chronic-conditions-display">Hypertension, Type 2 Diabetes</span></p>
+        <p><strong>Mga Allergy / Allergies:</strong> <span data-field="allergies-display">Penicillin</span></p>
+        <p><strong>Mga Gamot / Medications:</strong> <span data-field="medications-display">Amlodipine 5mg (1x araw-araw), Metformin 500mg (2x araw-araw)</span></p>
+        <p><strong>May Kapansanan? / PWD status:</strong> <span data-field="pwd-status-display">Wala / None</span></p>
+      </div>
+
+      <div class="profile-edit" id="edit-health" hidden>
+        <form id="form-health" novalidate>
+
+          <div class="field-group">
+            <label for="blood-type">Uri ng Dugo <small>Blood type</small></label>
+            <select id="blood-type" name="blood_type">
+              <option value="">— Pumili / Select —</option>
+              <option value="a+">A+</option>
+              <option value="a-">A-</option>
+              <option value="b+">B+</option>
+              <option value="b-">B-</option>
+              <option value="ab+">AB+</option>
+              <option value="ab-">AB-</option>
+              <option value="o+" selected>O+</option>
+              <option value="o-">O-</option>
+              <option value="unknown">Hindi alam / Unknown</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="chronic-conditions">Mga Sakit <small>Chronic conditions</small></label>
+            <textarea id="chronic-conditions" name="chronic_conditions" rows="3">Hypertension, Type 2 Diabetes</textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="allergies">Mga Allergy <small>Allergies</small></label>
+            <textarea id="allergies" name="allergies" rows="2">Penicillin</textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="medications">Mga Gamot <small>Current medications</small></label>
+            <textarea id="medications" name="medications" rows="3">Amlodipine 5mg (1x araw-araw), Metformin 500mg (2x araw-araw)</textarea>
+          </div>
+
+          <div class="field-group" id="group-pwd-status">
+            <label for="pwd-status">May kapansanan ba? <small>Do you have a disability?</small></label>
+            <select id="pwd-status" name="pwd_status">
+              <option value="none" selected>Wala / None</option>
+              <option value="yes">Oo, may PWD ID ako. / Yes, I have a PWD ID.</option>
+              <option value="yes-no-id">Oo, wala pang PWD ID. / Yes, but no PWD ID yet.</option>
+            </select>
+          </div>
+
+          <div class="field-group" id="group-pwd-details" hidden>
+            <label for="pwd-details">Uri ng Kapansanan <small>Type of disability</small></label>
+            <input type="text" id="pwd-details" name="pwd_details">
+          </div>
+
+          <div class="field-group" id="group-pwd-upload" hidden>
+            <label for="pwd-upload">PWD ID <small>Upload</small></label>
+            <small>Tinatanggap: PDF, JPG, PNG. / Accepted: PDF, JPG, PNG.</small>
+            <input type="file" id="pwd-upload" name="pwd_id_document" accept=".pdf,.jpg,.jpeg,.png">
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary btn-save" data-section="health">I-save</button>
+            <button type="button" class="btn-secondary btn-cancel" data-section="health">Kanselahin</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- ── CARE PREFERENCES ───────────────── -->
+    <section class="profile-section" id="section-preferences">
+      <div class="profile-section__header">
+        <h2>Mga Kagustuhan sa Pangangalaga <small>Care Preferences</small></h2>
+        <button type="button" class="btn-edit" data-section="preferences">Edit</button>
+      </div>
+
+      <div class="profile-view" id="view-preferences">
+        <p><strong>Wika / Language preference:</strong> <span data-field="language-display">Filipino / Tagalog</span></p>
+        <p><strong>Tulong sa Paggalaw / Mobility needs:</strong> <span data-field="mobility-display">Baston / Cane</span></p>
+        <p><strong>Paghihigpit sa Pagkain / Dietary restrictions:</strong> <span data-field="dietary-display">Diabetic Diet, Low Sodium</span></p>
+        <p><strong>Karagdagang Tala / Additional notes:</strong> <span data-field="dietary-notes-display">Walang baboy, mas gusto ang malambot na pagkain. / No pork, prefers soft foods.</span></p>
+      </div>
+
+      <div class="profile-edit" id="edit-preferences" hidden>
+        <form id="form-preferences" novalidate>
+
+          <div class="field-group">
+            <label for="language">Wika <small>Language / dialect preference</small></label>
+            <select id="language" name="language">
+              <option value="filipino" selected>Filipino / Tagalog</option>
+              <option value="english">English</option>
+              <option value="cebuano">Cebuano / Bisaya</option>
+              <option value="ilocano">Ilocano</option>
+              <option value="other">Iba pa / Other</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="mobility">Tulong sa Paggalaw <small>Mobility needs</small></label>
+            <select id="mobility" name="mobility_needs">
+              <option value="none">Wala / None</option>
+              <option value="cane" selected>Baston / Cane</option>
+              <option value="walker">Walker</option>
+              <option value="wheelchair">Wheelchair</option>
+              <option value="bedridden">Hindi makagalaw / Bedridden</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="dietary">Paghihigpit sa Pagkain <small>Dietary restrictions</small></label>
+            <input type="text" id="dietary" name="dietary_restrictions" value="Diabetic Diet, Low Sodium">
+          </div>
+
+          <div class="field-group">
+            <label for="dietary-notes">Karagdagang Tala <small>Additional dietary notes</small></label>
+            <textarea id="dietary-notes" name="dietary_notes" rows="2">Walang baboy, mas gusto ang malambot na pagkain.</textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary btn-save" data-section="preferences">I-save</button>
+            <button type="button" class="btn-secondary btn-cancel" data-section="preferences">Kanselahin</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- ── EMERGENCY CONTACTS ───────────────── -->
+    <section class="profile-section" id="section-contacts">
+      <div class="profile-section__header">
+        <h2>Mga Kontak sa Emerhensya <small>Emergency Contacts</small></h2>
+        <button type="button" class="btn-edit" data-section="contacts">Edit</button>
+      </div>
+
+      <div class="profile-view" id="view-contacts">
+        <h3>Pangunahing Kontak <small>Primary Contact</small></h3>
+        <p><strong>Buong Pangalan / Full name:</strong> <span data-field="primary-name-display">Maria Dela Cruz</span></p>
+        <p><strong>Relasyon / Relationship:</strong> <span data-field="primary-relationship-display">Anak / Child</span></p>
+        <p><strong>Numero / Mobile number:</strong> <span data-field="primary-phone-display">0917 111 2222</span></p>
+        <p><strong>Email:</strong> <span data-field="primary-email-display">maria.dc@example.com</span></p>
+
+        <h3>Karagdagang Kontak <small>Secondary Contact</small></h3>
+        <p><strong>Buong Pangalan / Full name:</strong> <span data-field="secondary-name-display">Pedro Dela Cruz</span></p>
+        <p><strong>Relasyon / Relationship:</strong> <span data-field="secondary-relationship-display">Anak / Child</span></p>
+        <p><strong>Numero / Mobile number:</strong> <span data-field="secondary-phone-display">0918 333 4444</span></p>
+        <p><strong>Email:</strong> <span data-field="secondary-email-display">pedro.dc@example.com</span></p>
+      </div>
+
+      <div class="profile-edit" id="edit-contacts" hidden>
+        <form id="form-contacts" novalidate>
+
+          <h3>Pangunahing Kontak <small>Primary Contact</small></h3>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-primary-name">
+              <label for="primary-name">Buong Pangalan <small>Full name</small> <span aria-label="required">*</span></label>
+              <input type="text" id="primary-name" name="primary_contact_name" required value="Maria Dela Cruz"
+                     aria-describedby="error-primary-name">
+              <span class="error-msg" id="error-primary-name" aria-live="polite" hidden>
+                Pakisulat ang buong pangalan. <small>Please enter the full name.</small>
+              </span>
+            </div>
+
+            <div class="field-group" id="group-primary-relationship">
+              <label for="primary-relationship">Relasyon <small>Relationship</small> <span aria-label="required">*</span></label>
+              <select id="primary-relationship" name="primary_contact_relationship" required
+                      aria-describedby="error-primary-relationship">
+                <option value="child" selected>Anak / Child</option>
+                <option value="spouse">Asawa / Spouse</option>
+                <option value="sibling">Kapatid / Sibling</option>
+                <option value="grandchild">Apo / Grandchild</option>
+                <option value="relative">Kamag-anak / Relative</option>
+                <option value="friend">Kaibigan / Friend</option>
+                <option value="other">Iba pa / Other</option>
+              </select>
+              <span class="error-msg" id="error-primary-relationship" aria-live="polite" hidden>
+                Pumili ng relasyon. <small>Please select the relationship.</small>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group" id="group-primary-phone">
+              <label for="primary-phone">Numero ng Cellphone <small>Mobile number</small> <span aria-label="required">*</span></label>
+              <input type="tel" id="primary-phone" name="primary_contact_phone" required value="09171112222"
+                     aria-describedby="error-primary-phone">
+              <span class="error-msg" id="error-primary-phone" aria-live="polite" hidden>
+                Pakisulat ang tamang numero. <small>Please enter a valid mobile number.</small>
+              </span>
+            </div>
+
+            <div class="field-group">
+              <label for="primary-email">Email <small>Optional</small></label>
+              <input type="email" id="primary-email" name="primary_contact_email" value="maria.dc@example.com">
+            </div>
+          </div>
+
+          <h3>Karagdagang Kontak <small>Secondary Contact</small></h3>
+          <small>Opsyonal. / Optional.</small>
+
+          <div class="form-row two-column">
+            <div class="field-group">
+              <label for="secondary-name">Buong Pangalan <small>Full name</small></label>
+              <input type="text" id="secondary-name" name="secondary_contact_name" value="Pedro Dela Cruz">
+            </div>
+
+            <div class="field-group">
+              <label for="secondary-relationship">Relasyon <small>Relationship</small></label>
+              <select id="secondary-relationship" name="secondary_contact_relationship">
+                <option value="">— Pumili / Select —</option>
+                <option value="child" selected>Anak / Child</option>
+                <option value="spouse">Asawa / Spouse</option>
+                <option value="sibling">Kapatid / Sibling</option>
+                <option value="grandchild">Apo / Grandchild</option>
+                <option value="relative">Kamag-anak / Relative</option>
+                <option value="friend">Kaibigan / Friend</option>
+                <option value="other">Iba pa / Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="field-group">
+              <label for="secondary-phone">Numero ng Cellphone <small>Mobile number</small></label>
+              <input type="tel" id="secondary-phone" name="secondary_contact_phone" value="09183334444">
+            </div>
+
+            <div class="field-group">
+              <label for="secondary-email">Email <small>Optional</small></label>
+              <input type="email" id="secondary-email" name="secondary_contact_email" value="pedro.dc@example.com">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary btn-save" data-section="contacts">I-save</button>
+            <button type="button" class="btn-secondary btn-cancel" data-section="contacts">Kanselahin</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+  </div>
+  <footer>
+    <p>&copy; 2026 LaanKalinga. <small>All rights reserved.</small></p>
+  </footer>
+
+  <script src="../../js/senior/profile.js"></script>
+
 </body>
 </html>

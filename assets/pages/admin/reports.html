@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - LaanKalinga</title>
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/other-style.css">
+    <link rel="stylesheet" href="../../css/admin/reports.css">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -79,6 +80,27 @@
       <div class="stat-card">
         <p class="stat-card__label">Flagged Cases Resolved</p>
         <p class="stat-card__value" id="stat-flagged-resolved">0</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section id="calendar">
+    <h2>Activity Calendar</h2>
+    <p>Click a date to see visits and events scheduled on that day.</p>
+    <div class="cal">
+      <div class="cal__nav">
+        <button type="button" id="cal-prev" class="btn-secondary" aria-label="Previous month">&lsaquo;</button>
+        <span id="cal-heading" class="cal__heading" aria-live="polite"></span>
+        <button type="button" id="cal-next" class="btn-secondary" aria-label="Next month">&rsaquo;</button>
+      </div>
+      <div class="cal__grid" id="cal-grid" role="grid" aria-label="Calendar"></div>
+      <div class="cal__detail" id="cal-detail" hidden>
+        <div class="cal__detail-header">
+          <strong id="cal-detail-date"></strong>
+          <button type="button" id="cal-detail-close" class="btn-secondary" aria-label="Close">&times;</button>
+        </div>
+        <div id="cal-detail-body"></div>
       </div>
     </div>
   </section>
@@ -226,27 +248,6 @@
       </thead>
       <tbody id="events-tbody"></tbody>
     </table>
-  </section>
-
-  <!-- CALENDAR -->
-  <section id="calendar">
-    <h2>Activity Calendar</h2>
-    <p>Click a date to see visits and events scheduled on that day.</p>
-    <div class="cal">
-      <div class="cal__nav">
-        <button type="button" id="cal-prev" class="btn-secondary" aria-label="Previous month">&lsaquo;</button>
-        <span id="cal-heading" class="cal__heading" aria-live="polite"></span>
-        <button type="button" id="cal-next" class="btn-secondary" aria-label="Next month">&rsaquo;</button>
-      </div>
-      <div class="cal__grid" id="cal-grid" role="grid" aria-label="Calendar"></div>
-      <div class="cal__detail" id="cal-detail" hidden>
-        <div class="cal__detail-header">
-          <strong id="cal-detail-date"></strong>
-          <button type="button" id="cal-detail-close" class="btn-secondary" aria-label="Close">&times;</button>
-        </div>
-        <div id="cal-detail-body"></div>
-      </div>
-    </div>
   </section>
 
 </main>

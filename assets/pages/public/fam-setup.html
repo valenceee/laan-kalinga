@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Dashboard - LaanKalinga</title>
+    <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/public/fam-setup.css">
+</head>
+<body>
+  <div class="banner-error" id="banner-offline" role="alert" aria-live="assertive" hidden>
+    <p>Walang koneksyon sa internet. <small>No internet connection. Please check your network and try again.</small></p>
+  </div>
+
+  <main id="main-content">
+
+    <header class="register-header">
+      <a href="index.html" class="logo-link">
+        <img src="../../images/logo.png" alt="LaanKalinga Logo" class="logo">
+      </a>
+      <h1 id="page-title">Idagdag ang Senior <small>Add a Senior</small></h1>
+      <p class="hero-subtitle" id="page-subtitle">Ikaw bilang kinatawan ng pamilya ang magdadagdag ng impormasyon para sa senior. <small>As family representative, you are adding this senior's information on their behalf.</small></p>
+    </header>
+
+    <div class="error-summary" id="error-summary" role="alert" aria-live="assertive" hidden>
+      <p class="error-summary__heading">Pakitama ang mga ito bago magpatuloy. <small>Please fix these before continuing.</small></p>
+      <ul class="error-summary__list" id="error-summary-list"></ul>
+    </div>
+
+    <form id="fam-setup-form" action="#" method="POST" enctype="multipart/form-data" novalidate>
+
+      <!-- STEP 1: SENIOR PERSONAL INFORMATION -->
+      <fieldset class="form-step">
+        <legend>Hakbang 1 ng 3: Personal na Impormasyon ng Senior <br><small>Step 1 of 3: Senior's Personal Information</small></legend>
+
+        <div class="field-group">
+          <label for="profile-pic">Larawan <small>Profile picture — Optional</small></label>
+          <small>Mag-upload ng malinaw na litrato. Tinatanggap: JPG, PNG. / Upload a clear, recent photo. Accepted: JPG, PNG.</small>
+          <input type="file" id="profile-pic" name="profile_pic" accept=".jpg,.jpeg,.png">
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="first-name">Pangalan <small>First name</small> <span aria-label="required">*</span></label>
+            <input type="text" id="first-name" name="first_name" required placeholder="e.g. Juan"
+              autocomplete="off" aria-describedby="error-first-name">
+            <span class="error-msg" id="error-first-name" aria-live="polite" hidden>
+              Pakisulat ang pangalan ng senior. <small>Please enter the senior's first name.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="middle-name">Gitnang Pangalan <small>Middle name</small></label>
+            <input type="text" id="middle-name" name="middle_name" placeholder="e.g. Garcia" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="last-name">Apelyido <small>Last name</small> <span aria-label="required">*</span></label>
+            <input type="text" id="last-name" name="last_name" required placeholder="e.g. Dela Cruz"
+              autocomplete="off" aria-describedby="error-last-name">
+            <span class="error-msg" id="error-last-name" aria-live="polite" hidden>
+              Pakisulat ang apelyido ng senior. <small>Please enter the senior's last name.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="suffix">Suffix</label>
+            <select id="suffix" name="suffix">
+              <option value="">Wala / None</option>
+              <option value="jr">Jr.</option>
+              <option value="sr">Sr.</option>
+              <option value="ii">II</option>
+              <option value="iii">III</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="dob">Petsa ng Kapanganakan <small>Date of birth</small> <span aria-label="required">*</span></label>
+            <small>Dapat 50 taong gulang o higit pa. / Must be 50 years of age or older.</small>
+            <input type="date" id="dob" name="date_of_birth" required aria-describedby="error-dob">
+            <span class="error-msg" id="error-dob" aria-live="polite" hidden>
+              Dapat 50 taong gulang o higit pa. <small>Must be 50 years of age or older.</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="gender">Kasarian <small>Sex</small> <span aria-label="required">*</span></label>
+            <select id="gender" name="gender" required aria-describedby="error-gender">
+              <option value="">— Pumili / Select —</option>
+              <option value="male">Lalaki / Male</option>
+              <option value="female">Babae / Female</option>
+              <option value="prefer-not-to-say">Ayaw sabihin / Prefer not to say</option>
+            </select>
+            <span class="error-msg" id="error-gender" aria-live="polite" hidden>
+              Pumili ng kasarian. <small>Please select the senior's sex.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="civil-status">Katayuang Sibil <small>Civil status</small> <span aria-label="required">*</span></label>
+            <select id="civil-status" name="civil_status" required aria-describedby="error-civil-status">
+              <option value="">— Pumili / Select —</option>
+              <option value="single">Walang asawa / Single</option>
+              <option value="married">May asawa / Married</option>
+              <option value="widowed">Biyudo/Biyuda / Widowed</option>
+              <option value="separated">Hiwalay / Separated</option>
+              <option value="annulled">Annulled</option>
+            </select>
+            <span class="error-msg" id="error-civil-status" aria-live="polite" hidden>
+              Pumili ng katayuang sibil. <small>Please select the senior's civil status.</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="phone">Numero ng Cellphone ng Senior <small>Senior's mobile number</small> <span aria-label="required">*</span></label>
+            <input type="tel" id="phone" name="phone" required placeholder="09XX XXX XXXX"
+              autocomplete="off" aria-describedby="error-phone">
+            <span class="error-msg" id="error-phone" aria-live="polite" hidden>
+              Pakisulat ang tamang numero. <small>Please enter a valid mobile number (e.g. 09171234567).</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="email">Email ng Senior <small>Senior's email — Optional</small></label>
+            <input type="email" id="email" name="email" placeholder="example@gmail.com" autocomplete="off"
+              aria-describedby="error-email">
+            <span class="error-msg" id="error-email" aria-live="polite" hidden>
+              Pakisulat ang tamang email. <small>Please enter a valid email address.</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="philsys-id">PhilSys ID / National ID ng Senior</label>
+          <small>Ginagamit para sa pagpapatunay ng pagkakakilanlan. / Used for identity verification.</small>
+          <input type="text" id="philsys-id" name="philsys_id" placeholder="XXXX-XXXX-XXXX-XXXX"
+            aria-describedby="error-philsys-id">
+          <span class="error-msg" id="error-philsys-id" aria-live="polite" hidden>
+            Pakilagay ang PhilSys ID o lagyan ng tsek ang kahon sa ibaba. <small>Please enter the PhilSys ID or check the box below.</small>
+          </span>
+          <label class="checkbox-label">
+            <input type="checkbox" id="philsys-followup" name="philsys_followup" value="yes">
+            <span>Hindi pa available ang ID. Ipapakita sa volunteer sa unang pagbisita. <small>ID is not available yet. Will be presented to the volunteer during the first visit.</small></span>
+          </label>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="house-number">Numero ng Bahay / Unit <small>House or unit no.</small> <span aria-label="required">*</span></label>
+            <input type="text" id="house-number" name="house_number" required
+              aria-describedby="error-house-number">
+            <span class="error-msg" id="error-house-number" aria-live="polite" hidden>
+              Pakisulat ang numero ng bahay o unit. <small>Please enter the house or unit number.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="street">Kalye <small>Street</small> <span aria-label="required">*</span></label>
+            <input type="text" id="street" name="street" required aria-describedby="error-street">
+            <span class="error-msg" id="error-street" aria-live="polite" hidden>
+              Pakisulat ang pangalan ng kalye. <small>Please enter the street name.</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="barangay-search">Barangay <span aria-label="required">*</span></label>
+            <input type="text" id="barangay-search" name="barangay_search"
+              list="barangay-list" autocomplete="off" aria-describedby="error-barangay">
+            <datalist id="barangay-list"></datalist>
+            <input type="hidden" id="barangay" name="barangay">
+            <span class="error-msg" id="error-barangay" aria-live="polite" hidden>
+              Pumili ng barangay sa listahan. <small>Please select a valid barangay.</small>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- STEP 2: HEALTH, EMERGENCY CONTACT & RELATIONSHIP -->
+      <fieldset class="form-step">
+        <legend>Hakbang 2 ng 3: Kalusugan, Kontak, at Relasyon <br><small>Step 2 of 3: Health, Emergency Contact and Relationship</small></legend>
+
+        <div class="field-group">
+          <label for="chronic-conditions">Mga Sakit <small>Chronic conditions — Optional</small></label>
+          <small>Maaaring tulungan ng volunteer sa unang pagbisita. / A volunteer can help fill this in during the first visit.</small>
+          <textarea id="chronic-conditions" name="chronic_conditions" rows="3"></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="allergies">Mga Allergy <small>Known allergies — Optional</small></label>
+          <textarea id="allergies" name="allergies" rows="2"></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="medications">Mga Gamot <small>Current medications — Optional</small></label>
+          <textarea id="medications" name="medications" rows="3"></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="blood-type">Uri ng Dugo <small>Blood type — Optional</small></label>
+          <select id="blood-type" name="blood_type">
+            <option value="">— Pumili / Select —</option>
+            <option value="a+">A+</option>
+            <option value="a-">A-</option>
+            <option value="b+">B+</option>
+            <option value="b-">B-</option>
+            <option value="ab+">AB+</option>
+            <option value="ab-">AB-</option>
+            <option value="o+">O+</option>
+            <option value="o-">O-</option>
+            <option value="unknown">Hindi alam / Unknown</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="pwd-status">May kapansanan ba ang senior? <small>Does the senior have a disability?</small></label>
+          <select id="pwd-status" name="pwd_status">
+            <option value="">— Pumili / Select —</option>
+            <option value="none">Wala / None</option>
+            <option value="yes">Oo, may PWD ID. / Yes, has a PWD ID.</option>
+            <option value="yes-no-id">Oo, wala pang PWD ID. / Yes, but no PWD ID yet.</option>
+          </select>
+        </div>
+
+        <div class="field-group" id="group-pwd-details" hidden>
+          <label for="pwd-details">Uri ng Kapansanan <small>Type of disability — Optional</small></label>
+          <input type="text" id="pwd-details" name="pwd_details"
+            placeholder="e.g. Pisikal, Biswal / Physical, Visual">
+        </div>
+
+        <div class="field-group" id="group-pwd-upload" hidden>
+          <label for="pwd-upload">PWD ID <small>Upload</small></label>
+          <small>Tinatanggap: PDF, JPG, PNG. / Accepted: PDF, JPG, PNG.</small>
+          <input type="file" id="pwd-upload" name="pwd_id_document"
+            accept=".pdf,.jpg,.jpeg,.png" aria-describedby="error-pwd-upload">
+          <span class="error-msg" id="error-pwd-upload" aria-live="polite" hidden>
+            Pakiupload ang PWD ID. <small>Please upload the PWD ID.</small>
+          </span>
+        </div>
+        </div>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="primary-contact-phone">Numero ng Cellphone <small>Mobile number</small> <span aria-label="required">*</span></label>
+            <input type="tel" id="primary-contact-phone" name="primary_contact_phone" required
+              aria-describedby="error-primary-contact-phone">
+            <span class="error-msg" id="error-primary-contact-phone" aria-live="polite" hidden>
+              Pakisulat ang tamang numero. <small>Please enter a valid mobile number.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="primary-contact-email">Email <small>Opsyonal / Optional</small></label>
+            <input type="email" id="primary-contact-email" name="primary_contact_email">
+          </div>
+        </div>
+
+        <h3>Kaugnayan mo sa Senior <small>Your Relationship to the Senior</small></h3>
+
+        <div class="form-row two-column">
+          <div class="field-group">
+            <label for="rep-relationship">Ikaw ay ang <small>You are the senior's</small> <span aria-label="required">*</span></label>
+            <select id="rep-relationship" name="rep_relationship" required
+              aria-describedby="error-rep-relationship">
+              <option value="">— Pumili / Select —</option>
+              <option value="child">Anak / Child</option>
+              <option value="spouse">Asawa / Spouse</option>
+              <option value="sibling">Kapatid / Sibling</option>
+              <option value="grandchild">Apo / Grandchild</option>
+              <option value="nephew-niece">Pamangkin / Nephew or Niece</option>
+              <option value="relative">Kamag-anak / Relative</option>
+              <option value="legal-guardian">Legal na Tagapag-alaga / Legal Guardian</option>
+              <option value="other">Iba pa / Other</option>
+            </select>
+            <span class="error-msg" id="error-rep-relationship" aria-live="polite" hidden>
+              Pumili ng iyong relasyon sa senior. <small>Please select your relationship to the senior.</small>
+            </span>
+          </div>
+
+          <div class="field-group">
+            <label for="comm-preference">Paraan ng Pakikipag-ugnayan <small>Preferred contact method</small> <span aria-label="required">*</span></label>
+            <select id="comm-preference" name="comm_preference" required
+              aria-describedby="error-comm-preference">
+              <option value="">— Pumili / Select —</option>
+              <option value="sms">SMS / Text</option>
+              <option value="call">Tawag / Phone call</option>
+              <option value="email">Email</option>
+            </select>
+            <span class="error-msg" id="error-comm-preference" aria-live="polite" hidden>
+              Pumili ng paraan ng pakikipag-ugnayan. <small>Please select a preferred contact method.</small>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- STEP 3: CONSENT -->
+      <fieldset class="form-step">
+        <legend>Hakbang 3 ng 3: Pahintulot <br><small>Step 3 of 3: Consent</small></legend>
+
+        <div class="field-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="terms" name="terms_accepted" required aria-describedby="error-terms">
+            <span>Sumasang-ayon ako sa <a href="#" target="_blank">Mga Tuntunin at Kondisyon</a> at
+              <a href="#" target="_blank">Patakaran sa Pagkapribado</a>.
+              <small>I agree to the Terms and Conditions and Privacy Policy.</small>
+              <span aria-label="required">*</span></span>
+          </label>
+          <span class="error-msg" id="error-terms" aria-live="polite" hidden>
+            Kailangan mong sumang-ayon bago magpatuloy. <small>You must agree to the terms to continue.</small>
+          </span>
+        </div>
+
+        <div class="field-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="accuracy" name="accuracy_confirmed" required aria-describedby="error-accuracy">
+            <span>Tama at kumpleto ang lahat ng impormasyong ibinigay ko para sa senior.
+              <small>All information I provided for the senior is true and accurate.</small>
+              <span aria-label="required">*</span></span>
+          </label>
+          <span class="error-msg" id="error-accuracy" aria-live="polite" hidden>
+            Pakikumpirma na tama ang impormasyon. <small>Please confirm the information is accurate.</small>
+          </span>
+        </div>
+
+        <div class="field-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="data-privacy" name="data_privacy_consent" required aria-describedby="error-data-privacy">
+            <span>Pumapayag ako sa pagkolekta at paggamit ng personal na datos ng senior alinsunod sa
+              <strong>Data Privacy Act of 2012 (R.A. 10173)</strong>.
+              <small>I consent to the collection and use of the senior's personal data under the Data Privacy Act of 2012.</small>
+              <span aria-label="required">*</span></span>
+          </label>
+          <span class="error-msg" id="error-data-privacy" aria-live="polite" hidden>
+            Pakibigay ang pahintulot bago magpatuloy. <small>Please give your consent to continue.</small>
+          </span>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" id="submit-btn" class="btn-primary">I-save ang Senior <small>Save Senior</small></button>
+        <a href="dashboard.html" class="btn-secondary">Bumalik sa Dashboard <small>Back to Dashboard</small></a>
+      </div>
+
+    </form>
+
+    <div id="setup-success" hidden>
+      <h2>Naidagdag ang senior! <small>Senior added successfully!</small></h2>
+      <p>Maaari ka nang humiling ng bisita para sa kanya. <small>You can now request visits on their behalf.</small></p>
+      <a href="dashboard.html" class="btn-primary">Pumunta sa Dashboard <small>Go to Dashboard</small></a>
+    </div>
+
+  </main>
+
+  <footer class="form-footer">
+    <p>&copy; 2026 LaanKalinga. <small>All rights reserved.</small></p>
+  </footer>
+
+  <script src="../../js/public/fam-setup.js"></script>
+
+</body>
+</html>

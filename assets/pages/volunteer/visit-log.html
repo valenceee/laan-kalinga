@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visit Log & Outcome - LaanKalinga</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/volunteer/visit-log.css">
 </head>
 <body>
-    <header>
-        <h1>Visit Details & Outcome Log</h1>
-        <nav>
-            <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="availability.html">Set Availability</a></li>
-                <li><a href="../public/index.html">Logout</a></li>
-            </ul>
-        </nav>
-        <hr>
-    </header>
+<div class="dashboard-wrap">
+
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="sidebar__brand">
+      <a href="index.html" class="logo-link">
+        <img src="../../images/logo.png" alt="LaanKalinga" class="logo">
+      </a>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="availability.html">Set Availability</a></li>
+        <li><a href="../public/index.html">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
 
     <main>
 
     <!-- BACK LINK -->
-    <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+    <a href="dashboard.html" class="back-link"> Back to Dashboard</a>
+        <h1>Visit Details & Outcome Log</h1>
 
     <!-- VISIT SUMMARY STRIP -->
     <section id="visit-summary">
@@ -164,6 +171,7 @@
 
     </main>
     <hr>
+</div>
     <footer>
         <p>&copy; 2026 LaanKalinga. All rights reserved.</p>
     </footer>

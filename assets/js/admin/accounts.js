@@ -71,7 +71,7 @@ const STATUS_LABELS = {
   active:    'Active',
   inactive:  'Inactive',
   suspended: 'Suspended',
-  pending:   'Pending Verification',
+  pending:   'Pending',
 };
 
 const PAGE_SIZE = 10;
@@ -154,72 +154,74 @@ function getFiltered() {
     return matchesSearch && matchesRole && matchesStatus;
   });
 }
-
 function buildActionButtons(a) {
   const td = document.createElement('td');
+  const wrap = document.createElement('div');
+  wrap.className = 'actions-cell';
 
   const viewBtn = document.createElement('button');
   viewBtn.type = 'button';
-  viewBtn.className = 'btn-view-account btn-secondary';
+  viewBtn.className = 'btn-view-account btn-secondary btn-sm';
   viewBtn.dataset.id = a.id;
   viewBtn.textContent = 'View';
-  td.appendChild(viewBtn);
+  wrap.appendChild(viewBtn);
 
   const editBtn = document.createElement('button');
   editBtn.type = 'button';
-  editBtn.className = 'btn-edit-account btn-secondary';
+  editBtn.className = 'btn-edit-account btn-secondary btn-sm';
   editBtn.dataset.id = a.id;
   editBtn.textContent = 'Edit';
-  td.appendChild(editBtn);
+  wrap.appendChild(editBtn);
 
   if (a.status === 'pending') {
     const approveBtn = document.createElement('button');
     approveBtn.type = 'button';
-    approveBtn.className = 'btn-approve-account btn-primary';
+    approveBtn.className = 'btn-approve-account btn-primary btn-sm';
     approveBtn.dataset.id = a.id;
     approveBtn.textContent = 'Approve';
-    td.appendChild(approveBtn);
+    wrap.appendChild(approveBtn);
 
     const rejectBtn = document.createElement('button');
     rejectBtn.type = 'button';
-    rejectBtn.className = 'btn-reject-account btn-secondary';
+    rejectBtn.className = 'btn-reject-account btn-secondary btn-sm';
     rejectBtn.dataset.id = a.id;
     rejectBtn.textContent = 'Reject';
-    td.appendChild(rejectBtn);
+    wrap.appendChild(rejectBtn);
   }
 
   if (a.status === 'active') {
     const suspendBtn = document.createElement('button');
     suspendBtn.type = 'button';
-    suspendBtn.className = 'btn-suspend-account btn-secondary';
+    suspendBtn.className = 'btn-suspend-account btn-warning btn-sm';
     suspendBtn.dataset.id = a.id;
     suspendBtn.textContent = 'Suspend';
-    td.appendChild(suspendBtn);
+    wrap.appendChild(suspendBtn);
   }
 
   if (a.status === 'suspended' || a.status === 'inactive') {
     const activateBtn = document.createElement('button');
     activateBtn.type = 'button';
-    activateBtn.className = 'btn-activate-account btn-primary';
+    activateBtn.className = 'btn-activate-account btn-primary btn-sm';
     activateBtn.dataset.id = a.id;
     activateBtn.textContent = 'Activate';
-    td.appendChild(activateBtn);
+    wrap.appendChild(activateBtn);
   }
 
   const resetBtn = document.createElement('button');
   resetBtn.type = 'button';
-  resetBtn.className = 'btn-reset-password btn-secondary';
+  resetBtn.className = 'btn-reset-password btn-secondary btn-sm';
   resetBtn.dataset.id = a.id;
-  resetBtn.textContent = 'Reset Password';
-  td.appendChild(resetBtn);
+  resetBtn.textContent = 'Reset Pw';
+  wrap.appendChild(resetBtn);
 
   const deleteBtn = document.createElement('button');
   deleteBtn.type = 'button';
-  deleteBtn.className = 'btn-delete-account btn-secondary';
+  deleteBtn.className = 'btn-delete-account btn-danger btn-sm';
   deleteBtn.dataset.id = a.id;
   deleteBtn.textContent = 'Delete';
-  td.appendChild(deleteBtn);
+  wrap.appendChild(deleteBtn);
 
+  td.appendChild(wrap);
   return td;
 }
 
